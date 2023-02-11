@@ -122,7 +122,10 @@
                 {{--</li>--}}
                 <!-- Control Sidebar Toggle Button -->
                 <li>
-                    <a href="{{ route('logout') }}">Sign Out <i class="fa fa-sign-out"></i></a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" style="background: none; border: none; padding: 15px 10px; margin: 0; color: white;">Sign Out <i class="fa fa-sign-out"></i></button>
+                    </form>
                 </li>
             </ul>
         </div>
