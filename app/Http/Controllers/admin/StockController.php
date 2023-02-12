@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Stock;
@@ -27,6 +27,24 @@ class StockController extends Controller
 
     public function store(Request $req, ?string $stock = null)
     {
+        $fileValidation = [
+            'mimes:jpeg,png,pdf',
+            function ($attribute, $value, $fail) {
+                if ($value->getClientOriginalExtension() == 'pdf') {
+                    return;
+                }
+                
+                list($width, $height) = getimagesize($value->getRealPath());
+                
+                if ($width > 1500 || $height > 1500) {
+                    $fail("The image dimensions must be less than 1500x1500.");
+                }
+            },
+            
+        ];
+        if(!is_numeric($stock)){
+            $fileValidation = ['required', ...$fileValidation];
+        }
         $data = $req->validate([
             'type' => 'required|in:in,out',
             'item_code' => 'required|string',
@@ -37,36 +55,29 @@ class StockController extends Controller
             'carrier_name' => 'required|string',
             'carrier_contact' => 'required|string',
             'border' => 'required|string',
-            'remarks' => [
-                'required',
-                'mimes:jpeg,png,pdf',
-                function ($attribute, $value, $fail) {
-                    if ($value->getClientOriginalExtension() == 'pdf') {
-                        return;
-                    }
-                    
-                    list($width, $height) = getimagesize($value->getRealPath());
-                    
-                    if ($width > 1500 || $height > 1500) {
-                        $fail("The image dimensions must be less than 1500x1500.");
-                    }
-                },
-                
-            ]
+            'remarks' => $fileValidation
         ]);
 
-        $dir = "uploads/remarks";
-        $public = config('filesystems.disks.public.root');
-        if(!file_exists("$public/$dir") && !Storage::disk('public')->makeDirectory($dir)){
-            throw new \Exception("Unable to create directory: $public/$dir");
+        if(isset($data['remarks'])){
+            $remarks = $data['remarks'];
+            $dir = "uploads/remarks";
+            $public = config('filesystems.disks.public.root');
+            if(!file_exists("$public/$dir") && !Storage::disk('public')->makeDirectory($dir)){
+                throw new \Exception("Unable to create directory: $public/$dir");
+            }
+            
+            $name = 'remarks_'.time().".{$remarks->extension()}";
+            error_log($name);
+            $remarks->storePubliclyAs('public/'.$dir, $name);
+            $data['remarks'] = "/storage/$dir/$name";
         }
-        
-        $name = date('Y-m-d H:i:s').'.'.$data['remarks']->extension();
-        $data['remarks']->storePubliclyAs('public/'.$dir, $name);
-        $data['remarks'] = "/storage/$dir/$name";
 
         if(is_numeric($stock)){
-            Stock::where('id', $stock)->update($data);
+            $stock = Stock::findOrFail($stock);
+            if(isset($data['remarks'])){
+                Storage::delete(substr($stock->remarks, 9));
+            }
+            $stock->update($data);
             return redirect()->back()->with('message', 'Stock updated successfully!');
         }else{
             Stock::create($data);
@@ -76,6 +87,7 @@ class StockController extends Controller
 
     public function destroy(Stock $stock)
     {
+        Storage::delete(substr($stock->remarks, 9));
         $stock->delete();
         return redirect()->route('stocks.list')->with('message', 'Stock deleted successfully!');
     }
