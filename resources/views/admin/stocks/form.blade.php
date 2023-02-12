@@ -161,6 +161,12 @@
                                                     value="{{ old('remarks', $stock?->remarks) }}"
                                                     class="form-control" id="remarks">
                                             </div>
+                                            @if($stock)
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-10">
+                                                <a href="{{asset($stock->remarks)}}">View Remarks</a>
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <!-- /.box-body -->

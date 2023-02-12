@@ -52,7 +52,7 @@
                                                 class="btn btn-xs btn-primary">
                                                 <i class="fa fa-edit"></i> Edit
                                             </a>
-                                            <form action="{{ route('stocks.form', ['stock' => $stock->id]) }}" method="POST">
+                                            <form style="display: inline-block" action="{{ route('stocks.form', ['stock' => $stock->id]) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-xs btn-danger">
