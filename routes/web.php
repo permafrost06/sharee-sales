@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\PurchaseController;
 use App\Http\Controllers\admin\SalesController;
 use App\Http\Controllers\admin\VendorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +68,13 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::post('/update/purchase', ['uses' => 'update', 'as' => 'purchase.update']);
         Route::get('/delete/purchase', ['uses' => 'delete', 'as' => 'purchase.delete']);
         Route::get('/delete/multiple/purchase', ['uses' => 'deleteMultiple', 'as' => 'purchase.delete.multiple']);
+    });
+
+    Route::controller(StockController::class)->prefix('/stocks')->name('stocks.')->group(function(){
+        Route::post('/{stock}', 'store');
+        Route::delete('/{stock}', 'destroy');
+        Route::get('/', 'index')->name('list');
+        Route::get('/{stock}', 'form')->name('form');
     });
 });
 
