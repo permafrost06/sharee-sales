@@ -5,8 +5,8 @@ use App\Http\Controllers\admin\IndexController;
 use App\Http\Controllers\admin\PurchaseController;
 use App\Http\Controllers\admin\SalesController;
 use App\Http\Controllers\admin\VendorController;
+use App\Http\Controllers\admin\StockController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 
 /*
