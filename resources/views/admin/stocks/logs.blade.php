@@ -64,7 +64,12 @@
                                         <td>{{$log->remarks??'N/A'}}</td>
                                         <td>
                                             @if($log->attachment)
-                                                <a href="{{asset($log->attachment)}}">View</a>
+                                                <a href="#modal-attachment"
+                                                    data-toggle="modal"
+                                                    data-target="#modal-attachment"
+                                                    data-title="{{$log->item_code}}"
+                                                    data-src="{{asset($log->attachment)}}"
+                                                    class="show-attachment-modal">View</a>
                                             @else
                                                 N/A
                                             @endif
@@ -101,4 +106,30 @@
         </div>
         <!-- /.row -->
     </section>
+    <div class="modal fade" id="modal-attachment">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">New Purchase</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <img src="" style="max-height: 100%; max-width: 100%; object-fit: contain;" alt="">
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endsection
+@section('extra-script')
+<script>
+    $('.show-attachment-modal').click(function(){
+        $('#modal-attachment img').attr('src', $(this).data('src'));
+        $('#modal-attachment h4').html('Attachment of <b><i>' + $(this).data('title')+'</i></b>');
+    });
+</script>
 @endsection

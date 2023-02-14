@@ -16,10 +16,14 @@ class StockController extends Controller
         return view('admin.stocks.status', compact('stocks'));
     }
 
-    public function logs(string $item)
+    public function logs(?string $item = null)
     {
+        $query = Stock::query();
+        if($item){
+            $query->where('item_code', $item);
+        }
         return view('admin.stocks.logs', [
-            'logs' => Stock::where('item_code', $item)->get()
+            'logs' => $query->get()
         ]);
     }
 

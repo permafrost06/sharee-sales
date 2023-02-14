@@ -74,8 +74,8 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::post('/{stock}', 'store');
         Route::delete('/{stock}', 'destroy');
         Route::get('/', 'index')->name('status');
+        Route::get('/logs/{item?}', 'logs')->name('logs');
         Route::get('/{stock}', 'form')->name('form');
-        Route::get('/{item}/logs', 'logs')->name('logs');
     });
 });
 
