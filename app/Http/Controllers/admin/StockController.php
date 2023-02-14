@@ -52,7 +52,7 @@ class StockController extends Controller
             'supplier_contact' => 'nullable|string',
             'carrier_name' => 'nullable|string',
             'carrier_contact' => 'nullable|string',
-            'border' => 'required|string',
+            'border' => 'nullable|string',
             'remarks' => 'nullable|string',
             'attachment' => 'mimes:jpeg,png,pdf'
         ]);

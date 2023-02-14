@@ -60,7 +60,7 @@
                                         <td>{{ $log->supplier_contact??'N/A' }}</td>
                                         <td>{{ $log->carrier_name??'N/A' }}</td>
                                         <td>{{ $log->carrier_contact??'N/A' }}</td>
-                                        <td>{{ $log->border }}</td>
+                                        <td>{{ $log->border??'N/A' }}</td>
                                         <td>{{$log->remarks??'N/A'}}</td>
                                         <td>
                                             @if($log->attachment)

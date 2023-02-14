@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('supplier_contact')->nullable();
             $table->string('carrier_name')->nullable();
             $table->string('carrier_contact')->nullable();
-            $table->string('border');
+            $table->string('border')->nullable();
             $table->tinyText('remarks')->nullable();
             $table->tinyText('attachment')->nullable();
             $table->dateTime('date_time');
