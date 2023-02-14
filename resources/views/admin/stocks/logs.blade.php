@@ -39,6 +39,7 @@
                                     <th>Carrier Contact</th>
                                     <th>Border</th>
                                     <th>Remarks</th>
+                                    <th>Attachment</th>
                                     <th>Date time</th>
                                     <th>Action</th>
                                 </tr>
@@ -55,13 +56,18 @@
                                         <td class="text-center">
                                             <p class="btn btn-xs btn-warning text-uppercase">{{ $log->type }}</p>
                                         </td>
-                                        <td>{{ $log->supplier_name }}</td>
-                                        <td>{{ $log->supplier_contact }}</td>
-                                        <td>{{ $log->carrier_name }}</td>
-                                        <td>{{ $log->carrier_contact }}</td>
+                                        <td>{{ $log->supplier_name??'N/A' }}</td>
+                                        <td>{{ $log->supplier_contact??'N/A' }}</td>
+                                        <td>{{ $log->carrier_name??'N/A' }}</td>
+                                        <td>{{ $log->carrier_contact??'N/A' }}</td>
                                         <td>{{ $log->border }}</td>
+                                        <td>{{$log->remarks??'N/A'}}</td>
                                         <td>
-                                            <a href="{{asset($log->remarks)}}">View</a>
+                                            @if($log->attachment)
+                                                <a href="{{asset($log->attachment)}}">View</a>
+                                            @else
+                                                N/A
+                                            @endif
                                         </td>
                                         <td>{{ date('h:i A | d M, Y', strtotime($log->date_time)) }}</td>
                                         <td>
@@ -81,7 +87,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="14">
                                             <p class="text-danger">No stock is added!</p>
                                         </td>
                                     </tr>

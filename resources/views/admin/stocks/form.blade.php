@@ -145,27 +145,39 @@
                                             <label for="border" class="col-sm-2 control-label">Border</label>
 
                                             <div class="col-sm-10">
-                                                <input type="text" name="border"
-                                                    value="{{ old('border', $stock?->border) }}" class="form-control"
-                                                    id="border">
+                                                <input
+                                                    type="text"
+                                                    name="border"
+                                                    value="{{ old('border', $stock?->border) }}"
+                                                    class="form-control"
+                                                id="border">
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="attachment" class="col-sm-2 control-label">Attachment</label>
 
+                                            <div class="col-sm-10">
+                                                <input type="file" name="attachment"
+                                                    value="{{ old('attachment', $stock?->attachment) }}" class="form-control"
+                                                    id="attachment">
+                                            </div>
+                                            @if ($stock?->attachment)
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-10">
+                                                    <a href="{{ asset($stock->attachment) }}">View Attachment</a>
+                                                </div>
+                                            @endif
+                                        </div>
                                         <div class="form-group">
                                             <label for="remarks" class="col-sm-2 control-label">Remarks</label>
 
                                             <div class="col-sm-10">
-                                                <input type="file" name="remarks"
-                                                    value="{{ old('remarks', $stock?->remarks) }}" class="form-control"
-                                                    id="remarks">
+                                                <textarea name="remarks"
+                                                    class="form-control"
+                                                    id="remarks">{{ old('remarks', $stock?->remarks) }}</textarea>
                                             </div>
-                                            @if ($stock)
-                                                <div class="col-sm-2"></div>
-                                                <div class="col-sm-10">
-                                                    <a href="{{ asset($stock->remarks) }}">View Remarks</a>
-                                                </div>
-                                            @endif
                                         </div>
+
                                     </div>
                                     <!-- /.box-body -->
                                     <div class="box-footer">
