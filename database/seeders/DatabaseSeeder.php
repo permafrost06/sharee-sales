@@ -50,5 +50,12 @@ class DatabaseSeeder extends Seeder
             "INSERT INTO `vendors` (`id`, `name`, `address`, `limit`, `type`, `created_at`, `updated_at`) VALUES
             (1, 'Test vendor', 'test address', 30, NULL, '2019-10-11 12:43:36', '2019-10-12 15:56:48');"
         );
+
+        DB::insert(
+            "INSERT INTO `stocks` (`id`, `type`, `brand`, `item_code`, `quantity`, `supplier_name`, `supplier_contact`, `carrier_name`, `carrier_contact`, `border`, `remarks`, `attachment`, `date_time`, `created_at`, `updated_at`) VALUES
+            (1, 'in', 'Charkha', '1789', 25, 'Anshu Goyen', '+919331215598', 'Nazmul Bepari', '+8801717061437', 'Benapol', NULL, NULL, '2023-02-14 06:41:00', '2023-02-14 00:47:29', '2023-02-14 00:47:29'),
+            (2, 'in', 'Julahaa', '1783', 12, 'Yogesh', NULL, 'Arafat', '+8801600203143', 'Khulna', '2 days late', '/storage/uploads/attachment/attachment_1676357299.png', '2023-02-14 06:47:00', '2023-02-14 00:48:19', '2023-02-14 00:55:55'),
+            (3, 'out', 'Charkha', '1789', 19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-02-14 06:49:00', '2023-02-14 00:49:53', '2023-02-14 00:57:17');"
+        );
     }
 }
