@@ -76,7 +76,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ route('stocks.form', ['stock' => 'add']) }}"><i class="fa fa-plus"></i> <span>Add Stock</span></a></li>
-                    <li><a href="{{ route('stocks.list') }}"><i class="fa fa-list-alt"></i> <span>Stock list</span></a></li>
+                    <li><a href="{{ route('stocks.status') }}"><i class="fa fa-info-circle"></i> <span>Stock Status</span></a></li>
                 </ul>
             </li>
         </ul>

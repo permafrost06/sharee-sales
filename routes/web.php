@@ -73,8 +73,9 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
     Route::controller(StockController::class)->prefix('/stocks')->name('stocks.')->group(function(){
         Route::post('/{stock}', 'store');
         Route::delete('/{stock}', 'destroy');
-        Route::get('/', 'index')->name('list');
+        Route::get('/', 'index')->name('status');
         Route::get('/{stock}', 'form')->name('form');
+        Route::get('/{item}/logs', 'logs')->name('logs');
     });
 });
 

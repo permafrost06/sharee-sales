@@ -9,10 +9,18 @@ use Illuminate\Support\Facades\Storage;
 
 class StockController extends Controller
 {
-    public function index(Request $req)
+
+    public function index()
     {
-        $stocks = Stock::paginate(15);
-        return view('admin.stocks.list', compact('stocks'));
+        $stocks = Stock::selectRaw("item_code, SUM(IF(type='in', quantity, -quantity)) AS total_quantity")->groupBy('item_code')->get();
+        return view('admin.stocks.status', compact('stocks'));
+    }
+
+    public function logs(string $item)
+    {
+        return view('admin.stocks.logs', [
+            'logs' => Stock::where('item_code', $item)->get()
+        ]);
     }
 
     public function form(Request $req, ?string $stock = null)
@@ -45,9 +53,17 @@ class StockController extends Controller
         if(!is_numeric($stock)){
             $fileValidation = ['required', ...$fileValidation];
         }
+
+        if($req->has('date_time')){
+            $req->merge([
+                'date_time' => str_replace('T', ' ', $req->get('date_time').':00')
+            ]);
+        }
+
         $data = $req->validate([
             'type' => 'required|in:in,out',
             'item_code' => 'required|string',
+            'date_time' => 'required|date_format:Y-m-d H:i:s',
             'brand' => 'required|string',
             'quantity' => 'required|numeric|min:1',
             'supplier_name' => 'required|string',
@@ -89,6 +105,6 @@ class StockController extends Controller
     {
         Storage::delete(substr($stock->remarks, 9));
         $stock->delete();
-        return redirect()->route('stocks.list')->with('message', 'Stock deleted successfully!');
+        return redirect()->route('stocks.status')->with('message', 'Stock deleted successfully!');
     }
 }

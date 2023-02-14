@@ -5,10 +5,14 @@
             <div class="col-md-12">
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Stocks</h3>
+                        <h3 class="box-title">Stock Logs</h3>
                         <div class="pull-right box-tools">
+                            <a href="{{ route('stocks.status') }}"
+                                class="btn btn-success btn-flat btn-sm" style="margin-right: 6px">
+                                <i class="fa fa-mail-reply"></i> Back
+                            </a>
                             <a href="{{ route('stocks.form', ['stock' => 'add']) }}"
-                                class="btn btn-block btn-primary btn-flat pull-right btn-sm">
+                                class="btn btn-primary btn-flat pull-right btn-sm">
                                 <i class="fa fa-plus"></i> Add Stock
                             </a>
                         </div>
@@ -20,7 +24,7 @@
                         </div>
                     @endif
                     <!-- /.box-body -->
-                    <div class="box-footer">
+                    <div class="box-footer" style="overflow-x: auto">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -29,30 +33,43 @@
                                     <th>Brand</th>
                                     <th>Quantity</th>
                                     <th class="text-center">Type</th>
-                                    <th>Supplier</th>
+                                    <th>Supplier Name</th>
+                                    <th>Supplier Contact</th>
+                                    <th>Carrier Name</th>
+                                    <th>Carrier Contact</th>
+                                    <th>Border</th>
+                                    <th>Remarks</th>
+                                    <th>Date time</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($stocks as $k=>$stock)
+                                @forelse($logs as $k=>$log)
                                     <tr>
                                         <td>{{ ++$k }}</td>
                                         <td>
-                                            {{ $stock->item_code }}
+                                            {{ $log->item_code }}
                                         </td>
-                                        <td>{{ $stock->brand }}</td>
-                                        <td> {{ $stock->quantity }}</td>
+                                        <td>{{ $log->brand }}</td>
+                                        <td> {{ $log->quantity }}</td>
                                         <td class="text-center">
-                                            <p class="btn btn-xs btn-warning text-uppercase">{{ $stock->type }}</p>
+                                            <p class="btn btn-xs btn-warning text-uppercase">{{ $log->type }}</p>
                                         </td>
-                                        <td>{{ $stock->supplier_name }}</td>
-                                        {{-- <td>{{ date('y-m-d',strtotime($stock->created_at)) }}</td> --}}
+                                        <td>{{ $log->supplier_name }}</td>
+                                        <td>{{ $log->supplier_contact }}</td>
+                                        <td>{{ $log->carrier_name }}</td>
+                                        <td>{{ $log->carrier_contact }}</td>
+                                        <td>{{ $log->border }}</td>
                                         <td>
-                                            <a href="{{ route('stocks.form', ['stock' => $stock->id]) }}"
+                                            <a href="{{asset($log->remarks)}}">View</a>
+                                        </td>
+                                        <td>{{ date('h:i A | d M, Y', strtotime($log->date_time)) }}</td>
+                                        <td>
+                                            <a href="{{ route('stocks.form', ['stock' => $log->id]) }}"
                                                 class="btn btn-xs btn-primary">
                                                 <i class="fa fa-edit"></i> Edit
                                             </a>
-                                            <form style="display: inline-block" action="{{ route('stocks.form', ['stock' => $stock->id]) }}" method="POST">
+                                            <form style="display: inline-block" action="{{ route('stocks.form', ['stock' => $log->id]) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-xs btn-danger">

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('carrier_contact');
             $table->string('border');
             $table->tinyText('remarks');
+            $table->dateTime('date_time');
 
             $table->timestamps();
         });
