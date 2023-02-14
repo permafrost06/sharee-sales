@@ -40,7 +40,7 @@
                                     <th>Border</th>
                                     <th>Remarks</th>
                                     <th>Attachment</th>
-                                    <th>Date time</th>
+                                    <th>Date & Time</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

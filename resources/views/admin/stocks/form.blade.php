@@ -60,7 +60,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="date_time" class="col-sm-2 control-label">Date Time</label>
+                                            <label for="date_time" class="col-sm-2 control-label">Date & Time</label>
 
                                             <div class="col-sm-10">
                                                 <input
