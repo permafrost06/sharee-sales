@@ -6,10 +6,8 @@
                 <div class="box box-info">
                     <div class="box-header with-border">
                         <h3 class="box-title">Sales Ledger</h3>
-                        <div class="pull-right box-tools">
-                        </div>
                     </div>
-                    @if(count($purchases)>0)
+                    @if (count($purchases) > 0)
                         <div class="row">
                             <div class="col-md-6 col-md-offset-1">
                                 <span>Customer Id: {{ $purchases[0]->vendor_id }}</span><br>
@@ -49,15 +47,15 @@
                     @endif
                     <!-- /.box-header -->
                     <!-- form start -->
-                        @if(Session::has('message'))
-                                <div class="col-md-6 col-md-offset-2"id="successMessage">
-                                 <span> {{ Session::get('message') }}</span>
-                                </div>
-                        @endif
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <table id="example2" class="table table-bordered table-hover">
-                                <thead>
+                    @if (Session::has('message'))
+                        <div class="col-md-6 col-md-offset-2"id="successMessage">
+                            <span> {{ Session::get('message') }}</span>
+                        </div>
+                    @endif
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
                                     <th>Sln</th>
                                     <th>Date</th>
@@ -69,16 +67,18 @@
                                     <th>Balance(Due)</th>
                                     <th>Remark</th>
                                     <th>
-                                        <a type="button" class=" btn btn-xs btn-danger" onclick="deleteMultiple()"><i class="fa fa-trash"></i> Delete selected</a>
+                                        <a type="button" class=" btn btn-xs btn-danger" onclick="deleteMultiple()">
+                                            <i class="fa fa-trash"></i> Delete selected
+                                        </a>
                                     </th>
-                                    <th class="text-center"> Action</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
-                                </thead>
-                               <tbody>
-                                @if(isset($purchases))
-                                    @foreach($purchases as $k=>$purchase)
+                            </thead>
+                            <tbody>
+                                @if (isset($purchases))
+                                    @foreach ($purchases as $k => $purchase)
                                         <tr>
-                                            <td>{{++$k}}</td>
+                                            <td>{{ ++$k }}</td>
                                             <td>
                                                 <a href="#">{{ $purchase->date }}</a>
                                             </td>
@@ -87,27 +87,29 @@
                                             <td> {{ $purchase->goods_of_issues }}</td>
 
                                             <td> {{ $purchase->paid_money }}</td>
-                                            <td> {{ ($purchase->goods_of_issues - $purchase->paid_money) }}</td>
+                                            <td> {{ $purchase->goods_of_issues - $purchase->paid_money }}</td>
                                             <td> {{ $purchase->comment }}</td>
-                                            <td><input type="checkbox" onclick="checkedItem({{$purchase->id}})"></td>
-
-                                            {{--<td>{{ date('y-m-d',strtotime($purchase->created_at)) }}</td>--}}
+                                            <td><input type="checkbox" onclick="checkedItem({{ $purchase->id }})"></td>
                                             <td>
-                                                <a class="btn btn-xs btn-primary" href="{{route('purchase.edit',['id'=>$purchase->id])}}"><i class="fa fa-edit"></i></a>
-                                                <a class="btn btn-xs btn-danger" href="{{route('purchase.delete',['id'=>$purchase->id])}}"><i class="fa fa-trash"></i></a>
-
+                                                <a class="btn btn-xs btn-primary"
+                                                    href="{{ route('purchase.edit', ['id' => $purchase->id]) }}">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="btn btn-xs btn-danger"
+                                                    href="{{ route('purchase.delete', ['id' => $purchase->id]) }}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
                                             </td>
-
                                         </tr>
                                     @endforeach
                                 @endif
-                               </tbody>
+                            </tbody>
 
-                            </table>
-                        </div>
-{{--                    </form>--}}
-                    @if(count($purchases)>0)
-                        <a href="{{route('purchase.generatePDF',['id'=>$purchases[0]->vendor_id])}}"> Download pdf</a>
+                        </table>
+                    </div>
+
+                    @if (count($purchases) > 0)
+                        <a href="{{ route('purchase.generatePDF', ['id' => $purchases[0]->vendor_id]) }}"> Download pdf</a>
                     @endif
 
                 </div>
@@ -119,25 +121,27 @@
 @endsection
 @section('extra-script')
     <script>
-        var items=[];
-        function  checkedItem(id) {
+        var items = [];
+
+        function checkedItem(id) {
             items.push(id);
             console.log(items)
         }
+
         function deleteMultiple() {
             if (confirm("Are you sure to delete these selected items?")) {
                 $.ajax({
                     url: '{{ route('purchase.delete.multiple') }}',
                     type: 'get',
-                    data: {itemArray: items},
-                    success: function (response) {
+                    data: {
+                        itemArray: items
+                    },
+                    success: function(response) {
                         console.log(response)
                         $("#example2").load(location.href + " #example2");
                     }
                 });
             }
         }
-
-
     </script>
 @endsection

@@ -6,9 +6,6 @@
                 <div class="box box-info">
                     <div class="box-header with-border">
                         <h3 class="box-title">User</h3>
-                        {{--<div class="pull-right box-tools">--}}
-                        {{--<a href="{{ route('exam.create') }}" class="btn btn-block btn-primary btn-flat pull-right btn-sm"><i class="fa fa-plus"></i> Add item</a>--}}
-                        {{--</div>--}}
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -25,7 +22,7 @@
                                         </ul>
                                     </div>
                                 @endif
-                                @if(Session::has('message'))
+                                @if (Session::has('message'))
                                     <div class="col-md-6 col-md-offset-2" id="successMessage">
                                         <span> {{ Session::get('message') }}</span>
                                     </div>
@@ -35,21 +32,26 @@
                                     <div class="form-group">
                                         <label for="exam-name" class="col-sm-3 control-label">User email</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" readonly id="exam-name" name="exam_name" value="{{$user->email}}" placeholder="Enter Examination Name">
+                                            <input type="text" class="form-control" readonly id="exam-name"
+                                                name="exam_name" value="{{ $user->email }}"
+                                                placeholder="Enter Examination Name">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="exam-name" class="col-sm-3 control-label">Select type</label>
                                         <div class="col-sm-9">
                                             <select class="form-control" name="type">
-                                                <option @if($user->type=='admin')selected @endif value="admin">Admin</option>
-                                                <option @if($user->type=='author')selected @endif value="author">Author</option>
-                                                <option @if($user->type=='editor')selected @endif value="editor">Editor</option>
+                                                <option @if ($user->type == 'admin') selected @endif value="admin">
+                                                    Admin</option>
+                                                <option @if ($user->type == 'author') selected @endif value="author">
+                                                    Author</option>
+                                                <option @if ($user->type == 'editor') selected @endif value="editor">
+                                                    Editor</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                    <input type="hidden" name="id" value="{{ $user->id }}">
+                                <input type="hidden" name="id" value="{{ $user->id }}">
                                 <div class="col-md-2">
                                     <button type="submit" class="btn btn-info">Update</button>
                                 </div>

@@ -8,10 +8,10 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Customer Create</h3>
                         <div class="pull-right box-tools">
-                            <a href="
-                                    {{ route('customers.index') }}
-                                "
-                               class="btn btn-block btn-primary btn-flat pull-right btn-sm"><i class="fa fa-mail-forward"></i> View All</a>
+                            <a href="{{ route('customers.index') }}"
+                               class="btn btn-block btn-primary btn-flat pull-right btn-sm">
+                               <i class="fa fa-mail-forward"></i> View All
+                            </a>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -80,9 +80,9 @@
 
                                             <div class="col-sm-10">
                                                 <select class="form-control" name="type">
-                                                    <option @if($customer->type==1) selected @endif value="1">Bongo Bajar</option>
-                                                    <option @if($customer->type==2) selected @endif value="2">Anexco</option>
-                                                    <option @if($customer->type==3) selected @endif value="3">Others</option>
+                                                    <option @selected($customer->type==1) value="1">Bongo Bajar</option>
+                                                    <option @selected($customer->type==2) value="2">Anexco</option>
+                                                    <option @selected($customer->type==3) value="3">Others</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -91,7 +91,6 @@
                                     <input type="hidden" name="id" value="{{ $customer->id }}">
                                     <!-- /.box-body -->
                                     <div class="box-footer">
-                                        {{--                                                    <button type="submit" class="btn btn-default">Cancel</button>--}}
                                         <button type="submit" class="btn btn-info pull-right">Update</button>
                                     </div>
                                     <!-- /.box-footer -->
