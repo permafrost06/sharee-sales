@@ -62,7 +62,7 @@
                     <li>
                         <a href="{{ route('vendor.create') }}">
                             <i class="fa fa-plus"></i>
-                            <span>Add Vendor</span>\
+                            <span>Add Vendor</span>
                         </a>
                     </li>
                     <li>
