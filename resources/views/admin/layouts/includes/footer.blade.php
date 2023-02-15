@@ -7,7 +7,7 @@
 <script src="{{asset('assets/admin/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets/admin/dist/js/adminlte.min.js')}}"></script>
-{{-- extra script--}}
+
 @yield('extra-script')
 <!-- Custom Theme JavaScript -->
 <script>

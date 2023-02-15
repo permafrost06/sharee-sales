@@ -198,11 +198,3 @@
         <!-- /.row -->
     </section>
 @endsection
-@section('extra-script')
-    <!--script>
-        $('#date_time').datepicker({
-            autoclose: true,
-            format: 'yy-mm-dd'
-        })
-    </!-script-->
-@endsection

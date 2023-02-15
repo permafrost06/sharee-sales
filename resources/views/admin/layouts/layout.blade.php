@@ -138,12 +138,7 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
-{{--                <div class="modal-footer">--}}
-{{--                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>--}}
-{{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
-{{--                </div>--}}
             </div>
             <!-- /.modal-content -->
         </div>
@@ -251,8 +246,6 @@
                                                 <textarea class="form-control" name="comment"></textarea>
                                             </div>
                                         </div>
-
-
                                     </div>
                                     <!-- /.box-body -->
 
@@ -264,12 +257,7 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
-                {{--                <div class="modal-footer">--}}
-                {{--                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>--}}
-                {{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
-                {{--                </div>--}}
             </div>
             <!-- /.modal-content -->
         </div>
