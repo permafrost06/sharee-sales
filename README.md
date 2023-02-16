@@ -10,6 +10,10 @@ First install the required dependencies
 composer install
 ```
 
+```
+Then copy the **.env.example** file to **.env** and configure this file according to your need
+```
+
 And then run this command to build and start the docker container
 ```sh
 ./vendor/bin/sail up
@@ -23,6 +27,11 @@ __Usually this is displayed in the terminal when **./vendor/bin/sail up** is fin
 Run this in a new terminal
 ```sh
 ./vendor/bin/sail artisan migrate:fresh --seed
+```
+
+Then run this to make the storage accessible
+```sh
+./vendor/bin/sail artisan storage:link
 ```
 
 Then go to http://localhost in your browser
