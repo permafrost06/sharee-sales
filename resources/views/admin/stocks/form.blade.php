@@ -85,9 +85,15 @@
 
                                             <div class="col-sm-10">
                                                 <input type="text" name="brand"
+                                                    list="brands-list"
                                                     value="{{ old('brand', $stock?->brand) }}" class="form-control"
                                                     id="brand">
                                             </div>
+                                            <datalist id="brands-list">
+                                                @foreach ($brands as $brand )
+                                                    <option value="{{$brand->brand}}"></option>
+                                                @endforeach
+                                            </datalist>
                                         </div>
                                         <div class="form-group">
                                             <label for="quantity" class="col-sm-2 control-label">Quantity</label>

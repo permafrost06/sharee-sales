@@ -29,12 +29,13 @@ class StockController extends Controller
 
     public function form(Request $req, ?string $stock = null)
     {
+        $brands = Stock::select(['brand'])->groupBy('brand')->get();
         if(is_numeric($stock)){
             $stock = Stock::findOrFail($stock);
         }else{
             $stock= null;
         }
-        return view('admin.stocks.form', compact('stock'));
+        return view('admin.stocks.form', compact('stock', 'brands'));
     }
 
     public function store(Request $req, ?string $stock = null)
