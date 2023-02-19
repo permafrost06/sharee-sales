@@ -76,9 +76,17 @@
 
                                             <div class="col-sm-10">
                                                 <input type="text" name="item_code"
+                                                    list="items-list"
+                                                    autocomplete="off"
                                                     value="{{ old('item_code', $stock?->item_code) }}" class="form-control"
                                                     id="item_code">
                                             </div>
+
+                                            <datalist id="items-list">
+                                                @foreach ($item_codes as $item )
+                                                    <option value="{{$item}}"></option>
+                                                @endforeach
+                                            </datalist>
                                         </div>
                                         <div class="form-group">
                                             <label for="brand" class="col-sm-2 control-label">Brand</label>
@@ -86,12 +94,13 @@
                                             <div class="col-sm-10">
                                                 <input type="text" name="brand"
                                                     list="brands-list"
+                                                    autocomplete="off"
                                                     value="{{ old('brand', $stock?->brand) }}" class="form-control"
                                                     id="brand">
                                             </div>
                                             <datalist id="brands-list">
                                                 @foreach ($brands as $brand )
-                                                    <option value="{{$brand->brand}}"></option>
+                                                    <option value="{{$brand}}"></option>
                                                 @endforeach
                                             </datalist>
                                         </div>
@@ -109,9 +118,16 @@
 
                                             <div class="col-sm-10">
                                                 <input type="text" name="supplier_name"
+                                                    list="sname-list"
+                                                    autocomplete="off"
                                                     value="{{ old('supplier_name', $stock?->supplier_name) }}"
                                                     class="form-control" id="supplier_name">
                                             </div>
+                                            <datalist id="sname-list">
+                                                @foreach ($supplier_names as $supplier_name )
+                                                    <option value="{{$supplier_name}}"></option>
+                                                @endforeach
+                                            </datalist>
                                         </div>
 
                                         <div class="form-group">
@@ -120,9 +136,17 @@
 
                                             <div class="col-sm-10">
                                                 <input type="text" name="supplier_contact"
+                                                    list="scontact-list"
+                                                    autocomplete="off"
                                                     value="{{ old('supplier_contact', $stock?->supplier_contact) }}"
                                                     class="form-control" id="supplier_contact">
                                             </div>
+
+                                            <datalist id="scontact-list">
+                                                @foreach ($supplier_contacts as $supplier_contact )
+                                                    <option value="{{$supplier_contact}}"></option>
+                                                @endforeach
+                                            </datalist>
                                         </div>
 
                                         <div class="form-group">
@@ -130,9 +154,18 @@
 
                                             <div class="col-sm-10">
                                                 <input type="text" name="carrier_name"
+                                                    list="cname-list"
+                                                    autocomplete="off"
                                                     value="{{ old('carrier_name', $stock?->carrier_name) }}"
                                                     class="form-control" id="carrier_name">
                                             </div>
+
+                                            
+                                            <datalist id="cname-list">
+                                                @foreach ($carrier_names as $carrier_name )
+                                                    <option value="{{$carrier_name}}"></option>
+                                                @endforeach
+                                            </datalist>
                                         </div>
 
                                         <div class="form-group">
@@ -141,9 +174,18 @@
 
                                             <div class="col-sm-10">
                                                 <input type="text" name="carrier_contact"
+                                                    list="ccontact-list"
+                                                    autocomplete="off"
                                                     value="{{ old('carrier_contact', $stock?->carrier_contact) }}"
                                                     class="form-control" id="carrier_contact">
                                             </div>
+
+                                            <datalist id="ccontact-list">
+                                                @foreach ($carrier_contacts as $carrier_contact )
+                                                    <option value="{{$carrier_contact}}"></option>
+                                                @endforeach
+                                            </datalist>
+
                                         </div>
 
 
@@ -153,11 +195,19 @@
                                             <div class="col-sm-10">
                                                 <input
                                                     type="text"
+                                                    list="border-list"
+                                                    autocomplete="off"
                                                     name="border"
                                                     value="{{ old('border', $stock?->border) }}"
                                                     class="form-control"
-                                                id="border">
+                                                    id="border" />
                                             </div>
+                                            
+                                            <datalist id="border-list">
+                                                @foreach ($borders as $border )
+                                                    <option value="{{$border}}"></option>
+                                                @endforeach
+                                            </datalist>
                                         </div>
                                         <div class="form-group">
                                             <label for="attachment" class="col-sm-2 control-label">Attachment</label>
