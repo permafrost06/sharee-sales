@@ -29,12 +29,43 @@ class StockController extends Controller
 
     public function form(Request $req, ?string $stock = null)
     {
+        $suggetions = Stock::selectRaw('item_code, brand, supplier_name, supplier_contact, carrier_name, carrier_contact, border')
+            ->groupByRaw('item_code, brand, supplier_name, supplier_contact, carrier_name, carrier_contact, border')->get();
         if(is_numeric($stock)){
             $stock = Stock::findOrFail($stock);
         }else{
             $stock= null;
         }
-        return view('admin.stocks.form', compact('stock'));
+
+        $uniques = [];
+        
+        foreach(explode(
+            ', ',
+            'item_code, brand, supplier_name, supplier_contact, carrier_name, carrier_contact, border'
+        ) as $k){
+            $uniques[$k] = [];
+        }
+
+        foreach ($suggetions as $stock) {
+            foreach($stock->getAttributes() as $k=>$v){
+                if(!isset($uniques[$k][$v])){
+                    $uniques[$k][$v] = true;
+                }
+            }
+        }
+
+        
+
+        return view('admin.stocks.form', [
+            'stock' => $stock,
+            'item_codes' => array_keys($uniques['item_code']),
+            'brands' => array_keys($uniques['brand']),
+            'supplier_names' => array_keys($uniques['supplier_name']),
+            'supplier_contacts' => array_keys($uniques['supplier_contact']),
+            'carrier_names' => array_keys($uniques['carrier_name']),
+            'carrier_contacts' => array_keys($uniques['carrier_contact']),
+            'borders' => array_keys($uniques['border']),
+        ]);
     }
 
     public function store(Request $req, ?string $stock = null)
