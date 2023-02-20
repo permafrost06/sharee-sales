@@ -88,7 +88,7 @@
                     <li>
                         <a href="{{ route('stocks.form', ['stock' => 'add']) }}">
                             <i class="fa fa-plus"></i>
-                            <span>Add Stock</span>
+                            <span>Add Stock Entry</span>
                         </a>
                     </li>
                     <li>

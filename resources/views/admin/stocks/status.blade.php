@@ -9,7 +9,7 @@
                         <div class="pull-right box-tools">
                             <a href="{{ route('stocks.form', ['stock' => 'add']) }}"
                                 class="btn btn-block btn-primary btn-flat pull-right btn-sm">
-                                <i class="fa fa-plus"></i> Add Stock
+                                <i class="fa fa-plus"></i> Add Stock Entry
                             </a>
                         </div>
                     </div>
