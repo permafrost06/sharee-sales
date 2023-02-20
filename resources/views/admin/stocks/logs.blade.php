@@ -33,8 +33,8 @@
                                     <th>Brand</th>
                                     <th>Quantity</th>
                                     <th class="text-center">Type</th>
-                                    <th>Supplier Name</th>
-                                    <th>Supplier Contact</th>
+                                    <th>Merchant Name</th>
+                                    <th>Merchant Contact</th>
                                     <th>Carrier Name</th>
                                     <th>Carrier Contact</th>
                                     <th>Border</th>
@@ -56,8 +56,8 @@
                                         <td class="text-center">
                                             <p class="btn btn-xs btn-warning text-uppercase">{{ $log->type }}</p>
                                         </td>
-                                        <td>{{ $log->supplier_name??'N/A' }}</td>
-                                        <td>{{ $log->supplier_contact??'N/A' }}</td>
+                                        <td>{{ $log->merchant_name??'N/A' }}</td>
+                                        <td>{{ $log->merchant_contact??'N/A' }}</td>
                                         <td>{{ $log->carrier_name??'N/A' }}</td>
                                         <td>{{ $log->carrier_contact??'N/A' }}</td>
                                         <td>{{ $log->border??'N/A' }}</td>

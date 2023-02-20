@@ -29,20 +29,20 @@ class StockController extends Controller
 
     public function form(Request $req, ?string $stock = null)
     {
-        $suggetions = Stock::selectRaw('item_code, brand, supplier_name, supplier_contact, carrier_name, carrier_contact, border')
-            ->groupByRaw('item_code, brand, supplier_name, supplier_contact, carrier_name, carrier_contact, border')->get();
+        $cols = 'item_code, brand, merchant_name, merchant_contact, carrier_name, carrier_contact, border';
+        $suggetions = Stock::selectRaw($cols)
+            ->groupByRaw($cols)->get();
         if(is_numeric($stock)){
             $stock = Stock::findOrFail($stock);
         }else{
             $stock= null;
         }
 
+        $data = compact('stock');
+
         $uniques = [];
-        
-        foreach(explode(
-            ', ',
-            'item_code, brand, supplier_name, supplier_contact, carrier_name, carrier_contact, border'
-        ) as $k){
+        $colsArr = explode(', ',  $cols);
+        foreach($colsArr as $k){
             $uniques[$k] = [];
         }
 
@@ -54,18 +54,12 @@ class StockController extends Controller
             }
         }
 
+        foreach ($colsArr as $col) {
+            $data[$col.'s'] = array_keys($uniques[$col]);
+        }
         
 
-        return view('admin.stocks.form', [
-            'stock' => $stock,
-            'item_codes' => array_keys($uniques['item_code']),
-            'brands' => array_keys($uniques['brand']),
-            'supplier_names' => array_keys($uniques['supplier_name']),
-            'supplier_contacts' => array_keys($uniques['supplier_contact']),
-            'carrier_names' => array_keys($uniques['carrier_name']),
-            'carrier_contacts' => array_keys($uniques['carrier_contact']),
-            'borders' => array_keys($uniques['border']),
-        ]);
+        return view('admin.stocks.form', $data);
     }
 
     public function store(Request $req, ?string $stock = null)
@@ -83,8 +77,8 @@ class StockController extends Controller
             'date_time' => 'required|date_format:Y-m-d H:i:s',
             'brand' => 'required|string',
             'quantity' => 'required|numeric|min:1',
-            'supplier_name' => 'nullable|string',
-            'supplier_contact' => 'nullable|string',
+            'merchant_name' => 'nullable|string',
+            'merchant_contact' => 'nullable|string',
             'carrier_name' => 'nullable|string',
             'carrier_contact' => 'nullable|string',
             'border' => 'nullable|string',
