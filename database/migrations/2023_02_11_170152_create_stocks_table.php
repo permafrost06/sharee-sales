@@ -20,11 +20,13 @@ return new class extends Migration
             $table->string('brand');
             $table->string('item_code');
             $table->unsignedInteger('quantity');
-            $table->string('supplier_name')->nullable();
-            $table->string('supplier_contact')->nullable();
+
+            $table->string('merchant_name')->nullable();
+            $table->string('merchant_contact')->nullable();
             $table->string('carrier_name')->nullable();
             $table->string('carrier_contact')->nullable();
             $table->string('border')->nullable();
+            
             $table->tinyText('remarks')->nullable();
             $table->tinyText('attachment')->nullable();
             $table->dateTime('date_time');
