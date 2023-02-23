@@ -115,9 +115,7 @@
                     <h4 class="modal-title">New Purchase</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="box-body">
-                        <img src="" style="max-height: 100%; max-width: 100%; object-fit: contain;" alt="">
-                    </div>
+                    <div class="box-body" id="att-preview"></div>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -128,8 +126,13 @@
 @section('extra-script')
 <script>
     $('.show-attachment-modal').click(function(){
-        $('#modal-attachment img').attr('src', $(this).data('src'));
         $('#modal-attachment h4').html('Attachment of <b><i>' + $(this).data('title')+'</i></b>');
+        const src = $(this).data('src');
+        if(src && src.endsWith('.pdf')){
+            $('#modal-attachment #att-preview').html(`<iframe src="${src}" style="max-height: 100%; width: 100%; height: 70vh;"></iframe>`);
+        }else{
+            $('#modal-attachment #att-preview').html(`<img src="${src}" style="max-height: 100%; max-width: 100%; object-fit: contain;" alt=""/>`);
+        }
     });
 </script>
 @endsection
