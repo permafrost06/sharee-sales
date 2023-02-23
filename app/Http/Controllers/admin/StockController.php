@@ -30,7 +30,7 @@ class StockController extends Controller
     public function form(Request $req, ?string $stock = null)
     {
         $cols = 'item_code, brand, merchant_name, merchant_contact, carrier_name, carrier_contact, border';
-        $suggetions = Stock::selectRaw($cols)
+        $suggetions = Stock::with('item')->selectRaw($cols)
             ->groupByRaw($cols)->get();
         if(is_numeric($stock)){
             $stock = Stock::findOrFail($stock);
@@ -95,7 +95,7 @@ class StockController extends Controller
             }
             
             $name = 'attachment_'.time().".{$attachment->extension()}";
-            error_log($name);
+            
             $attachment->storePubliclyAs('public/'.$dir, $name);
             $data['attachment'] = "/storage/$dir/$name";
         }

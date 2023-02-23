@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\PurchaseController;
 use App\Http\Controllers\admin\SalesController;
 use App\Http\Controllers\admin\VendorController;
 use App\Http\Controllers\admin\StockController;
+use App\Http\Controllers\admin\StockItemController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,12 +71,18 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/delete/multiple/purchase', ['uses' => 'deleteMultiple', 'as' => 'purchase.delete.multiple']);
     });
 
-    Route::controller(StockController::class)->prefix('/stocks')->name('stocks.')->group(function(){
-        Route::post('/{stock}', 'store');
-        Route::delete('/{stock}', 'destroy');
-        Route::get('/', 'index')->name('status');
-        Route::get('/logs/{item?}', 'logs')->name('logs');
-        Route::get('/{stock}', 'form')->name('form');
+    Route::prefix('/stocks')->name('stocks.')->group(function(){
+
+        Route::post('/update', [StockItemController::class, 'store'])->name('update');
+        
+        Route::controller(StockController::class)->group(function(){
+            Route::post('/{stock}', 'store');
+            Route::delete('/{stock}', 'destroy');
+            Route::get('/', 'index')->name('status');
+            Route::get('/logs/{item?}', 'logs')->name('logs');
+            Route::get('/{stock}', 'form')->name('form');
+        });
+
     });
 });
 
