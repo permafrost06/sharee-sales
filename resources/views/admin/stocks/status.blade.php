@@ -49,12 +49,20 @@
                                         </td>
                                         <td> {{ $stock->total_quantity }}</td>
                                         <td>
+                                            @if($stock->item?->attachment)
                                             <a href="#"
                                                 data-toggle="modal"
                                                 data-target="#modal-attachment"
                                                 data-item="{{$stock->item_code}}"
                                                 data-src="{{asset($stock->item?->attachment)}}"
                                                 class="show-attachment-modal">View</a>
+                                            |
+                                            @endif
+                                            <a href="#"
+                                                data-toggle="modal"
+                                                data-target="#modal-attachment-form"
+                                                data-item="{{$stock->item_code}}"
+                                                class="show-attachment-modal-form">Edit</a>
                                         </td>
                                         <td>
                                             <p class="text-muted">{{$stock->item?->remarks}}</p>
@@ -83,7 +91,7 @@
     </section>
     <div class="modal fade" id="modal-attachment">
         <div class="modal-dialog">
-            <form class="modal-content" enctype="multipart/form-data" method="POST" action="{{route('stocks.update')}}">
+            <div class="modal-content">
                 @csrf
                 <input type="hidden" name="item_code">
                 <div class="modal-header">
@@ -94,6 +102,25 @@
                 <div class="modal-body">
                     <div class="box-body">
                         <div id="att-preview" style="margin-bottom: 10px"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-attachment-form">
+        <div class="modal-dialog">
+            <form class="modal-content" enctype="multipart/form-data" method="POST" action="{{route('stocks.update')}}">
+                @csrf
+                <input type="hidden" name="item_code">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Attachment for <b>Some Item</b></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
                         <div class="form-group">
                             <label for="attachment" class="col-sm-2 control-label">Upload</label>
                             <div class="col-sm-10">
@@ -151,12 +178,16 @@
     $('.show-attachment-modal').click(function(){
         const src = $(this).data('src');
         $('#modal-attachment h4').html('Attachment of <b><i>' + $(this).data('item')+'</i></b>');
-        $('#modal-attachment input[name="item_code"]').val($(this).data('item'));
         if(src && src.endsWith('.pdf')){
-            $('#modal-attachment #att-preview').html(`<iframe src="${src}" style="max-height: 100%; width: 100%; height: 500px;"></iframe>`);
+            $('#modal-attachment #att-preview').html(`<iframe src="${src}" style="max-height: 100%; width: 100%; height: 70vh;"></iframe>`);
         }else{
             $('#modal-attachment #att-preview').html(`<img src="${src}" style="max-height: 100%; max-width: 100%; object-fit: contain;" alt=""/>`);
         }
+    });
+
+    $('.show-attachment-modal-form').click(function(){
+        $('#modal-attachment-form h4').html('Update attachment of <b><i>' + $(this).data('item')+'</i></b>');
+        $('#modal-attachment-form input[name="item_code"]').val($(this).data('item'));
     });
 
     $('.show-remarks-modal').click(function(){
