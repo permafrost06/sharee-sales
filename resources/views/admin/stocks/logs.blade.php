@@ -129,7 +129,7 @@
         $('#modal-attachment h4').html('Attachment of <b><i>' + $(this).data('title')+'</i></b>');
         const src = $(this).data('src');
         if(src && src.endsWith('.pdf')){
-            $('#modal-attachment #att-preview').html(`<iframe src="${src}" style="max-height: 100%; width: 100%; height: 500px;"></iframe>`);
+            $('#modal-attachment #att-preview').html(`<iframe src="${src}" style="max-height: 100%; width: 100%; height: 70vh;"></iframe>`);
         }else{
             $('#modal-attachment #att-preview').html(`<img src="${src}" style="max-height: 100%; max-width: 100%; object-fit: contain;" alt=""/>`);
         }
