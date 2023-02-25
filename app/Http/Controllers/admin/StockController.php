@@ -10,26 +10,40 @@ use Illuminate\Support\Facades\Storage;
 class StockController extends Controller
 {
 
-    public function index()
-    {
-        $stocks = Stock::selectRaw("
-            item_code,
-            SUM(IF(type='in', quantity, -quantity)) AS total_quantity,
-            SUM(IF(type='in', quantity, 0)) AS total_in,
-            SUM(IF(type='out', quantity, 0)) AS total_out
-        ")->groupBy('item_code')->get();
-        return view('admin.stocks.status', compact('stocks'));
-    }
-
     public function logs(?string $item = null)
     {
-        $query = Stock::query();
-        if($item){
+        return view('admin.stocks.logs', compact('item'));
+    }
+
+    public function logs_api(Request $req, ?string $item = null){
+        $query = Stock::selectRaw('*, (unit_cost * quantity + adjustment) AS cost');
+        if(!is_null($item)){
             $query->where('item_code', $item);
         }
-        return view('admin.stocks.logs', [
-            'logs' => $query->get()
-        ]);
+        $draw = (int)$req->query('draw', 1);
+        $length = (int)$req->query('length', 10);
+        $start = (int)$req->query('start', 0);
+
+        if($key = $req->query('search')['value']){
+            $query->where('item_code', 'LIKE', "%$key%");
+        }
+
+        $filtered = $query->count();
+
+        $cols = $req->query('columns');
+
+        foreach($req->query('order') as $sort){
+            $query->orderBy($cols[$sort['column']]['name'], $sort['dir']);
+        }
+        $data = $query->limit($length)->offset($start)->get();
+
+        return [
+            'draw' => $draw,
+            'data' => $data,
+            'start' => $start,
+            'recordsTotal' => Stock::count(),
+            'recordsFiltered' => $filtered
+        ];
     }
 
     public function form(Request $req, ?string $stock = null)
@@ -82,6 +96,8 @@ class StockController extends Controller
             'date_time' => 'required|date_format:Y-m-d H:i:s',
             'brand' => 'required|string',
             'quantity' => 'required|numeric|min:1',
+            'unit_cost' => 'required|numeric|min:0',
+            'adjustment' => 'required|numeric|min:0',
             'merchant_name' => 'nullable|string',
             'merchant_contact' => 'nullable|string',
             'carrier_name' => 'nullable|string',

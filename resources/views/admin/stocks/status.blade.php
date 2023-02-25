@@ -28,8 +28,8 @@
                         </a>
                     </div>
                 </div>
-                <div class="box-footer">
-                    <table id="example2" class="table table-bordered table-hover">
+                <div class="box-body">
+                    <table id="status-tbl" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>Sln</th>
@@ -37,12 +37,13 @@
                                 <th>Quantity</th>
                                 <th>Total In</th>
                                 <th>Total Out</th>
+                                <th>Profit</th>
                                 <th>Attachments</th>
                                 <th>Remarks</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($stocks as $k=>$stock)
+                            {{--@forelse($stocks as $k=>$stock)
                             <tr>
                                 <td>{{ ++$k }}</td>
                                 <td>
@@ -69,7 +70,7 @@
                                     <p class="text-danger">No stock is added!</p>
                                 </td>
                             </tr>
-                            @endforelse
+                            @endforelse--}}
                         </tbody>
 
                     </table>
@@ -114,7 +115,7 @@
                     <div class="form-group">
                         <label for="attachment" class="col-sm-2 control-label">Upload</label>
                         <div class="col-sm-10">
-                            <input type="file" name="attachment" value="{{ old('attachment', $stock?->attachment) }}" class="form-control" id="attachment">
+                            <input type="file" name="attachment" value="{{ old('attachment') }}" class="form-control" id="attachment">
                         </div>
                     </div>
                 </div>
@@ -163,7 +164,93 @@
 @endsection
 @section('extra-script')
 <script>
-    $('.show-attachment-modal').click(function() {
+
+const columns = [
+        {name: 'id', sortable: false, searchable: false},
+        {name: 'item_code'},
+        {name: 'quantity', sortable: false, searchable: false},
+        {name: 'total_in'},
+        {name: 'total_out'},
+        {name: 'profit'},
+        {name: 'attachment', sortable: false, searchable: false},
+        {name: 'remarks', sortable: false, searchable: false},
+    ];
+    $('#status-tbl').DataTable({
+        serverSide: true,
+        processing: true,
+        language: {
+            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+        },
+        ajax: {
+            url: "{{route('stocks.status_api')}}",
+            dataSrc: data => {
+                if(data.data){
+                    const items = [];
+                    data.data.forEach((row, idx) => {
+                        row.quantity = row.total_in - row.total_out;
+                        row.attachment = row.item?.attachment;
+                        row.remarks = row.item?.remarks;
+                        const item = [];
+                        columns.forEach(c=>{
+                            let val = row[c.name];
+                            switch(c.name){
+                                case 'id':
+                                    val = data.start + idx + 1;
+                                    break;
+                                case 'item_code':
+                                    val = `<a href="${"{{route('stocks.logs', ['item' => ':id'])}}".replace(':id', val)}">${val}</a>`;
+                                    break;
+                                case 'attachment':
+                                    if(val){
+                                        val = `
+                                        <a
+                                            href="#"
+                                            onclick="viewAtt.call(this)"
+                                            data-toggle="modal"
+                                            data-target="#modal-attachment"
+                                            data-item="${row.item_code}"
+                                            data-src="{{asset('')}}/${val}">
+                                            View
+                                        </a> | `;
+                                    }else{
+                                        val = '';
+                                    }
+                                    val += `
+                                    <a
+                                        href="#"
+                                        onclick="viewAttEditor.call(this)"
+                                        data-toggle="modal"
+                                        data-target="#modal-attachment-form"
+                                        data-item="${row.item_code}">Edit</a>`;
+                                    break;
+                                case 'remarks':
+                                    val = `
+                                    <p class="text-muted">${val}</p>
+                                    <a
+                                        href="#"
+                                        onclick="viewRemEditor.call(this)"
+                                        data-toggle="modal"
+                                        data-target="#modal-remarks"
+                                        data-item="${row.item_code}"
+                                        class="show-remarks-modal">Edit</a>
+                                    `;
+                                    break;
+                            }
+                            item.push(val || 'N/A')
+                        });
+                        items.push(item);
+                    });
+                    data.data = items;
+                    return items;
+                }
+                return [];
+            }
+        },
+        columns,
+        order: [[1, 'asc']]
+    });
+
+    function viewAtt() {
         const src = $(this).data('src');
         $('#modal-attachment h4').html('Attachment of <b><i>' + $(this).data('item') + '</i></b>');
         if (src && src.endsWith('.pdf')) {
@@ -171,17 +258,19 @@
         } else {
             $('#modal-attachment #att-preview').html(`<img src="${src}" alt=""/>`);
         }
-    });
+    }
 
-    $('.show-attachment-modal-form').click(function() {
+    function viewAttEditor() {
         $('#modal-attachment-form h4').html('Update attachment of <b><i>' + $(this).data('item') + '</i></b>');
         $('#modal-attachment-form input[name="item_code"]').val($(this).data('item'));
-    });
+    }
 
-    $('.show-remarks-modal').click(function() {
+    function viewRemEditor() {
         $('#modal-remarks textarea').html($(this).prev().html());
         $('#modal-remarks h4').html('Remarks of <b><i>' + $(this).data('item') + '</i></b>');
         $('#modal-remarks input[name="item_code"]').val($(this).data('item'));
-    });
+    }
+
+
 </script>
 @endsection
