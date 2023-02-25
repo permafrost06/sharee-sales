@@ -12,7 +12,12 @@ class StockController extends Controller
 
     public function index()
     {
-        $stocks = Stock::selectRaw("item_code, SUM(IF(type='in', quantity, -quantity)) AS total_quantity")->groupBy('item_code')->get();
+        $stocks = Stock::selectRaw("
+            item_code,
+            SUM(IF(type='in', quantity, -quantity)) AS total_quantity,
+            SUM(IF(type='in', quantity, 0)) AS total_in,
+            SUM(IF(type='out', quantity, 0)) AS total_out
+        ")->groupBy('item_code')->get();
         return view('admin.stocks.status', compact('stocks'));
     }
 
