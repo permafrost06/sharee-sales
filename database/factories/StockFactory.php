@@ -20,15 +20,15 @@ class StockFactory extends Factory
             'item_code' => fake()->words(2, true),
             'date_time' => fake()->dateTime(),
             'brand' => fake()->words(3, true),
-            'quantity' => fake()->numberBetween(1, 99999),
-            'unit_cost' => fake()->numberBetween(0, 10000),
-            'adjustment' => fake()->numberBetween(0, 1000),
+            'quantity' => fn() => floor(fake()->numberBetween(100, 500) / 10) * 10,
+            'unit_cost' => fn() => [500, 700, 900][rand(0, 2)],
+            'adjustment' => fake()->numberBetween(-3000, -5000),
             'merchant_name' => fake()->name(),
-            'merchant_contact' => fake()->phoneNumber(),
+            'merchant_contact' => '',
             'carrier_name' => fake()->name(),
-            'carrier_contact' => fake()->phoneNumber(),
-            'border' => fn($attrs) => isset($attrs['type']) && $attrs['type'] == 'in'?fake()->words(3, true):null,
-            'remarks' => fake()->paragraph(),
+            'carrier_contact' => '',
+            'border' => '',//fn($attrs) => isset($attrs['type']) && $attrs['type'] == 'in'?fake()->words(3, true):null,
+            'remarks' => null,
         ];
     }
 }

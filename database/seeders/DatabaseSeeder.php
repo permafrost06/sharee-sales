@@ -54,12 +54,29 @@ class DatabaseSeeder extends Seeder
             (1, 'Test vendor', 'test address', 30, NULL, '2019-10-11 12:43:36', '2019-10-12 15:56:48');"
         );
 
-        StockItem::factory(100)->has(
-            Stock::factory()->count(100)->sequence(
+        StockItem::factory(3)->has(
+            Stock::factory()->count(4)->sequence(
                 ['type' => 'in'],
                 ['type' => 'out']
+            )->sequence(
+                ['merchant_name'=>'Wallmart'],
+                ['merchant_name'=>'Kroger'],
+                ['merchant_name'=>'Amazon'],
+            )->sequence(
+                ['carrier_name'=>'John Doe'],
+                ['carrier_name'=>'Vin Diesel'],
+            )->sequence(
+                ['brand' => 'Charkha'],
+                ['brand' => 'Julahaa'],
+                ['brand' => 'Banarasi'],
             ),
             'logs'
-        )->create();
+        )->sequence(
+            ['item_code' => 1001],
+            ['item_code' => 1002],
+            ['item_code' => 1003],
+        )->create([
+            'remarks' => null
+        ]);
     }
 }
