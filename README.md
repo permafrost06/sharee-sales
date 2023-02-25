@@ -1,54 +1,51 @@
 # SHAREE SALES
 
 ## Installation
-__Assuming you have already docker installed in unix system or wsl__
-
-**Note: Follow these steps with docker service running!**
 
 First install the required dependencies
 ```sh
 composer install
 ```
 
-```
-Then copy the **.env.example** file to **.env** and configure this file according to your need
-```
-
-And then run this command to build and start the docker container
+Then copy the **.env.example** file to **.env**
 ```sh
-./vendor/bin/sail up
+cp .env.example .env
 ```
 
-After the process is finished,
-
-__Usually this is displayed in the terminal when **./vendor/bin/sail up** is finished.__ 
-> Server running on [http://0.0.0.0:80]
-
-Run this in a new terminal
+And then run this command to generate the application key
 ```sh
-./vendor/bin/sail artisan migrate:fresh --seed
+php artisan key:generate
+```
+
+## Database setup
+Create a mysql database using phpMyAdmin or mysql-cli then set these values in your .env file
+>DB_DATABASE=&lt;your database name&gt;
+
+>DB_USERNAME=root
+
+>DB_PASSWORD=
+
+__Note: Replace ```<your database name>``` with the database you created__
+
+Also change the ```DB_USERNAME``` and ```DB_PASSWORD``` values if you have set up different username & password
+
+## Migration
+
+Run this command to create the tables and seed the testing data
+```sh
+php artisan migrate:fresh --seed
 ```
 
 Then run this to make the storage accessible
 ```sh
-./vendor/bin/sail artisan storage:link
+php artisan storage:link
 ```
 
-Then go to http://localhost in your browser
+## Development Server
 
-
-## Making the life a bit easier
-If you don't want to run __./vendor/bin/sail__ everytime you need to do something, run this:
+Now run this command to start the development server
 ```sh
-alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+php artisan serve
 ```
 
-Now you can replace __./vendor/bin/sail__ with __sail__
-
-The previous commands become
-```sh
-sail up
-sail migrate:fresh --seed
-```
-
-For more information on sail please visit https://laravel.com/docs/9.x/sail
+Then go to http://localhost:8000 in your browser
