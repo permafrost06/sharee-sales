@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('quantity');
 
             $table->unsignedInteger('unit_cost');
-            $table->unsignedInteger('adjustment');
+            $table->integer('adjustment');
 
             $table->string('merchant_name')->nullable();
             $table->string('merchant_contact')->nullable();
