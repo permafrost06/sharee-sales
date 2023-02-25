@@ -21,13 +21,16 @@ return new class extends Migration
             $table->string('item_code');
             $table->unsignedInteger('quantity');
 
+            $table->unsignedInteger('unit_cost');
+            $table->unsignedInteger('adjustment');
+
             $table->string('merchant_name')->nullable();
             $table->string('merchant_contact')->nullable();
             $table->string('carrier_name')->nullable();
             $table->string('carrier_contact')->nullable();
             $table->string('border')->nullable();
             
-            $table->tinyText('remarks')->nullable();
+            $table->text('remarks')->nullable();
             $table->tinyText('attachment')->nullable();
             $table->dateTime('date_time');
 
