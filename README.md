@@ -1,6 +1,7 @@
 # SHAREE SALES
-
 ## Installation
+
+Ensure you have php and composer installed
 
 First install the required dependencies
 ```sh
@@ -18,16 +19,14 @@ php artisan key:generate
 ```
 
 ## Database setup
-Create a mysql database using phpMyAdmin or mysql-cli then set these values in your .env file
+Set up a mysql database and an account with privileges to use that database using phpMyAdmin or mysql-cli then set these values in your `.env` file
 >DB_DATABASE=&lt;your database name&gt;
 
->DB_USERNAME=root
+>DB_USERNAME=&lt;DB username&gt;
 
->DB_PASSWORD=
+>DB_PASSWORD=&lt;DB password&gt;
 
-__Note: Replace ```<your database name>``` with the database you created__
-
-Also change the ```DB_USERNAME``` and ```DB_PASSWORD``` values if you have set up different username & password
+__Note: Replace `<your database name>`, `<DB username>`, `<DB password>` with ones you created__
 
 ## Migration
 
@@ -48,4 +47,4 @@ Now run this command to start the development server
 php artisan serve
 ```
 
-Then go to http://localhost:8000 in your browser
+Then go to the address shown in your browser (e.g. http://127.0.0.1:8000)
