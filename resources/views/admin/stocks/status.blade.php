@@ -35,6 +35,8 @@
                                 <th>Sln</th>
                                 <th>Item Code</th>
                                 <th>Quantity</th>
+                                <th>Total In</th>
+                                <th>Total Out</th>
                                 <th>Attachments</th>
                                 <th>Remarks</th>
                             </tr>
@@ -47,6 +49,8 @@
                                     <a href="{{route('stocks.logs', ['item' => $stock->item_code])}}">{{ $stock->item_code }}</a>
                                 </td>
                                 <td> {{ $stock->total_quantity }}</td>
+                                <td> {{ $stock->total_in }}</td>
+                                <td> {{ $stock->total_out }}</td>
                                 <td>
                                     @if($stock->item?->attachment)
                                     <a href="#" data-toggle="modal" data-target="#modal-attachment" data-item="{{$stock->item_code}}" data-src="{{asset($stock->item?->attachment)}}" class="show-attachment-modal">View</a>
