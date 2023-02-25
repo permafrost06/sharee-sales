@@ -43,34 +43,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{--@forelse($stocks as $k=>$stock)
                             <tr>
-                                <td>{{ ++$k }}</td>
-                                <td>
-                                    <a href="{{route('stocks.logs', ['item' => $stock->item_code])}}">{{ $stock->item_code }}</a>
-                                </td>
-                                <td> {{ $stock->total_in }}</td>
-                                <td> {{ $stock->total_out }}</td>
-                                <td> {{ $stock->total_quantity }}</td>
-                                <td>
-                                    @if($stock->item?->attachment)
-                                    <a href="#" data-toggle="modal" data-target="#modal-attachment" data-item="{{$stock->item_code}}" data-src="{{asset($stock->item?->attachment)}}" class="show-attachment-modal">View</a>
-                                    |
-                                    @endif
-                                    <a href="#" data-toggle="modal" data-target="#modal-attachment-form" data-item="{{$stock->item_code}}" class="show-attachment-modal-form">Edit</a>
-                                </td>
-                                <td>
-                                    <p class="text-muted">{{$stock->item?->remarks}}</p>
-                                    <a href="#" data-toggle="modal" data-target="#modal-remarks" data-item="{{$stock->item_code}}" class="show-remarks-modal">Edit</a>
+                                <td colspan="8">
+                                    <div class="text-center p-10">Loading...</div>
                                 </td>
                             </tr>
-                            @empty
-                            <tr>
-                                <td colspan="5">
-                                    <p class="text-danger">No stock is added!</p>
-                                </td>
-                            </tr>
-                            @endforelse--}}
                         </tbody>
 
                     </table>
