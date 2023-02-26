@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class StockController extends Controller
 {
@@ -97,7 +99,7 @@ class StockController extends Controller
             'brand' => 'required|string',
             'quantity' => 'required|numeric|min:1',
             'unit_cost' => 'required|numeric|min:0',
-            'adjustment' => 'required|numeric|min:0',
+            'adjustment' => 'required|numeric',
             'merchant_name' => 'nullable|string',
             'merchant_contact' => 'nullable|string',
             'carrier_name' => 'nullable|string',
@@ -106,6 +108,18 @@ class StockController extends Controller
             'remarks' => 'nullable|string',
             'attachment' => 'mimes:jpeg,png,pdf'
         ]);
+
+        if($data['type'] == 'out'){
+            $available = Stock::where('item_code', $data['item_code'])->sum(DB::raw('IF(type=\'in\', quantity, -quantity)'));
+            if($available < $data['quantity']){
+                $vr = Validator::make([], [
+                    'quantity' => 'required'
+                ], [
+                    'quantity' => "Out quantity ({$data['quantity']}) cannot be higher than available quantity ($available) for Item Code {$data['item_code']}"
+                ]);
+                $vr->validate();
+            }
+        }
 
         if(isset($data['attachment'])){
             $attachment = $data['attachment'];
