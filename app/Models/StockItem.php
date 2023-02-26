@@ -9,4 +9,9 @@ class StockItem extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function logs()
+    {
+        return $this->hasMany(Stock::class, 'item_code', 'item_code');
+    }
 }

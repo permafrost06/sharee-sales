@@ -73,13 +73,17 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::prefix('/stocks')->name('stocks.')->group(function(){
 
-        Route::post('/update', [StockItemController::class, 'store'])->name('update');
-        
+        Route::controller(StockItemController::class)->group(function(){
+            Route::post('/update', 'store')->name('update');
+            Route::get('/', 'index')->name('status');
+            Route::get('/items_api', 'items_api')->name('status_api');
+        });
+
         Route::controller(StockController::class)->group(function(){
             Route::post('/{stock}', 'store');
             Route::delete('/{stock}', 'destroy');
-            Route::get('/', 'index')->name('status');
             Route::get('/logs/{item?}', 'logs')->name('logs');
+            Route::get('/logs_api/{item?}', 'logs_api')->name('logs_api');
             Route::get('/{stock}', 'form')->name('form');
         });
 

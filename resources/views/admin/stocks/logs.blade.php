@@ -22,14 +22,15 @@
                 </div>
                 @endif
                 <!-- /.box-body -->
-                <div class="box-footer" style="overflow-x: auto">
-                    <table id="example2" class="table table-bordered table-hover">
+                <div class="box-body">
+                    <table id="logs-tbl" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>Sln</th>
                                 <th>Item Code</th>
                                 <th>Brand</th>
                                 <th>Quantity</th>
+                                <th>Cost</th>
                                 <th class="text-center">Type</th>
                                 <th>Merchant Name</th>
                                 <th>Merchant Contact</th>
@@ -43,54 +44,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($logs as $k=>$log)
                             <tr>
-                                <td>{{ ++$k }}</td>
-                                <td>
-                                    {{ $log->item_code }}
-                                </td>
-                                <td>{{ $log->brand }}</td>
-                                <td> {{ $log->quantity }}</td>
-                                <td class="text-center">
-                                    <p class="btn btn-xs btn-warning text-uppercase">{{ $log->type }}</p>
-                                </td>
-                                <td>{{ $log->merchant_name??'N/A' }}</td>
-                                <td>{{ $log->merchant_contact??'N/A' }}</td>
-                                <td>{{ $log->carrier_name??'N/A' }}</td>
-                                <td>{{ $log->carrier_contact??'N/A' }}</td>
-                                <td>{{ $log->border??'N/A' }}</td>
-                                <td>{{$log->remarks??'N/A'}}</td>
-                                <td>
-                                    @if($log->attachment)
-                                    <a href="#modal-attachment" data-toggle="modal" data-target="#modal-attachment" data-title="{{$log->item_code}}" data-src="{{asset($log->attachment)}}" class="show-attachment-modal">View</a>
-                                    @else
-                                    N/A
-                                    @endif
-                                </td>
-                                <td>{{ date('h:i A | d M, Y', strtotime($log->date_time)) }}</td>
-                                <td>
-                                    <a href="{{ route('stocks.form', ['stock' => $log->id]) }}" class="btn btn-xs btn-primary">
-                                        <i class="fa fa-edit"></i> Edit
-                                    </a>
-                                    <form style="display: inline-block" action="{{ route('stocks.form', ['stock' => $log->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-xs btn-danger">
-                                            <i class="fa fa-trash"></i> Delete
-                                        </button>
-                                    </form>
-                                </td>
-
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="14">
-                                    <p class="text-danger">No stock is added!</p>
+                                <td colspan="15">
+                                    <div class="text-center p-10">Loading...</div>
                                 </td>
                             </tr>
-                            @endforelse
                         </tbody>
-
                     </table>
                 </div>
             </div>
@@ -117,7 +76,7 @@
 @endsection
 @section('extra-script')
 <script>
-    $('.show-attachment-modal').click(function() {
+    function viewAttachment(){
         $('#modal-attachment h4').html('Attachment of <b><i>' + $(this).data('title') + '</i></b>');
         const src = $(this).data('src');
         if (src && src.endsWith('.pdf')) {
@@ -125,6 +84,105 @@
         } else {
             $('#modal-attachment #att-preview').html(`<img src="${src}" alt=""/>`);
         }
+    }
+    const columns = [
+        {name: 'id'},
+        {name: 'item_code'},
+        {name: 'brand'},
+        {name: 'quantity'},
+        {name: 'cost'},
+        {name: 'type'},
+        {name: 'merchant_name'},
+        {name: 'merchant_contact'},
+        {name: 'carrier_name'},
+        {name: 'carrier_contact'},
+        {name: 'border'},
+        {name: 'remarks', sortable: false, searchable: false},
+        {name: 'attachment', sortable: false, searchable: false},
+        {name: 'date_time'},
+        {name: 'action', sortable: false, searchable: false},
+    ];
+    $('#logs-tbl').DataTable({
+        serverSide: true,
+        processing: true,
+        language: {
+            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+        },
+        ajax: {
+            url: "{{route('stocks.logs_api', ['item' => $item])}}",
+            dataSrc: data => {
+
+                $('#logs-tbl').removeAttr('style').parent().css({'overflow-x': 'auto'});
+                const formatDate = getDateFormater();
+                if(data.data){
+                    const items = [];
+                    data.data.forEach((row, idx) => {
+                        const item = [];
+                        columns.forEach(c=>{
+                            let val = row[c.name];
+                            switch(c.name){
+                                case 'id':
+                                    val = data.start + idx + 1;
+                                    break;
+                                case 'type':
+                                    val = `<div class="text-center"><p class="btn btn-xs btn-warning text-uppercase">${val}</p></div>`;
+                                    break;
+                                case 'attachment':
+                                    if(val){
+                                        val = `<a href="#modal-attachment" onclick="viewAttachment.call(this)" data-toggle="modal" data-target="#modal-attachment" data-title="${row.item_code}" data-src="{{asset('')}}/${val}">View</a>`;
+                                    }
+                                    break;
+                                case 'date_time':
+                                    val = formatDate(val);
+                                    break;
+                            }
+                            item.push(val || 'N/A')
+                        });
+                        item[item.length - 1] = getAction(row);
+                        items.push(item);
+                    });
+                    data.data = items;
+                    return items;
+                }
+                return [];
+            }
+        },
+        columns,
+        order: [[0, 'desc']]
     });
+
+    function getAction(stock){
+        const action = '{{ route("stocks.form", ["stock" => ":id"]) }}'.replace(':id', stock.id);
+        return `
+        <a href="${action}" class="btn btn-xs btn-primary">
+            <i class="fa fa-edit"></i> Edit
+        </a>
+        <form style="display: inline-block" action="${action}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-xs btn-danger">
+                <i class="fa fa-trash"></i> Delete
+            </button>
+        </form>
+        `;
+    }
+
+    function getDateFormater(){
+        
+        const options = { 
+            hour: 'numeric', 
+            minute: 'numeric', 
+            hour12: true, 
+            day: 'numeric', 
+            month: 'short', 
+            year: 'numeric' 
+        };
+        const formater = Intl.DateTimeFormat('en-US', options);
+        return dateTime => {
+            const date = new Date(dateTime);
+            const ftt = formater.format(date).split(', ');
+            return `${ftt[2]} | ${ftt[0]}, ${ftt[1]}`;
+        }
+    }
 </script>
 @endsection

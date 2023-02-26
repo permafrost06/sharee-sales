@@ -109,6 +109,27 @@
 
                                         
                                         <div class="form-group">
+                                            <label for="unit_cost" class="col-sm-2 control-label">Per unit cost</label>
+
+                                            <div class="col-sm-10">
+                                                <input type="number" name="unit_cost"
+                                                    value="{{ old('unit_cost', $stock?->unit_cost) }}" class="form-control"
+                                                    id="unit_cost">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="adjustment" class="col-sm-2 control-label">Adjustment</label>
+
+                                            <div class="col-sm-10">
+                                                <input type="number" name="adjustment"
+                                                    value="{{ old('adjustment', $stock?->adjustment) }}" class="form-control"
+                                                    id="adjustment">
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="form-group">
                                             <label for="merchant_name" class="col-sm-2 control-label">
                                                 {{ old('type', $stock?->type) == 'out'?'Buyer':'Supplier' }} name
                                             </label>

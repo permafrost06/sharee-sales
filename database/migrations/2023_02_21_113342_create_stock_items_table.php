@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('item_code')->unique();
-            $table->tinyText('remarks')->nullable();
+            $table->text('remarks')->nullable();
             $table->tinyText('attachment')->nullable();
 
         });
