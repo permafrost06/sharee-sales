@@ -18,7 +18,7 @@ class StockController extends Controller
     }
 
     public function logs_api(Request $req, ?string $item = null){
-        $query = Stock::selectRaw('*, (unit_cost * quantity + adjustment) AS cost');
+        $query = Stock::selectRaw('*, (unit_cost * quantity + adjustment) AS total_cost');
         if(!is_null($item)){
             $query->where('item_code', $item);
         }

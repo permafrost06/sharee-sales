@@ -30,7 +30,9 @@
                                 <th>Item Code</th>
                                 <th>Brand</th>
                                 <th>Quantity</th>
-                                <th>Cost</th>
+                                <th>Unit Cost</th>
+                                <th>Adjustment</th>
+                                <th>Total Cost</th>
                                 <th class="text-center">Type</th>
                                 <th>Merchant Name</th>
                                 <th>Merchant Contact</th>
@@ -45,7 +47,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td colspan="15">
+                                <td colspan="17">
                                     <div class="text-center p-10">Loading...</div>
                                 </td>
                             </tr>
@@ -90,7 +92,9 @@
         {name: 'item_code'},
         {name: 'brand'},
         {name: 'quantity'},
-        {name: 'cost'},
+        {name: 'unit_cost'},
+        {name: 'adjustment'},
+        {name: 'total_cost'},
         {name: 'type'},
         {name: 'merchant_name'},
         {name: 'merchant_contact'},
@@ -181,7 +185,11 @@
         return dateTime => {
             const date = new Date(dateTime);
             const ftt = formater.format(date).split(', ');
-            return `${ftt[2]} | ${ftt[0]}, ${ftt[1]}`;
+            let res = `${ftt[2]} | ${ftt[0]}, ${ftt[1]}`;
+            if(res.indexOf(':') == 1){
+                res = '0'+res;
+            }
+            return res;
         }
     }
 </script>
