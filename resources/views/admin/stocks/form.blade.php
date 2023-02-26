@@ -107,7 +107,7 @@
                                             </div>
                                         </div>
 
-                                        
+
                                         <div class="form-group">
                                             <label for="unit_cost" class="col-sm-2 control-label">Per unit cost</label>
 
@@ -123,12 +123,12 @@
 
                                             <div class="col-sm-10">
                                                 <input type="number" name="adjustment"
-                                                    value="{{ old('adjustment', $stock?->adjustment) }}" class="form-control"
-                                                    id="adjustment">
+                                                    value="{{ old('adjustment', $stock ? $stock->adjustment : 0) }}"
+                                                    class="form-control" id="adjustment">
                                             </div>
                                         </div>
 
-                                        
+
                                         <div class="form-group">
                                             <label for="merchant_name" class="col-sm-2 control-label">
                                                 {{ old('type', $stock?->type) == 'out'?'Buyer':'Supplier' }} name
@@ -204,7 +204,7 @@
                                                 </datalist>
 
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <label for="border" class="col-sm-2 control-label">Border</label>
 
