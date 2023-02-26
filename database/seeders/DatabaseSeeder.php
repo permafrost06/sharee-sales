@@ -56,9 +56,6 @@ class DatabaseSeeder extends Seeder
 
         StockItem::factory(3)->has(
             Stock::factory()->count(4)->sequence(
-                ['type' => 'in'],
-                ['type' => 'out']
-            )->sequence(
                 ['merchant_name'=>'Wallmart'],
                 ['merchant_name'=>'Kroger'],
                 ['merchant_name'=>'Amazon'],
@@ -69,7 +66,9 @@ class DatabaseSeeder extends Seeder
                 ['brand' => 'Charkha'],
                 ['brand' => 'Julahaa'],
                 ['brand' => 'Banarasi'],
-            ),
+            )->state([
+                'type' => 'in'
+            ]),
             'logs'
         )->sequence(
             ['item_code' => 1001],
