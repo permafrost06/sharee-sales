@@ -145,9 +145,9 @@
 const columns = [
         {name: 'id', sortable: false, searchable: false},
         {name: 'item_code'},
-        {name: 'quantity', sortable: false, searchable: false},
         {name: 'total_in'},
         {name: 'total_out'},
+        {name: 'quantity', sortable: false, searchable: false},
         {name: 'profit'},
         {name: 'attachment', sortable: false, searchable: false},
         {name: 'remarks', sortable: false, searchable: false},
