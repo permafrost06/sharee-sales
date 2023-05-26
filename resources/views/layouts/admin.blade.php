@@ -11,7 +11,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/admin/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/pages/admin/app.js'])
     @yield('head')
 </head>
 
@@ -19,9 +19,16 @@
     @include('layouts.inc.admin-sidebar')
     <main class="flex-grow">
         <nav class="flex h-admin-nav bg-admin-nav border-b px-10 items-center relative">
+            <button type="button" id="sidenav-opener" class="md:hidden mr-4 p-1 border rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                        stroke-width="48" d="M88 152h336M88 256h336M88 360h336" />
+                </svg>
+                <div class="sr-only">Open Sidenav</div>
+            </button>
             <form class="flex items-center flex-grow">
                 <label for="nav-search" class="sr-only">Search</label>
-                <div class="relative min-w-none md:min-w-lg">
+                <div class="relative w-full md:w-auto xl:min-w-lg">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +38,7 @@
                         </svg>
                     </div>
                     <input type="text" id="nav-search"
-                        class="border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                        class="border-b md:border text-gray-900 text-sm rounded-none md:rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                         placeholder="Search anything..." required>
                 </div>
             </form>
@@ -64,8 +71,7 @@
                         id="user-dropdown">
                         <div class="px-4 py-3">
                             <span class="block text-sm text-gray-900">Saad</span>
-                            <span
-                                class="block text-sm  text-gray-500 truncate">sakib.saad.khan@gmail.com</span>
+                            <span class="block text-sm  text-gray-500 truncate">sakib.saad.khan@gmail.com</span>
                         </div>
                         <ul class="py-2" aria-labelledby="user-menu-button">
                             <li>
@@ -81,8 +87,7 @@
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Earnings</a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign
                                     out</a>
                             </li>
                         </ul>

@@ -1,15 +1,24 @@
-<aside id="sidebar-main" class="max-w-sm w-72 bg-admin-nav flex flex-col px-3 border-r">
+<aside id="sidebar-main"
+    class="hidden fixed h-full z-10 md:static md:flex max-w-sm min-w-max w-72 bg-admin-nav flex-col px-3 border-r">
     <div class="h-admin-nav py-3 flex items-center">
         <div class="border rounded-lg h-12 w-12"></div>
         <div class="flex-grow mx-2">
             <h3 class="text-lg font-medium text-dark">Sharee Sales</h3>
             <p class="text-muted text-xs -mt-1">Some subtitle</p>
         </div>
-        <button type="button">
-            <div class="sr-only">Toggle Sidebar</div>
+        <button type="button" id="sidenav-resize"
+            class="hidden md:block hover:text-active transition-all duration-100 rounded focus:ring-2 focus:ring-blue-300">
+            <div class="sr-only">Expand & Collapse Sidenav</div>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
                 <path fill="currentColor"
                     d="M3 18h13v-2H3v2zm0-5h10v-2H3v2zm0-7v2h13V6H3zm18 9.59L17.42 12L21 8.41L19.59 7l-5 5l5 5L21 15.59z" />
+            </svg>
+        </button>
+        <button type="button" id="sidenav-closer" class="md:hidden">
+            <div class="sr-only">Close sidenav</div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="m5 13l4 4l-1.4 1.42L1.18 12L7.6 5.58L9 7l-4 4h16v2H5m16-7v2H11V6h10m0 10v2H11v-2h10Z" />
             </svg>
         </button>
     </div>
