@@ -1,8 +1,8 @@
 <aside id="sidebar-main"
-    class="hidden fixed h-full z-10 md:static md:flex max-w-sm min-w-max w-72 bg-admin-nav flex-col px-3 border-r">
+    class="hidden fixed h-full z-10 md:static md:flex max-w-sm w-72 bg-admin-nav flex-col px-3 border-r group">
     <div class="h-admin-nav py-3 flex items-center">
-        <div class="border rounded-lg h-12 w-12"></div>
-        <div class="flex-grow mx-2">
+        <div class="border rounded-lg h-12 w-12 collapsed:hidden"></div>
+        <div class="flex-grow mx-2 collapsed:hidden">
             <h3 class="text-lg font-medium text-dark">Sharee Sales</h3>
             <p class="text-muted text-xs -mt-1">Some subtitle</p>
         </div>

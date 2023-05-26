@@ -8,7 +8,7 @@
                 {{ $svg }}
             </svg>
         @endisset
-        <div class="flex-grow font-medium">
+        <div class="flex-grow font-medium collapsed:hidden">
             {{ $slot }}
         </div>
     </a>

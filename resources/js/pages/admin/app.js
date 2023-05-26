@@ -1,7 +1,14 @@
-import { find, gsapTL } from "../../utils";
+import { find, gsapTL, addClasses, rmClasses } from "../../utils";
 
 const sideBar = find('#sidebar-main');
-const sideBarBtn = find("#sidenav-resize");
+
+find("#sidenav-resize").addEventListener('click', () => {
+    if (sideBar.classList.contains('collapsed')) {
+        rmClasses(sideBar, 'collapsed w-[100px]')
+    } else {
+        addClasses(sideBar, 'collapsed w-[100px]')
+    }
+});
 
 find('#sidenav-opener').addEventListener('click', () => {
     sideBar.classList.remove('hidden');

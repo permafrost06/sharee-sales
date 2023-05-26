@@ -1,8 +1,18 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
   content: ["resources/**/*.{js,blade.php}"],
   presets: [],
   darkMode: "media", // or 'class'
+  plugin: [
+    plugin(function ({ addVariant }) {
+      //TODO: Add this variant, it's not working yet
+      addVariant("expanded", ":merge(.group).expanded &");
+      addVariant("collapsed", ":merge(.group).collapsed &");
+    }),
+  ],
   theme: {
     extend: {
       backgroundColor: ({ colors }) => ({
@@ -1016,5 +1026,4 @@ module.exports = {
       50: "50",
     },
   },
-  plugins: [],
 };
