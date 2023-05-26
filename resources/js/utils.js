@@ -1,3 +1,7 @@
+import { gsap } from 'gsap';
+import { CSSPlugin } from 'gsap/CSSPlugin';
+gsap.registerPlugin(CSSPlugin);
+
 
 /**
  * @param {string} selector 
@@ -13,3 +17,7 @@ export const find = (selector, parent) => (parent || document).querySelector(sel
 */
 export const findAll = (selector, parent) => (parent || document).querySelectorAll(selector);
 
+/**
+ * @returns {gsap.core.Timeline}
+ */
+export const gsapTL = ()=> gsap.timeline();
