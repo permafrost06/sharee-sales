@@ -4,9 +4,23 @@ const sideBar = find('#sidebar-main');
 
 find("#sidenav-resize").addEventListener('click', () => {
     if (sideBar.classList.contains('collapsed')) {
-        rmClasses(sideBar, 'collapsed md:w-[100px]')
+        rmClasses(sideBar, 'collapsed md:w-[100px]');
+        gsapTL().fromTo(sideBar, {
+            width: '100px'
+        }, {
+            duration: 0.1,
+            width: 'auto'
+        }).then(()=>{
+            sideBar.removeAttribute('style');
+        });
     } else {
-        addClasses(sideBar, 'collapsed md:w-[100px]')
+        gsapTL().to(sideBar, {
+            width: '100px',
+            duration: 0.1
+        }).then(() => {
+            addClasses(sideBar, 'collapsed md:w-[100px]');
+            sideBar.removeAttribute('style');
+        });
     }
 });
 

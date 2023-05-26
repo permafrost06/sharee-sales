@@ -2,16 +2,20 @@
     class="hidden fixed h-full z-10 md:static md:flex max-w-sm w-72 bg-admin-nav flex-col px-3 border-r">
     <div class="h-admin-nav py-3 flex items-center collapsed:md:justify-center">
         <div class="border rounded-lg h-12 w-12 collapsed:md:hidden"></div>
-        <div class="flex-grow mx-2 collapsed:md:hidden">
+        <div class="flex-grow mx-2 collapsed:md:hidden whitespace-nowrap overflow-hidden">
             <h3 class="text-lg font-medium text-dark">Sharee Sales</h3>
             <p class="text-muted text-xs -mt-1">Some subtitle</p>
         </div>
         <button type="button" id="sidenav-resize"
             class="hidden md:block hover:text-active transition-all duration-100 rounded focus:ring-2 focus:ring-blue-300">
             <div class="sr-only">Expand & Collapse Sidenav</div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" class="collapsed:hidden">
                 <path fill="currentColor"
                     d="M3 18h13v-2H3v2zm0-5h10v-2H3v2zm0-7v2h13V6H3zm18 9.59L17.42 12L21 8.41L19.59 7l-5 5l5 5L21 15.59z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="hidden collapsed:block">
+                <path fill="currentColor"
+                    d="M3 6h10v2H3V6m0 10h10v2H3v-2m0-5h12v2H3v-2m13-4l-1.42 1.39L18.14 12l-3.56 3.61L16 17l5-5l-5-5Z" />
             </svg>
         </button>
         <button type="button" id="sidenav-closer" class="md:hidden">
