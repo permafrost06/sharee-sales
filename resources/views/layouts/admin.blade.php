@@ -60,14 +60,13 @@
                 <li>
                     <button type="button"
                         class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300"
-                        id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
-                        data-dropdown-placement="bottom">
+                        id="user-menu-button">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-10 h-10 rounded-full" src="https://source.unsplash.com/random/200x200"
                             alt="user photo">
                     </button>
                     <!-- Dropdown menu -->
-                    <div class="z-50 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow top-full right-8 mt-2 absolute"
+                    <div class="hidden z-50 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow top-full right-8 mt-2 absolute"
                         id="user-dropdown">
                         <div class="px-4 py-3">
                             <span class="block text-sm text-gray-900">Saad</span>

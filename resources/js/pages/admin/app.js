@@ -43,3 +43,28 @@ find('#sidenav-closer').addEventListener('click', () => {
         sideBar.classList.add('hidden');
     });
 });
+
+
+const userMenu = find('#user-dropdown');
+
+find('#user-menu-button').addEventListener('click', () => {
+    if (userMenu.classList.contains('hidden')) {
+        rmClasses(userMenu, 'hidden');
+        gsapTL().fromTo(userMenu, {
+            height: 0
+        }, {
+            duration: 0.1,
+            height: 'auto'
+        }).then(()=>{
+            userMenu.removeAttribute('style');
+        });
+    } else {
+        gsapTL().to(userMenu, {
+            height: 0,
+            duration: 0.1
+        }).then(() => {
+            addClasses(userMenu, 'hidden');
+            userMenu.removeAttribute('style');
+        });
+    }
+});
