@@ -6,11 +6,10 @@ module.exports = {
   content: ["resources/**/*.{js,blade.php}"],
   presets: [],
   darkMode: "media", // or 'class'
-  plugin: [
+  plugins: [
     plugin(function ({ addVariant }) {
-      //TODO: Add this variant, it's not working yet
-      addVariant("expanded", ":merge(.group).expanded &");
-      addVariant("collapsed", ":merge(.group).collapsed &");
+      addVariant("expanded", ".expanded &");
+      addVariant("collapsed", ".collapsed &");
     }),
   ],
   theme: {

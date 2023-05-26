@@ -4,9 +4,9 @@ const sideBar = find('#sidebar-main');
 
 find("#sidenav-resize").addEventListener('click', () => {
     if (sideBar.classList.contains('collapsed')) {
-        rmClasses(sideBar, 'collapsed w-[100px]')
+        rmClasses(sideBar, 'collapsed md:w-[100px]')
     } else {
-        addClasses(sideBar, 'collapsed w-[100px]')
+        addClasses(sideBar, 'collapsed md:w-[100px]')
     }
 });
 

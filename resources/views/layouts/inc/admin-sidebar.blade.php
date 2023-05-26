@@ -1,8 +1,8 @@
 <aside id="sidebar-main"
-    class="hidden fixed h-full z-10 md:static md:flex max-w-sm w-72 bg-admin-nav flex-col px-3 border-r group">
-    <div class="h-admin-nav py-3 flex items-center">
-        <div class="border rounded-lg h-12 w-12 collapsed:hidden"></div>
-        <div class="flex-grow mx-2 collapsed:hidden">
+    class="hidden fixed h-full z-10 md:static md:flex max-w-sm w-72 bg-admin-nav flex-col px-3 border-r">
+    <div class="h-admin-nav py-3 flex items-center collapsed:md:justify-center">
+        <div class="border rounded-lg h-12 w-12 collapsed:md:hidden"></div>
+        <div class="flex-grow mx-2 collapsed:md:hidden">
             <h3 class="text-lg font-medium text-dark">Sharee Sales</h3>
             <p class="text-muted text-xs -mt-1">Some subtitle</p>
         </div>
@@ -24,14 +24,14 @@
     </div>
 
     <nav class="flex-grow overflow-y-auto py-4">
-        <ul>
+        <ul class="collapsed:md:max-w-min mx-auto">
             <x-sidebar-item :active="true">
                 <x-slot:svg>
                     <path fill="currentColor" d="M13 9V3h8v6h-8ZM3 13V3h8v10H3Zm10 8V11h8v10h-8ZM3 21v-6h8v6H3Z" />
                 </x-slot:svg>
                 Dashboard
             </x-sidebar-item>
-            <li class="p-2 uppercase text-sm text-muted font-medium my-2">ITEMS</li>
+            <li class="p-2 uppercase text-sm text-muted font-medium my-2 collapsed:md:hidden">ITEMS</li>
             <x-sidebar-item>
                 <x-slot:svg>
                     <g fill="none" fill-rule="evenodd">
