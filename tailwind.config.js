@@ -4,6 +4,59 @@ module.exports = {
   presets: [],
   darkMode: "media", // or 'class'
   theme: {
+    extend: {
+      backgroundColor: ({ colors }) => ({
+        body: colors.blue[50],
+        "admin-nav": colors.white,
+        "admin-nav-active": colors.blue[200],
+      }),
+      textColor: ({ colors }) => ({
+        dark: colors.gray[600],
+        main: "rgb(134 135 139)",
+        active: colors.blue[500],
+        muted: colors.gray[400],
+      }),
+      borderColor: ({ colors }) => ({
+        DEFAULT: colors.stone[200],
+      }),
+      height: {
+        "admin-nav": "70px",
+      },
+      minWidth: ({ theme, breakpoints }) => ({
+        none: "none",
+        0: "0rem",
+        xs: "20rem",
+        sm: "24rem",
+        md: "28rem",
+        lg: "32rem",
+        xl: "36rem",
+        "2xl": "42rem",
+        "3xl": "48rem",
+        "4xl": "56rem",
+        "5xl": "64rem",
+        "6xl": "72rem",
+        "7xl": "80rem",
+        full: "100%",
+        min: "min-content",
+        max: "max-content",
+        fit: "fit-content",
+        prose: "65ch",
+        ...breakpoints(theme("screens")),
+      }),
+      fontFamily: {
+        "open-sans": ['"Open Sans"', "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+        main: ["Poppins", "sans-serif"],
+      },
+    },
+
+    /**
+     *
+     * * Tailwind specific styling starts from here
+     * this is the default config that was created with
+     * tailwindcss init -full
+     */
+
     accentColor: ({ theme }) => ({
       ...theme("colors"),
       auto: "auto",
@@ -162,11 +215,6 @@ module.exports = {
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
-      "body-bg": "#EFF6FF",
-      "sidebar-bg": "#ffffff",
-      "sidebar-item-bg": "#DBEAFE",
-      "text-sidebar-item": "#6B7280",
-      "text-sidebar-active": "#3B82F6",
     }),
     columns: {
       auto: "auto",
