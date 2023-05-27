@@ -94,7 +94,9 @@
                 </li>
             </ul>
         </nav>
-        @yield('page')
+        <div class="p-4 md:p-8">
+            @yield('page')
+        </div>
     </main>
 </body>
 
