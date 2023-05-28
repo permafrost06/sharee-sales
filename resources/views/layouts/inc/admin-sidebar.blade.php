@@ -64,6 +64,8 @@
                 </x-sidebar-item>
 
             </x-sidebar-item-group>
+
+
             <x-sidebar-item route="sales.create">
                 <x-slot:svg viewBox="0 0 16 16">
                     <path fill="currentColor"
@@ -71,6 +73,8 @@
                 </x-slot:svg>
                 New Deposit
             </x-sidebar-item>
+
+
             <x-sidebar-item route="purchase.create">
                 <x-slot:svg viewBox="0 0 48 48">
                     <g fill="none">
@@ -84,6 +88,28 @@
                 </x-slot:svg>
                 New Purchase
             </x-sidebar-item>
+
+
+            <x-sidebar-item-group :routes="['stocks.form']">
+                <x-slot:svg viewBox="0 0 36 36">
+                    <path fill="currentColor"
+                        d="M32 6H4a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2ZM9.63 24.23a.79.79 0 0 1-.81.77a.79.79 0 0 1-.82-.77V11.77a.79.79 0 0 1 .82-.77a.79.79 0 0 1 .81.77Zm6 0a.79.79 0 0 1-.82.77a.79.79 0 0 1-.81-.77V11.77a.79.79 0 0 1 .81-.77a.79.79 0 0 1 .82.77Zm6.21 0a.79.79 0 0 1-.82.77a.79.79 0 0 1-.81-.77V11.77a.79.79 0 0 1 .81-.77a.79.79 0 0 1 .82.77Zm6.12 0a.79.79 0 0 1-.82.77a.79.79 0 0 1-.81-.77V11.77a.79.79 0 0 1 .81-.77a.79.79 0 0 1 .82.77Z"
+                        class="clr-i-solid clr-i-solid-path-1" />
+                    <path fill="none" d="M0 0h36v36H0z" />
+                </x-slot:svg>
+                <x-slot:label>
+                    Stock
+                </x-slot:label>
+
+                <x-sidebar-item :link="route('stocks.form', ['stock' => 'add'])" route="stocks.form">
+                    <x-slot:svg viewBox="0 0 20 20">
+                        <path fill="currentColor"
+                            d="M11 9h4v2h-4v4H9v-4H5V9h4V5h2v4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16z" />
+                    </x-slot:svg>
+                    Add Stock
+                </x-sidebar-item>
+            </x-sidebar-item-group>
+
         </ul>
     </nav>
 </aside>
