@@ -12,10 +12,13 @@ class SidebarItem extends Component
      * @return void
      */
     public function __construct(
-        public string $route
+        public string $route,
+        public string $link = ''
     )
     {
-        //
+        if(!$link) {
+            $link = route($route);
+        }
     }
 
     /**
