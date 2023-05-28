@@ -12,7 +12,7 @@ class SidebarItem extends Component
      * @return void
      */
     public function __construct(
-        public bool $active = false
+        public string $route
     )
     {
         //

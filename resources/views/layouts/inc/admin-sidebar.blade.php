@@ -9,11 +9,13 @@
         <button type="button" id="sidenav-resize"
             class="hidden md:block hover:text-active transition-all duration-100 rounded focus:ring-2 focus:ring-blue-300">
             <div class="sr-only">Expand & Collapse Sidenav</div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" class="collapsed:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
+                class="collapsed:hidden">
                 <path fill="currentColor"
                     d="M3 18h13v-2H3v2zm0-5h10v-2H3v2zm0-7v2h13V6H3zm18 9.59L17.42 12L21 8.41L19.59 7l-5 5l5 5L21 15.59z" />
             </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="hidden collapsed:block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                class="hidden collapsed:block">
                 <path fill="currentColor"
                     d="M3 6h10v2H3V6m0 10h10v2H3v-2m0-5h12v2H3v-2m13-4l-1.42 1.39L18.14 12l-3.56 3.61L16 17l5-5l-5-5Z" />
             </svg>
@@ -29,14 +31,14 @@
 
     <nav class="flex-grow overflow-y-auto py-4">
         <ul class="collapsed:md:max-w-min mx-auto">
-            <x-sidebar-item :active="true">
+            <x-sidebar-item route="admin.index">
                 <x-slot:svg>
                     <path fill="currentColor" d="M13 9V3h8v6h-8ZM3 13V3h8v10H3Zm10 8V11h8v10h-8ZM3 21v-6h8v6H3Z" />
                 </x-slot:svg>
                 Dashboard
             </x-sidebar-item>
             <li class="p-2 uppercase text-sm text-muted font-medium my-2 collapsed:md:hidden">ITEMS</li>
-            <x-sidebar-item>
+            <x-sidebar-item route="customers.index">
                 <x-slot:svg>
                     <g fill="none" fill-rule="evenodd">
                         <path
@@ -47,12 +49,26 @@
                 </x-slot:svg>
                 Customers
             </x-sidebar-item>
-            <x-sidebar-item>
-                <x-slot:svg>
+            <x-sidebar-item route="sales.index">
+                <x-slot:svg viewBox="0 0 16 16">
+                    <path fill="currentColor" d="m8 16l-2-3h1v-2h2v2h1l-2 3zm7-15v8H1V1h14zm1-1H0v10h16V0z" />
                     <path fill="currentColor"
-                        d="M17.12 9.88a2.997 2.997 0 1 0-4.24 4.24a2.997 2.997 0 1 0 4.24-4.24M7 6v12h16V6H7m14 8c-.53 0-1.04.21-1.41.59c-.38.37-.59.88-.59 1.41h-8c0-.53-.21-1.04-.59-1.41c-.37-.38-.88-.59-1.41-.59v-4c.53 0 1.04-.21 1.41-.59c.38-.37.59-.88.59-1.41h8c0 .53.21 1.04.59 1.41c.37.38.88.59 1.41.59v4M5 8H3c-.55 0-1-.45-1-1s.45-1 1-1h2v2m0 5H2c-.55 0-1-.45-1-1s.45-1 1-1h3v2m0 5H1c-.552 0-1-.45-1-1s.448-1 1-1h4v2Z" />
+                        d="M8 2a3 3 0 1 1 0 6h5V7h1V3h-1V2H8zM5 5a3 3 0 0 1 3-3H3v1H2v4h1v1h5a3 3 0 0 1-3-3z" />
                 </x-slot:svg>
-                Deposit
+                New Deposit
+            </x-sidebar-item>
+            <x-sidebar-item route="purchase.create">
+                <x-slot:svg viewBox="0 0 48 48">
+                    <g fill="none">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                            d="M5 17h38l-4.2 26H9.2L5 17Zm30 0c0-6.627-4.925-12-11-12s-11 5.373-11 12" />
+                        <circle cx="17" cy="26" r="2" fill="currentColor" />
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                            d="M18 33s2 3 6 3s6-3 6-3" />
+                        <circle cx="31" cy="26" r="2" fill="currentColor" />
+                    </g>
+                </x-slot:svg>
+                New Purchase
             </x-sidebar-item>
         </ul>
     </nav>
