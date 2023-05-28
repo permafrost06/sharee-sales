@@ -52,9 +52,11 @@
                                 d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3H4a4 4 0 0 0 2-3v-3a7 7 0 0 1 4-6M9 17v1a3 3 0 0 0 6 0v-1" />
                         </svg>
                         <span class="sr-only">Notification</span>
-                        <div
-                            class="absolute inline-flex items-center justify-center w-6 h-6 text-[10px] font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -right-1">
-                            20</div>
+                        @if (false)
+                            <div
+                                class="absolute inline-flex items-center justify-center w-6 h-6 text-[10px] font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -right-1">
+                                20</div>
+                        @endif
                     </button>
                 </li>
                 <li>
@@ -63,31 +65,25 @@
                         id="user-menu-button">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-10 h-10 rounded-full" src="https://source.unsplash.com/random/200x200"
-                            alt="user photo">
+                            alt="">
                     </button>
                     <!-- Dropdown menu -->
                     <div class="hidden z-50 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow top-full right-8 mt-2 absolute"
                         id="user-dropdown">
                         <div class="px-4 py-3">
-                            <span class="block text-sm text-gray-900">Saad</span>
-                            <span class="block text-sm  text-gray-500 truncate">sakib.saad.khan@gmail.com</span>
+                            <span class="block text-sm text-gray-900">{{ auth()->user()->name }}</span>
+                            <span class="block text-sm  text-gray-500 truncate">{{ auth()->user()->email }}</span>
                         </div>
-                        <ul class="py-2" aria-labelledby="user-menu-button">
+                        <ul aria-labelledby="user-menu-button">
                             <li>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Earnings</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign
-                                    out</a>
+                                <form action="{{ route('logout') }}" method="POST" class="block">
+                                    @csrf
+                                    <button
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                                        type="submit">
+                                        Sign Out
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>
