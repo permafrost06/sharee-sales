@@ -17,7 +17,7 @@ class SidebarItem extends Component
     )
     {
         if(!$link) {
-            $link = route($route);
+            $this->link = route($route);
         }
     }
 
