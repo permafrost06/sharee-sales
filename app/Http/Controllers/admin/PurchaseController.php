@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
+    public function create(Request $request)
+    {
+        return view('admin.purchase.form');
+    }
     public function index(Request $request)
     {
         $ball=$goodsOfIssue=$paidMoney=$dueBalance=$totalQuantity=0;

@@ -60,26 +60,26 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/delete/multiple/vendor', ['uses' => 'deleteMultiple', 'as' => 'vendor.delete.multiple']);
     });
 
-    Route::controller(PurchaseController::class)->middleware('admin')->group(function () {
-        Route::get('/purchase', ['uses' => 'index', 'as' => 'purchase.index']);
-        Route::get('/download-purchase-report', ['uses' => 'generatePDF', 'as' => 'purchase.generatePDF']);
-        Route::get('/create/purchase', ['uses' => 'create', 'as' => 'purchase.create']);
-        Route::get('/edit/purchase', ['uses' => 'edit', 'as' => 'purchase.edit']);
-        Route::post('/store/purchase', ['uses' => 'store', 'as' => 'purchase.store']);
-        Route::post('/update/purchase', ['uses' => 'update', 'as' => 'purchase.update']);
-        Route::get('/delete/purchase', ['uses' => 'delete', 'as' => 'purchase.delete']);
-        Route::get('/delete/multiple/purchase', ['uses' => 'deleteMultiple', 'as' => 'purchase.delete.multiple']);
+    Route::name('purchase.')->controller(PurchaseController::class)->middleware('admin')->group(function () {
+        Route::get('/purchase', 'index')->name('index');
+        Route::get('/download-purchase-report', 'generatePDF')->name('generatePDF');
+        Route::get('/create/purchase', 'create')->name('create');
+        Route::get('/edit/purchase', 'edit')->name('edit');
+        Route::post('/store/purchase', 'store')->name('store');
+        Route::post('/update/purchase', 'update')->name('update');
+        Route::get('/delete/purchase', 'delete')->name('delete');
+        Route::get('/delete/multiple/purchase', 'deleteMultiple')->name('delete.multiple');
     });
 
-    Route::prefix('/stocks')->name('stocks.')->group(function(){
+    Route::prefix('/stocks')->name('stocks.')->group(function () {
 
-        Route::controller(StockItemController::class)->group(function(){
+        Route::controller(StockItemController::class)->group(function () {
             Route::post('/update', 'store')->name('update');
             Route::get('/', 'index')->name('status');
             Route::get('/items_api', 'items_api')->name('status_api');
         });
 
-        Route::controller(StockController::class)->group(function(){
+        Route::controller(StockController::class)->group(function () {
             Route::post('/{stock}', 'store');
             Route::delete('/{stock}', 'destroy');
             Route::get('/logs/{item?}', 'logs')->name('logs');
