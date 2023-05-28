@@ -10,6 +10,12 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller {
+
+    public function create()
+    {
+        return view('admin.sales.deposit_form');
+    }
+
     public function index(Request $request) {
         $lv = $goodsOfIssue = $receivedMoney = $dueBalance = 0;
         $customerDeposits = DB::table('sales')

@@ -40,14 +40,14 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
     });
 
     Route::controller(SalesController::class)->middleware('admin')->group(function () {
-        Route::get('/sales', ['uses' => 'index', 'as' => 'sales.index']);
-        Route::get('/download', ['uses' => 'generatePDF', 'as' => 'sales.generatePDF']);
-        Route::get('/create/sales', ['uses' => 'create', 'as' => 'sales.create']);
-        Route::get('/edit/sales', ['uses' => 'edit', 'as' => 'sales.edit']);
-        Route::post('/store/sales', ['uses' => 'store', 'as' => 'sales.store']);
-        Route::post('/update', ['uses' => 'update', 'as' => 'sales.update']);
-        Route::get('/delete/sales', ['uses' => 'delete', 'as' => 'sales.delete']);
-        Route::get('/delete/multiple', ['uses' => 'deleteMultiple', 'as' => 'sales.delete.multiple']);
+        Route::get('/sales', 'index')->name('sales.index');
+        Route::get('/download', 'generatePDF')->name('sales.generatePDF');
+        Route::get('/create/sales', 'create')->name('sales.create');
+        Route::get('/edit/sales', 'edit')->name('sales.edit');
+        Route::post('/store/sales', 'store')->name('sales.store');
+        Route::post('/update', 'update')->name('sales.update');
+        Route::get('/delete/sales', 'delete')->name('sales.delete');
+        Route::get('/delete/multiple', 'deleteMultiple')->name('sales.delete.multiple');
     });
 
     Route::controller(VendorController::class)->middleware('admin')->group(function () {
