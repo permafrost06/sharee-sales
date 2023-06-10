@@ -10,9 +10,15 @@ use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
-    public function create(Request $request)
+    public function form(Request $request, string | int $id = '')
     {
-        return view('admin.purchase.form');
+        $purchase = null;
+
+        if (is_numeric($id)) {
+            $purchase = Purchase::findOrFail($id);
+        }
+
+        return view('admin.purchase.form', compact('purchase'));
     }
     public function index(Request $request)
     {
@@ -74,32 +80,34 @@ class PurchaseController extends Controller
         return $pdf->download('purchase.pdf');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, int $id = 0)
     {
-        $deposit = $request->except('_token');
-        if (Purchase::create($deposit)){
-            return redirect()->back()->with(['message'=>'New purchase created successfully']);
-        }
-        return redirect()->back()->with(['message'=>'Unable to create ']);
-
-    }
-
-    public function edit(Request $request){
-        return view('admin.purchase.edit',['purchase'=>Purchase::find($request->id)]);
-    }
-
-
-    public function update(Request $request){
-        $sale = Purchase::find($request->id);
-        $deposit = $request->except('_token');
-
-        if ($sale->update($deposit)){
-            return redirect()->back()->with(['message'=>'Ledger updated successfully']);
+        $purchase = null;
+        if ($id) {
+            $purchase = Purchase::findOrFail($id);
         }
 
-        return redirect()->back()->with(['message'=>'Unable to update ']);
-    }
+        $data = $request->validate([
+            'vendor_id' => 'required|numeric|exists:vendors,id',
+            'date' => 'required|date_format:Y-m-d',
+            'memo_number' => 'nullable|string',
+            'quantity' => 'required|string',
+            'mark' => 'required|string',
+            'ball' => 'required|string',
+            'goods_of_issues' => 'required|string',
+            'paid_money' => 'required|numeric|min:0',
+            'balance_due' => 'nullable|numeric|min:0',
+            'comment' => 'nullable|string',
+        ]);
 
+        if ($purchase) {
+            $purchase->update($data);
+            return $this->backToForm('Purchase updated successfully!');
+        } else {
+            Purchase::create($data);
+            return $this->backToForm('Purchase added successfully!');
+        }
+    }
 
     public function deleteMultiple(Request $request){
         $delete = DB::table('purchases')->whereIn('id', $request->itemArray)->delete();
@@ -107,9 +115,9 @@ class PurchaseController extends Controller
     }
 
 
-    public function delete(Request $request)
+    public function delete(int $id)
     {
-        if (Purchase::destroy($request->id)){
+        if (Purchase::destroy($id)){
             return redirect()->back()->with(['message'=>'Deposit deleted successfully']);
         }
         return redirect()->back()->with(['message'=>'Unable to delete ']);

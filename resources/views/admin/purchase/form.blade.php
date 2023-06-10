@@ -9,32 +9,50 @@
                 'link' => '#',
                 'label' => 'Purchase',
             ],
-        ]" active="Create" />
+        ]" :active="$purchase ? 'Update' : 'Create'" />
     </div>
     <x-cards.card class="max-w-4xl">
-        <h3 class="px-6 py-4 border-b text-dark">Add new purchase</h3>
-        <form action="{{route('purchase.store')}}" method="POST" class="p-6">
+        <div class="flex items-center py-2 border-b px-6">
+            <h3 class="flex-grow text-dark">{{ $purchase ? 'Update Purchase' : 'Add New Purchase' }}</h3>
+            <a href="{{ route('purchase.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+                View All
+            </a>
+        </div>
+        <form action="{{ route('purchase.store', ['id' => $purchase?->id]) }}" method="POST" class="p-6">
             @csrf
             <div class="space-y-4">
+                @csrf
+                <x-form.alert />
+
                 <x-form.select label="Vendor" name="vendor_id">
                     @foreach ($vendors as $vendor)
-                        <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
+                        <option @selected(old('vendor_id', $purchase?->vendor_id) === $vendor->id) value="{{ $vendor->id }}">{{ $vendor->name }}</option>
                     @endforeach
                 </x-form.select>
-    
-                <x-form.input type="date" label="Date" name="date" />
-                <x-form.input label="Memo Number" name="memo_number" />
-                <x-form.input label="Quantity" name="quantity" />
-    
-                <x-form.input label="Mark" name="mark" />
-                <x-form.input label="Ball" name="ball" />
-                <x-form.input label="G O Issues" name="goods_of_issues" type="number" />
-                <x-form.input label="Paid Money" name="paid_money" type="number" min="0" step="0.01" />
-                <x-form.input label="Balance (DUE)" name="balance_due" type="number" min="0" step="0.01" />
-                <x-form.textarea label="Comment" name="comment"></x-form.textarea>
+
+                <x-form.input type="date" label="Date" name="date" :value="old('date', $purchase?->date)" />
+
+                <x-form.input label="Memo Number" name="memo_number" :value="old('memo_number', $purchase?->memo_number)" />
+                    
+                <x-form.input label="Quantity" name="quantity" :value="old('quantity', $purchase?->quantity)" />
+
+                <x-form.input label="Mark" name="mark" :value="old('mark', $purchase?->mark)" />
+
+                <x-form.input label="Ball" name="ball" :value="old('ball', $purchase?->ball)" />
+
+                <x-form.input type="number" label="G O Issues" name="goods_of_issues" :value="old('goods_of_issues', $purchase?->goods_of_issues)" />
+
+                <x-form.input type="number" min="0" step="0.01" label="Paid Money" name="paid_money"
+                    :value="old('paid_money', $purchase?->paid_money)" />
+
+                <x-form.input type="number" min="0" step="0.01" label="Balance (DUE)" name="balance_due"
+                    :value="old('balance_due', $purchase?->balance_due)" />
+
+                <x-form.textarea label="Comment" name="comment">{{old('comment', $purchase?->comment)}}</x-form.textarea>
+
             </div>
             <x-button type="submit" class="my-4">
-                ADD
+                {{ $purchase ? 'Update' : 'Add' }}
             </x-button>
         </form>
     </x-cards.card>
