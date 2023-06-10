@@ -30,13 +30,12 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('admin.index');
     Route::get('/search', ['uses' => 'admin\SearchController@searchQuestion', 'as' => 'question.search']);
 
-    Route::controller(CustomerController::class)->middleware('admin')->group(function () {
-        Route::get('/customers', ['uses' => 'index', 'as' => 'customers.index']);
-        Route::get('/create/customers', ['uses' => 'create', 'as' => 'customers.create']);
-        Route::get('/edit/customers', ['uses' => 'edit', 'as' => 'customers.edit']);
-        Route::post('/store/customers', ['uses' => 'store', 'as' => 'customers.store']);
-        Route::post('/update/customers', ['uses' => 'update', 'as' => 'customers.update']);
-        Route::get('/delete/customer', ['uses' => 'delete', 'as' => 'customers.delete']);
+    Route::prefix('customers')->name('customers.')->controller(CustomerController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'form')->name('create');
+        Route::get('/edit/{id}', 'form')->name('edit');
+        Route::post('/store/{id?}', 'store')->name('store');
+        Route::delete('/{id}', 'delete')->name('delete');
     });
 
     Route::controller(SalesController::class)->middleware('admin')->group(function () {
@@ -50,11 +49,11 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/delete/multiple', 'deleteMultiple')->name('sales.delete.multiple');
     });
 
-    Route::name('vendor.')->controller(VendorController::class)->group(function () {
-        Route::get('/vendors', 'index')->name('index');
-        Route::get('/vendors/{id}', 'form')->name('form');
-        Route::post('/vendors/{id?}', 'store')->name('store');
-        Route::delete('/vendors/{id}', 'delete')->name('delete');
+    Route::prefix('/vendors')->name('vendor.')->controller(VendorController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'form')->name('form');
+        Route::post('/{id?}', 'store')->name('store');
+        Route::delete('/{id}', 'delete')->name('delete');
     });
 
     Route::name('purchase.')->controller(PurchaseController::class)->middleware('admin')->group(function () {

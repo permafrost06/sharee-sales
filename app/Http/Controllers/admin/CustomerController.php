@@ -21,35 +21,43 @@ class CustomerController extends Controller
 
         return view('admin.customers.index',['customers'=>$customers]);
     }
-    public function create()
+    public function form(string | int $id = '')
     {
-        return view('admin.customers.create');
-    }
-    public function edit(Request $request)
-    {
-        $customer = Customer::find($request->id);
-        return view('admin.customers.edit',['customer'=>$customer]);
-    }
-    public function store(Request $request)
-    {
-        $customer = $request->except('_token');
-        if (Customer::create($customer)){
-            return redirect()->back()->with(['message'=>'Customer created successfully']);
+        $customer = null;
+
+        if (is_numeric($id)) {
+            $customer = Customer::findOrFail($id);
         }
-        return redirect()->back()->with(['message'=>'Unable to create ']);
 
+        return view('admin.customers.form', compact('customer'));
     }
 
-    public function update(Request $request)
+    public function store(Request $request, int $id = 0)
     {
-        $customer = Customer::find($request->id);
-        $data = $request->except('_token');
-        if ($customer->update($data)){
-            return redirect()->back()->with(['message'=>'Customer updated successfully']);
-        }
-        return redirect()->back()->with(['message'=>'Unable to update ']);
 
+        $customer = null;
+
+        if ($id) {
+            $customer = Customer::findOrFail($id);
+        }
+
+        $data = $request->validate([
+            'customers_id' => 'required|string',
+            'name' => 'required|string|min:3',
+            'address' => 'required|string|min:3',
+            'limit' => 'required|numeric|min:0',
+            'type' => 'required|string'
+        ]);
+
+        if ($customer) {
+            $customer->update($data);
+            return $this->backToForm('Customer updated successfully!');
+        } else {
+            Customer::create($data);
+            return $this->backToForm('Customer added successfully!');
+        }
     }
+
     public function delete(Request $request)
     {
         if (Customer::destroy($request->id)){
