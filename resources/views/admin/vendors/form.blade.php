@@ -18,14 +18,12 @@
                 View All
             </a>
         </div>
-        <form action="{{ route('vendor.form', ['id' => $vendor?->id ?? 'add']) }}" method="POST" class="p-6"
+        <form action="{{ route('vendor.store', ['id' => $vendor?->id]) }}" method="POST" class="p-6"
             enctype="multipart/form-data">
             @csrf
             <div class="space-y-4">
 
-
-                <x-form.input type="text" label="ID" name="id" value="{{ old('id', $vendor?->id) }}"
-                    placeholder="Vendor ID" />
+                <x-form.alert />
 
                 <x-form.input type="text" label="Name" name="name" value="{{ old('name', $vendor?->name) }}"
                     placeholder="Vendor name" />

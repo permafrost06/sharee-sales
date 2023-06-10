@@ -32,31 +32,31 @@ class VendorController extends Controller
 
         return view('admin.vendors.form', compact('vendor'));
     }
-    public function edit(Request $request)
+   
+    public function store(Request $request, int $id = 0)
     {
-        $vendor = Vendor::find($request->id);
-        return view('admin.vendors.edit',['vendor'=>$vendor]);
-    }
-    public function store(Request $request)
-    {
-        $customer = $request->except('_token');
-        if (Vendor::create($customer)){
-            return redirect()->back()->with(['message'=>'Vendor created successfully']);
+        $vendor = null;
+
+        if ($id) {
+            $vendor = Vendor::findOrFail($id);
         }
-        return redirect()->back()->with(['message'=>'Unable to create ']);
 
-    }
+        $data = $request->validate([
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'limit' => 'required|string',
+            'type' => 'nullable|string'
+        ]);
 
-    public function update(Request $request)
-    {
-        $customer = Vendor::find($request->id);
-        $data = $request->except('_token');
-        if ($customer->update($data)){
-            return redirect()->back()->with(['message'=>'Vendor updated successfully']);
+        if ($vendor) {
+            $vendor->update($data);
+            return $this->backToForm('Vendor updated successfully!');
+        } else {
+            Vendor::create($data);
+            return $this->backToForm('Vendor added successfully!');
         }
-        return redirect()->back()->with(['message'=>'Unable to update ']);
-
     }
+
     public function delete(Request $request)
     {
         if (Vendor::destroy($request->id)){
