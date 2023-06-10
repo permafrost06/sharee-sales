@@ -55,7 +55,8 @@ module.exports = {
       fontFamily: {
         "open-sans": ['"Open Sans"', "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
-        main: ["Poppins", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+        main: ["Roboto", "sans-serif"],
       },
     },
 
