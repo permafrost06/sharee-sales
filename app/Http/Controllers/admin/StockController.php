@@ -141,10 +141,10 @@ class StockController extends Controller
                 Storage::delete(substr($stock->attachment, 9));
             }
             $stock->update($data);
-            return redirect()->back()->with('message', 'Stock updated successfully!');
+            return $this->backToForm('Stock updated successfully!');
         }else{
             Stock::create($data);
-            return redirect()->back()->with('message', 'Stock added successfully!');
+            return $this->backToForm('Stock added successfully!');
         }
     }
 

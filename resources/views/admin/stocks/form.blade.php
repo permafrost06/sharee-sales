@@ -9,7 +9,7 @@
                 'link' => route('stocks.status'),
                 'label' => 'Stock',
             ],
-        ]" active="Insert" />
+        ]" :active="$stock?'Update': 'Insert'" />
     </div>
     <x-cards.card class="max-w-4xl">
         <div class="flex items-center py-2 border-b px-6">
@@ -18,11 +18,12 @@
                 View All
             </a>
         </div>
-        <form action="{{ route('stocks.form', ['stock' => $stock?->id ?? 'add']) }}" method="POST" class="p-6"
+        <form action="{{ route('stocks.store', ['stock' => $stock?->id ?? 'add']) }}" method="POST" class="p-6"
             enctype="multipart/form-data">
             @csrf
             <div class="space-y-4">
 
+                <x-form.alert />
 
                 <x-form.input type="datetime-local" step="60" label="Date & Time" name="date_time"
                     value="{{ old('date_time', date('Y-m-d H:i', $stock?->date_time ? strtotime($stock?->date_time) : time())) }}" />
@@ -39,7 +40,7 @@
                 </div>
 
                 <div>
-                    <x-form.input label="Brand" name="Brand" list="brands-list" autocomplete="off"
+                    <x-form.input label="Brand" name="brand" list="brands-list" autocomplete="off"
                         value="{{ old('brand', $stock?->brand) }}" />
                     <datalist id="brands-list">
                         @foreach ($brands as $brand)
@@ -49,7 +50,7 @@
                 </div>
 
                 <div>
-                    <x-form.input label="Border" name="Border" list="borders-list" autocomplete="off"
+                    <x-form.input label="Border" name="border" list="borders-list" autocomplete="off"
                         value="{{ old('border', $stock?->border) }}" />
                     <datalist id="borders-list">
                         @foreach ($borders as $border)

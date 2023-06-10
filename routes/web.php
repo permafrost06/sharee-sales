@@ -76,7 +76,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         });
 
         Route::controller(StockController::class)->group(function () {
-            Route::post('/{stock}', 'store');
+            Route::post('/{stock}', 'store')->name('store');
             Route::delete('/{stock}', 'destroy');
             Route::get('/logs/{item?}', 'logs')->name('logs');
             Route::get('/logs_api/{item?}', 'logs_api')->name('logs_api');
