@@ -30,7 +30,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('admin.index');
     Route::get('/search', ['uses' => 'admin\SearchController@searchQuestion', 'as' => 'question.search']);
 
-    Route::prefix('customers')->name('customers.')->controller(CustomerController::class)->group(function () {
+    Route::prefix('/customers')->name('customers.')->controller(CustomerController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'form')->name('create');
         Route::get('/edit/{id}', 'form')->name('edit');
@@ -38,15 +38,16 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::delete('/{id}', 'delete')->name('delete');
     });
 
-    Route::controller(SalesController::class)->middleware('admin')->group(function () {
-        Route::get('/sales', 'index')->name('sales.index');
-        Route::get('/download', 'generatePDF')->name('sales.generatePDF');
-        Route::get('/create/sales', 'create')->name('sales.create');
-        Route::get('/edit/sales', 'edit')->name('sales.edit');
-        Route::post('/store/sales', 'store')->name('sales.store');
-        Route::post('/update', 'update')->name('sales.update');
-        Route::get('/delete/sales', 'delete')->name('sales.delete');
-        Route::get('/delete/multiple', 'deleteMultiple')->name('sales.delete.multiple');
+    Route::prefix('/sales')->name('sales.')->controller(SalesController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'form')->name('create');
+        Route::get('/edit/{id}', 'form')->name('edit');
+        Route::post('/store/{id?}', 'store')->name('store');
+        Route::delete('/{id}', 'delete')->name('delete');
+
+
+        Route::get('/delete/multiple', 'deleteMultiple')->name('delete.multiple');        
+        Route::get('/download', 'generatePDF')->name('generatePDF');
     });
 
     Route::prefix('/vendors')->name('vendor.')->controller(VendorController::class)->group(function () {
@@ -56,7 +57,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::delete('/{id}', 'delete')->name('delete');
     });
 
-    Route::prefix('/purchase')->name('purchase.')->controller(PurchaseController::class)->middleware('admin')->group(function () {
+    Route::prefix('/purchase')->name('purchase.')->controller(PurchaseController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/download-report', 'generatePDF')->name('generatePDF');
         Route::get('/create', 'form')->name('create');
