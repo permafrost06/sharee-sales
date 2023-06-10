@@ -4,7 +4,6 @@
         <div class="border rounded-lg h-12 w-12 collapsed:md:hidden"></div>
         <div class="flex-grow mx-2 collapsed:md:hidden whitespace-nowrap overflow-hidden">
             <h3 class="text-lg font-medium text-dark">Sharee Sales</h3>
-            <p class="text-muted text-xs -mt-1">Some subtitle</p>
         </div>
         <button type="button" id="sidenav-resize"
             class="hidden md:block hover:text-active transition-all duration-100 rounded focus:ring-2 focus:ring-blue-300">
