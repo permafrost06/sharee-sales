@@ -50,14 +50,11 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/delete/multiple', 'deleteMultiple')->name('sales.delete.multiple');
     });
 
-    Route::controller(VendorController::class)->middleware('admin')->group(function () {
-        Route::get('/vendors', ['uses' => 'index', 'as' => 'vendor.index']);
-        Route::get('/create/vendor', ['uses' => 'create', 'as' => 'vendor.create']);
-        Route::get('/edit/vendor', ['uses' => 'edit', 'as' => 'vendor.edit']);
-        Route::post('/store/vendor', ['uses' => 'store', 'as' => 'vendor.store']);
-        Route::post('/update/vendor', ['uses' => 'update', 'as' => 'vendor.update']);
-        Route::get('/delete/vendor', ['uses' => 'delete', 'as' => 'vendor.delete']);
-        Route::get('/delete/multiple/vendor', ['uses' => 'deleteMultiple', 'as' => 'vendor.delete.multiple']);
+    Route::name('vendor.')->controller(VendorController::class)->group(function () {
+        Route::get('/vendors', 'index')->name('index');
+        Route::get('/vendors/{id}', 'form')->name('form');
+        Route::post('/vendors/{id?}', 'store')->name('store');
+        Route::delete('/vendors/{id}', 'delete')->name('delete');
     });
 
     Route::name('purchase.')->controller(PurchaseController::class)->middleware('admin')->group(function () {

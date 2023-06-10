@@ -7,7 +7,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Vendors</h3>
                         <div class="pull-right box-tools">
-                            <a href="{{ route('vendor.create') }}"
+                            <a href="{{ route('vendor.form', ['id' => 'create']) }}"
                                 class="btn btn-block btn-primary btn-flat pull-right btn-sm">
                                 <i class="fa fa-plus"></i> Add Vendor
                             </a>
@@ -57,7 +57,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('vendor.edit', ['id' => $vendor->id]) }}"
+                                                <a href="{{ route('vendor.form', ['id' => $vendor->id]) }}"
                                                     class="btn btn-xs btn-primary">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>

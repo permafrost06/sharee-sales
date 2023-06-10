@@ -11,7 +11,6 @@ class VendorController extends Controller
 {
     public function index()
     {
-        $goi=$rm=0;
         $vendors = DB::table('vendors')
             ->get();
         foreach($vendors as $k=>$vendor){
@@ -24,9 +23,14 @@ class VendorController extends Controller
 
         return view('admin.vendors.index',['vendors'=>$vendors]);
     }
-    public function create()
+    public function form(string | int $id)
     {
-        return view('admin.vendors.create');
+        $vendor  = null;
+        if (is_numeric($id)) {
+            $vendor = Vendor::findOrfail($id);
+        }
+
+        return view('admin.vendors.form', compact('vendor'));
     }
     public function edit(Request $request)
     {

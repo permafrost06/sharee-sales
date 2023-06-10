@@ -60,7 +60,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="{{ route('vendor.create') }}">
+                        <a href="{{ route('vendor.form', ['id' => 'create']) }}">
                             <i class="fa fa-plus"></i>
                             <span>Add Vendor</span>
                         </a>
