@@ -11,16 +11,16 @@
             ],
         ]" active="Add" />
     </div>
-    <x-cards.card>
-        <div class="flex items-center py-2 border-b px-3">
+    <x-cards.card class="max-w-4xl">
+        <div class="flex items-center py-2 border-b px-6">
             <h3 class="flex-grow text-dark">Add New Customer</h3>
             <a href="{{ route('customers.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md">
                 View All
             </a>
         </div>
-        <form action="{{ route('customers.store') }}" method="POST" class="p-3" enctype="multipart/form-data">
+        <form action="{{ route('customers.store') }}" method="POST" class="p-6" enctype="multipart/form-data">
             @csrf
-            <div class="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+            <div class="space-y-4">
 
                 <x-form.input label="ID" name="customers_id" />
 

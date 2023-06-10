@@ -11,11 +11,11 @@
             ],
         ]" active="Create" />
     </div>
-    <x-cards.card>
-        <h3 class="px-3 py-4 border-b text-dark">Add new purchase</h3>
-        <form action="{{route('purchase.store')}}" method="POST" class="p-3">
+    <x-cards.card class="max-w-4xl">
+        <h3 class="px-6 py-4 border-b text-dark">Add new purchase</h3>
+        <form action="{{route('purchase.store')}}" method="POST" class="p-6">
             @csrf
-            <div class="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+            <div class="space-y-4">
                 <x-form.select label="Vendor" name="vendor_id">
                     @foreach ($vendors as $vendor)
                         <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>

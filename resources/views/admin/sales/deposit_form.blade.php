@@ -11,11 +11,11 @@
             ],
         ]" active="Deposit" />
     </div>
-    <x-cards.card>
-        <h3 class="px-3 py-4 border-b text-dark">Add New Deposit</h3>
-        <form action="{{ route('sales.store') }}" method="POST" class="p-3" enctype="multipart/form-data">
+    <x-cards.card class="max-w-4xl">
+        <h3 class="px-6 py-4 border-b text-dark">Add New Deposit</h3>
+        <form action="{{ route('sales.store') }}" method="POST" class="py-3 px-6" enctype="multipart/form-data">
             @csrf
-            <div class="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+            <div class="space-y-4">
                 <x-form.select label="Customer" name="customer_id">
                     @foreach ($customers as $customer)
                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
