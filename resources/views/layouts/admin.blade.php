@@ -27,39 +27,8 @@
                 </svg>
                 <div class="sr-only">Open Sidenav</div>
             </button>
-            <form class="flex items-center flex-grow">
-                <label for="nav-search" class="sr-only">Search</label>
-                <div class="relative w-full md:w-auto xl:min-w-lg">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <input type="text" id="nav-search"
-                        class="border-b md:border text-gray-900 text-sm rounded-none md:rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-                        placeholder="Search anything..." required>
-                </div>
-            </form>
+            <div class="flex-grow"></div>
             <ul class="flex items-center space-x-3">
-                <li>
-                    <button type="button"
-                        class="hover:bg-admin-nav-active hover:text-active focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-1 text-center inline-flex items-center relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3H4a4 4 0 0 0 2-3v-3a7 7 0 0 1 4-6M9 17v1a3 3 0 0 0 6 0v-1" />
-                        </svg>
-                        <span class="sr-only">Notification</span>
-                        @if (false)
-                            <div
-                                class="absolute inline-flex items-center justify-center w-6 h-6 text-[10px] font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -right-1">
-                                20</div>
-                        @endif
-                    </button>
-                </li>
                 <li>
                     <button type="button"
                         class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300"
