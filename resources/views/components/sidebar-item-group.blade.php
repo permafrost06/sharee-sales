@@ -1,7 +1,7 @@
 <li class="my-2">
     <div 
         @class([
-            'flex items-center p-2 collapsed:md:max-w-min hover:bg-blue-50 rounded-md cursor-pointer',
+            'flex items-center p-2 collapsed:md:max-w-min collapsed:md:hidden hover:bg-blue-50 rounded-md cursor-pointer',
             'text-active' => $isActive,
         ])
         data-collapse="#{{$g_id}}"
@@ -24,7 +24,7 @@
     <ul
         id="{{$g_id}}"
         @class([
-            "ml-1 pl-1 border-l-2 overflow-y-hidden",
+            "ml-1 pl-1 border-l-2 overflow-y-hidden collapsed:md:block collapsed:md:border-none collapsed:md:ml-0 collapsed:md:pl-0",
             "hidden" => !$isActive
         ])
     >{{ $slot }}</ul>
