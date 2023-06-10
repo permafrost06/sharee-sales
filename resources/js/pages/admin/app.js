@@ -1,4 +1,4 @@
-import { find, gsapTL, addClasses, rmClasses } from "../../utils";
+import { find, gsapTL, addClasses, rmClasses, findAll } from "../../utils";
 
 const sideBar = find('#sidebar-main');
 
@@ -67,4 +67,47 @@ find('#user-menu-button').addEventListener('click', () => {
             userMenu.removeAttribute('style');
         });
     }
+});
+
+findAll('[data-collapse]').forEach((collapseHandle) => {
+    const byWidth = collapseHandle.getAttribute('data-axis') === 'x';
+    const target = find(collapseHandle.getAttribute('data-collapse'));
+    if (!target) {
+        console.warn('Target not found for collapsable');
+        return;
+    }
+    collapseHandle.addEventListener('click', () => {
+        if (target.classList.contains('hidden')) {
+            return;
+        }
+        gsapTL().to(target, {
+            duration: 0.5,
+            [byWidth?'width':'height']: 0
+        }).then(() => {
+            target.classList.add('hidden');
+        });
+    })
+});
+
+findAll('[data-expand]').forEach((expandHandle) => {
+    const byWidth = expandHandle.getAttribute('data-axis') === 'x';
+    const target = find(expandHandle.getAttribute('data-expand'));
+    if (!target) {
+        console.warn('Target not found for collapsable');
+        return;
+    }
+    
+    expandHandle.addEventListener('click', () => {
+        if (!target.classList.contains('hidden')) {
+            return;
+        }
+        target.classList.remove('hidden');
+        gsapTL().fromTo(target, {
+            [byWidth?'width':'height']: 0
+        }, {
+            duration: 0.5,
+            [byWidth?'width':'height']: 'auto'
+        });
+    });
+    
 });

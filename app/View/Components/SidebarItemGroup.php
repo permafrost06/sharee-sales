@@ -7,6 +7,9 @@ use Route;
 
 class SidebarItemGroup extends Component
 {
+    public static int $_id = 0;
+
+
     public bool $isActive;
     /**
      * Create a new component instance.
@@ -14,9 +17,13 @@ class SidebarItemGroup extends Component
      * @return void
      */
     public function __construct(
-        array $routes = []
+        array $routes = [],
+        public string $g_id = ''
     ) {
         $this->isActive = in_array(Route::currentRouteName(), $routes);
+        if (!$g_id) {
+            $this->g_id = 'sidenav-g-'.(self::$_id++);
+        }
     }
 
     /**
