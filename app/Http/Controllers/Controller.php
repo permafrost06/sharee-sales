@@ -24,4 +24,17 @@ class Controller extends BaseController
         // Sharing is caring
         View::share(['customers' => $customers, 'vendors' => $vendors]);
     }
+
+    public function backToForm(string $message, string $alertType = 'success')
+    {
+        if(request()->expectsJson()){
+            return compact('message', 'type');
+        }
+        return redirect()->back()->with('form-alert', $message)->with('form-alert-type', $alertType);
+    }
+
+    public function redirectToForm(string $route, array $params, string $message, string $alertType = 'success')
+    {
+        return redirect()->route($route, $params)->with('form-alert', $message)->with('form-alert-type', $alertType);
+    }
 }
