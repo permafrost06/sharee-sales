@@ -1,5 +1,5 @@
 <aside id="sidebar-main"
-    class="hidden fixed h-full z-10 md:static md:flex max-w-sm w-72 bg-admin-nav flex-col px-3 border-r">
+    class="hidden fixed h-full md:h-[100vh] z-10 md:sticky top-0 md:flex max-w-sm w-72 bg-admin-nav flex-col px-3 border-r">
     <div class="h-admin-nav py-3 flex items-center collapsed:md:justify-center">
         <div class="border rounded-lg h-12 w-12 collapsed:md:hidden"></div>
         <div class="flex-grow mx-2 collapsed:md:hidden whitespace-nowrap overflow-hidden">
