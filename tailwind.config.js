@@ -3,7 +3,7 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-  content: ["resources/**/*.{js,blade.php}"],
+  content: ["resources/**/*.{js,blade.php,vue}"],
   presets: [],
   darkMode: "media", // or 'class'
   plugins: [
