@@ -1,83 +1,32 @@
-@extends('admin.layouts.layout')
-@section('content')
-    <section class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Vendors</h3>
-                        <div class="pull-right box-tools">
-                            <a href="{{ route('vendor.form', ['id' => 'create']) }}"
-                                class="btn btn-block btn-primary btn-flat pull-right btn-sm">
-                                <i class="fa fa-plus"></i> Add Vendor
-                            </a>
-                        </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <!-- form start -->
-                    @if (Session::has('message'))
-                        <div class="col-md-6 col-md-offset-2"id="successMessage">
-                            <span> {{ Session::get('message') }}</span>
-                        </div>
-                    @endif
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                        <table id="example2" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Sln</th>
-                                    <th>Name</th>
-                                    <th>Address</th>
-                                    <th>Balance(Due)</th>
-                                    <th>View Ledger</th>
-                                    <th class="text-center">Signal</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (isset($vendors))
-                                    @foreach ($vendors as $k => $vendor)
-                                        <tr>
-                                            <td>{{ ++$k }}</td>
-                                            <td>
-                                                <a
-                                                    href="{{ route('sales.index', ['id' => $vendor->id]) }}">{{ $vendor->name }}</a>
-                                            </td>
-                                            <td>{{ $vendor->address }}</td>
-                                            <td> {{ ucfirst($vendor->due) }}</td>
-                                            <td>
-                                                <a class="btn btn-xs btn-warning"
-                                                    href="{{ route('purchase.index', ['id' => $vendor->id]) }}">Ledger</a>
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($vendor->limit >= $vendor->due)
-                                                    <a class="btn btn-sm btn-success"></a>
-                                                @else
-                                                    <a class="btn btn-sm btn-danger"></a>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('vendor.form', ['id' => $vendor->id]) }}"
-                                                    class="btn btn-xs btn-primary">
-                                                    <i class="fa fa-edit"></i> Edit
-                                                </a>
-                                                <a href="{{ route('vendor.delete', ['id' => $vendor->id]) }}"
-                                                    class="btn btn-xs btn-danger">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </a>
-                                            </td>
+@extends('layouts.admin')
 
-                                        </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
+@section('head')
+    <script>
+        const VENDORS_API_LINK = "{{route('vendor.api')}}";
+        const VENDORS_LEDGER_LINK = "{{route('purchase.of_vendor', ['id' => '::ID::'])}}";
+        const VENDOR_EDIT_LINK = "{{route('vendor.form', ['id' => '::ID::'])}}";
+        const VENDOR_DELETE_LINK = "{{route('vendor.delete', ['id' => '::ID::'])}}";
+    </script>
+    @vite(['resources/js/pages/admin/vendors.js'])
+@endsection
 
-                        </table>
-                    </div>
-                    </form>
-                </div>
-            </div>
+@section('page')
+    <div class="mb-6 text-gray-600">
+        <x-breadcrumb :home="[
+            'route' => 'admin.index',
+            'label' => 'Home',
+        ]" active="Vendors" />
+    </div>
+    <x-cards.card>
+        <div class="flex items-center px-6 py-3 border-b">
+            <h3 class="flex-grow text-lg text-gray-600 font-semibold">Vendors</h3>
+            <a class="inline-flex items-center px-3 py-1.5 bg-blue-500 focus:ring ring-blue-600 hover:bg-blue-600 text-white uppercase font-semibold text-xs rounded" href="{{ route('vendor.form', ['id' => 'create']) }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 12 12">
+                    <path fill="currentColor"
+                        d="M6.5 1.75a.75.75 0 0 0-1.5 0V5H1.75a.75.75 0 0 0 0 1.5H5v3.25a.75.75 0 0 0 1.5 0V6.5h3.25a.75.75 0 0 0 0-1.5H6.5V1.75Z" />
+                </svg> Add
+            </a>
         </div>
-        <!-- /.row -->
-    </section>
+        <div class="px-6 py-3" id="vue-app"></div>
+    </x-cards.card>
 @endsection

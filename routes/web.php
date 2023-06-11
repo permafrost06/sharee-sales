@@ -44,7 +44,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/create', 'form')->name('create');
         Route::get('/edit/{id}', 'form')->name('edit');
         Route::post('/store/{id?}', 'store')->name('store');
-        Route::get('/{id}', 'ofCustomer')->name('of_customer');
+        Route::get('/customer/{id}', 'ofCustomer')->name('of_customer');
         Route::delete('/{id}', 'delete')->name('delete');
 
 
@@ -54,6 +54,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::prefix('/vendors')->name('vendor.')->controller(VendorController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/api', 'api')->name('api');
         Route::get('/{id}', 'form')->name('form');
         Route::post('/{id?}', 'store')->name('store');
         Route::delete('/{id}', 'delete')->name('delete');
@@ -61,6 +62,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::prefix('/purchase')->name('purchase.')->controller(PurchaseController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/vendor/{id}', 'ofVendor')->name('of_vendor');
         Route::get('/download-report', 'generatePDF')->name('generatePDF');
         Route::get('/create', 'form')->name('create');
         Route::get('/edit/{id?}', 'form')->name('edit');

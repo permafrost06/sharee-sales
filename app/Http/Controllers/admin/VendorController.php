@@ -11,18 +11,41 @@ class VendorController extends Controller
 {
     public function index()
     {
-        $vendors = DB::table('vendors')
-            ->get();
-        foreach($vendors as $k=>$vendor){
-
-            $due =  DB::select("select (sum(goods_of_issues)-sum(paid_money)) as due from purchases where vendor_id=$vendor->id");
-            $vendors[$k]->due=$due[0]->due;
-        }
-        //dd($vendors);
-
-
-        return view('admin.vendors.index',['vendors'=>$vendors]);
+        return view('admin.vendors.index');
     }
+
+    public function api(Request $req)
+    {
+        $start = (int) $req->get('start', 0);
+        $limit = (int) $req->get('limit', 10);
+        $order_by = match($req->get('order_by')){
+            'name' => 'name',
+            'address' => 'address',
+            // 'balance' => 'balance_due',
+            default => 'id'
+        };
+
+        $order = 'DESC';
+        if ($req->get('order') === 'asc') {
+            $order = 'asc';
+        }
+
+        $search = $req->get('search', '');
+
+        $q = Vendor::withSum('purchases', 'goods_of_issues')
+            ->withSum('purchases', 'paid_money');
+
+        if (strlen($search) > 1) {
+            $q->where('name', 'LIKE', '%'.$search.'%');
+            $q->orWhere('address', 'LIKE', '%'.$search.'%');
+        }
+
+        return [
+            'count' => $q->count(),
+            'data' => $q->orderBy($order_by, $order)->offset($start)->limit($limit)->get()
+        ];
+    }
+
     public function form(string | int $id)
     {
         $vendor  = null;
@@ -57,9 +80,9 @@ class VendorController extends Controller
         }
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request, int $id)
     {
-        if (Vendor::destroy($request->id)){
+        if (Vendor::destroy($id)){
             return redirect()->back()->with(['message'=>'Vendor deleted successfully']);
         }
         return redirect()->back()->with(['message'=>'Unable to delete ']);
