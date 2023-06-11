@@ -11,17 +11,42 @@ class CustomerController extends Controller
 {
     public function index()
     {
-       $customers = DB::table('customers')
-            ->get();
-        foreach($customers as $k=>$customer){
+        return view('admin.customers.index');
+    }
 
-            $due =  DB::select("select (sum(goods_of_issues)-sum(received_money)) as due from sales where customer_id=$customer->id");
-            $customers[$k]->due=$due[0]->due;
+    public function api(Request $req)
+    {
+        $start = (int) $req->get('start', 0);
+        $limit = (int) $req->get('limit', 10);
+        $order_by = match($req->get('order_by')){
+            'name' => 'name',
+            'address' => 'address',
+            // 'balance' => 'balance_due',
+            default => 'id'
+        };
+
+        $order = 'DESC';
+        if ($req->get('order') === 'asc') {
+            $order = 'asc';
         }
 
-        return view('admin.customers.index',['customers'=>$customers]);
+        $search = $req->get('search', '');
+
+        $q = Customer::withSum('sales', 'goods_of_issues')
+            ->withSum('sales', 'received_money');
+
+        if (strlen($search) > 1) {
+            $q->where('name', 'LIKE', '%'.$search.'%');
+            $q->orWhere('address', 'LIKE', '%'.$search.'%');
+        }
+
+        return [
+            'count' => $q->count(),
+            'data' => $q->orderBy($order_by, $order)->offset($start)->limit($limit)->get()
+        ];
     }
-    public function form(string | int $id = '')
+
+    public function form(string|int $id = '')
     {
         $customer = null;
 
@@ -60,9 +85,9 @@ class CustomerController extends Controller
 
     public function delete(Request $request)
     {
-        if (Customer::destroy($request->id)){
-            return redirect()->back()->with(['message'=>'Customer deleted successfully']);
+        if (Customer::destroy($request->id)) {
+            return redirect()->back()->with(['message' => 'Customer deleted successfully']);
         }
-        return redirect()->back()->with(['message'=>'Unable to delete ']);
+        return redirect()->back()->with(['message' => 'Unable to delete ']);
     }
 }

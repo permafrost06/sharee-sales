@@ -32,6 +32,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::prefix('/customers')->name('customers.')->controller(CustomerController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/api', 'api')->name('api');
         Route::get('/create', 'form')->name('create');
         Route::get('/edit/{id}', 'form')->name('edit');
         Route::post('/store/{id?}', 'store')->name('store');
@@ -43,6 +44,7 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/create', 'form')->name('create');
         Route::get('/edit/{id}', 'form')->name('edit');
         Route::post('/store/{id?}', 'store')->name('store');
+        Route::get('/{id}', 'ofCustomer')->name('of_customer');
         Route::delete('/{id}', 'delete')->name('delete');
 
 
