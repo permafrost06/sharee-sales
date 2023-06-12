@@ -40,16 +40,19 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
     });
 
     Route::prefix('/sales')->name('sales.')->controller(SalesController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
         Route::get('/create', 'form')->name('create');
+
+        Route::get('/api/{id?}', 'api')->name('api');
+
         Route::get('/edit/{id}', 'form')->name('edit');
         Route::post('/store/{id?}', 'store')->name('store');
-        Route::get('/customer/{id}', 'ofCustomer')->name('of_customer');
+
+        Route::get('/{id?}', 'index')->name('index');
         Route::delete('/{id}', 'delete')->name('delete');
 
 
         Route::get('/delete/multiple', 'deleteMultiple')->name('delete.multiple');        
-        Route::get('/download', 'generatePDF')->name('generatePDF');
+        Route::get('/download/{id?}', 'generatePDF')->name('generatePDF');
     });
 
     Route::prefix('/vendors')->name('vendor.')->controller(VendorController::class)->group(function () {
