@@ -165,8 +165,8 @@ class SalesController extends Controller
     public function delete(Request $request, int $id)
     {
         if (Sales::destroy($id)) {
-            return redirect()->back()->with(['message' => 'Deposit deleted successfully']);
+            return ['message' => 'Deposit deleted successfully'];
         }
-        return redirect()->back()->with(['message' => 'Unable to delete ']);
+        return ['message' => 'Unable to delete sale!'];
     }
 }
