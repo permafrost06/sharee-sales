@@ -3,7 +3,7 @@
 @section('head')
     <script>
         const CUSTOMERS_API_LINK = "{{route('customers.api')}}";
-        const CUSTOMERS_LEDGER_LINK = "{{route('sales.of_customer', ['id' => '::ID::'])}}";
+        const CUSTOMERS_LEDGER_LINK = "{{route('sales.index', ['id' => '::ID::'])}}";
         const CUSTOMER_EDIT_LINK = "{{route('customers.edit', ['id' => '::ID::'])}}";
         const CUSTOMER_DELETE_LINK = "{{route('customers.delete', ['id' => '::ID::'])}}";
         const CSRF = "{{csrf_token()}}";
