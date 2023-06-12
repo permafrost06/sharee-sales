@@ -5,7 +5,6 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Vendor;
-use Illuminate\Support\Facades\DB;
 
 class VendorController extends Controller
 {
@@ -83,8 +82,8 @@ class VendorController extends Controller
     public function delete(Request $request, int $id)
     {
         if (Vendor::destroy($id)){
-            return redirect()->back()->with(['message'=>'Vendor deleted successfully']);
+            return ['message'=>'Vendor deleted successfully'];
         }
-        return redirect()->back()->with(['message'=>'Unable to delete ']);
+        return ['message'=>'Unable to delete vendor!'];
     }
 }

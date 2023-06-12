@@ -6,6 +6,7 @@
         const VENDORS_LEDGER_LINK = "{{route('purchase.of_vendor', ['id' => '::ID::'])}}";
         const VENDOR_EDIT_LINK = "{{route('vendor.form', ['id' => '::ID::'])}}";
         const VENDOR_DELETE_LINK = "{{route('vendor.delete', ['id' => '::ID::'])}}";
+        const CSRF = "{{csrf_token()}}";
     </script>
     @vite(['resources/js/pages/admin/vendors.js'])
 @endsection
