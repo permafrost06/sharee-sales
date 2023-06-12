@@ -151,7 +151,7 @@ const setPage = (newPage) => {
 
 <template>
     <div class="relative sm:rounded-lg">
-        <div class="flex items-center justify-between pb-4">
+        <div class="flex flex-wrap gap-2 items-center justify-between pb-4">
             <div class="relative">
                 <button
                     class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5"
@@ -231,7 +231,9 @@ const setPage = (newPage) => {
                 />
             </div>
         </div>
-        <slot :data="data" :loading="loading" :search="search"></slot>
+        <div class="overflow-x-auto">
+            <slot :data="data" :loading="loading" :search="search"></slot>
+        </div>
         <div class="flex justify-between items-center gap-4 border-t pt-4">
             <p class="text-sm font-medium">
                 Showing {{ (page - 1) * perPage + 1 }}-{{

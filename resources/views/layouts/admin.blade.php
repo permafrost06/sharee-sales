@@ -18,7 +18,7 @@
 
 <body class="flex bg-body text-main font-main">
     @include('layouts.inc.admin-sidebar')
-    <main class="flex-grow">
+    <main class="flex-grow max-w-full overflow-x-hidden">
         <nav class="flex h-admin-nav bg-admin-nav border-b px-10 items-center relative">
             <button type="button" id="sidenav-opener" class="md:hidden mr-4 p-1 border rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512">
