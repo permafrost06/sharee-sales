@@ -64,15 +64,16 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->group(function () {
     });
 
     Route::prefix('/purchase')->name('purchase.')->controller(PurchaseController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/vendor/{id}', 'ofVendor')->name('of_vendor');
-        Route::get('/download-report', 'generatePDF')->name('generatePDF');
+        Route::get('/download-report/{id?}', 'generatePDF')->name('generatePDF');
         Route::get('/create', 'form')->name('create');
         Route::get('/edit/{id?}', 'form')->name('edit');
         Route::post('/store/{id?}', 'store')->name('store');
-        
-        Route::delete('/{id}', 'delete')->name('delete');
+    
         Route::get('/delete/multiple', 'deleteMultiple')->name('delete.multiple');
+        
+        Route::get('/api/{id?}', 'api')->name('api');
+        Route::get('/{id?}', 'index')->name('index');
+        Route::delete('/{id}', 'delete')->name('delete');
     });
 
     Route::prefix('/stocks')->name('stocks.')->group(function () {

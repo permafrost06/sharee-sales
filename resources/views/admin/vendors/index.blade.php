@@ -3,7 +3,7 @@
 @section('head')
     <script>
         const VENDORS_API_LINK = "{{route('vendor.api')}}";
-        const VENDORS_LEDGER_LINK = "{{route('purchase.of_vendor', ['id' => '::ID::'])}}";
+        const VENDORS_LEDGER_LINK = "{{route('purchase.index', ['id' => '::ID::'])}}";
         const VENDOR_EDIT_LINK = "{{route('vendor.form', ['id' => '::ID::'])}}";
         const VENDOR_DELETE_LINK = "{{route('vendor.delete', ['id' => '::ID::'])}}";
         const CSRF = "{{csrf_token()}}";
