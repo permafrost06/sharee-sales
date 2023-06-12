@@ -6,6 +6,7 @@
         const CUSTOMERS_LEDGER_LINK = "{{route('sales.of_customer', ['id' => '::ID::'])}}";
         const CUSTOMER_EDIT_LINK = "{{route('customers.edit', ['id' => '::ID::'])}}";
         const CUSTOMER_DELETE_LINK = "{{route('customers.delete', ['id' => '::ID::'])}}";
+        const CSRF = "{{csrf_token()}}";
     </script>
     @vite(['resources/js/pages/admin/customers.js'])
 @endsection

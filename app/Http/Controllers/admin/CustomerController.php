@@ -83,11 +83,11 @@ class CustomerController extends Controller
         }
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request, int $id)
     {
-        if (Customer::destroy($request->id)) {
-            return redirect()->back()->with(['message' => 'Customer deleted successfully']);
+        if (Customer::destroy($id)) {
+            return ['message' => 'Customer deleted successfully'];
         }
-        return redirect()->back()->with(['message' => 'Unable to delete ']);
+        return ['message' => 'Unable to delete customer!'];
     }
 }

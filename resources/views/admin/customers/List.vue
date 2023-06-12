@@ -2,10 +2,19 @@
 import { ref } from 'vue';
 import { useSorter } from '../../../js/vue_utils';
 import FetchData from '@/views/components/FetchData.vue';
+import DeleteModal from '@/views/components/DeleteModal.vue';
+import AlertModal from '@/views/components/AlertModal.vue';
 
 const dataViz = ref(null);
+const deleteUrl = ref('');
+const toDelete = ref(null);
+const deleteError = ref('');
 const [sorted, sort] = useSorter('id');
 
+/**
+ * This is to prevent a warning
+ */
+const csrf_token = CSRF;
 
 const sortBy = (by) => {
     sort(by);
@@ -35,6 +44,21 @@ const highlightText = (text, highlight) => {
     return text.replace(new RegExp(highlight, 'i'), (a)=>{
         return `<mark>${a}</mark>`;
     });
+}
+
+const showDelete = (item) => {
+    deleteUrl.value = CUSTOMER_DELETE_LINK.replace('::ID::', item.id);
+    toDelete.value = item;
+}
+
+const onCompleted = (success, res) => {
+    deleteUrl.value = null;
+    if (success) {
+        toDelete.value = null;
+        dataViz.value && dataViz.value.reload();
+    } else {
+        deleteError.value = res.data?.message || res.message || 'Something went wrong!';
+    }
 }
 
 </script>
@@ -141,10 +165,11 @@ const highlightText = (text, highlight) => {
                             >Edit</a
                         >
                         |
-                        <a
-                            href="#"
+                        <button
+                            type="button"
                             class="font-medium text-red-600 hover:underline"
-                            >Delete</a
+                            @click="() => showDelete(item)"
+                            >Delete</button
                         >
                     </td>
                 </tr>
@@ -158,4 +183,17 @@ const highlightText = (text, highlight) => {
             </tbody>
         </table>
     </FetchData>
+    <DeleteModal
+        v-if="deleteUrl"
+        :url="deleteUrl"
+        :onCancel="() => {deleteUrl = ''; toDelete = null}"
+        :onCompleted="onCompleted"
+    >
+        <input type="hidden" name="_token" :value="csrf_token"/>
+        Are you sure you want to delete the customer <b>{{ toDelete.name }}</b>?
+    </DeleteModal>
+    <AlertModal v-else-if="deleteError" :onCancel="() => {toDelete = null; deleteError = ''}">
+        Could not delete the customer <b>{{ toDelete.name }}</b>!
+        <p class="text-sm text-red-500">{{ deleteError }}</p>
+    </AlertModal>
 </template>
