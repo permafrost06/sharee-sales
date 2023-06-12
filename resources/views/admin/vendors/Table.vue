@@ -28,7 +28,7 @@ const getUrl = ({page, perPage, search}) => {
     let url =
         VENDORS_API_LINK +
         `?start=${(page - 1) * perPage}&limit=${perPage}`;
-    url += `&order_by=${sorted.by}&order=${sorted.order}`;
+    url += `&order_by=${sorted.value.by}&order=${sorted.value.order}`;
     if (search) {
         url += `&search=${search}`;
     }
