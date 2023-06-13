@@ -2,11 +2,11 @@
 
 @section('head')
     <script>
-        const VENDORS_API_LINK = "{{route('vendor.api')}}";
-        const VENDORS_LEDGER_LINK = "{{route('purchase.index', ['id' => '::ID::'])}}";
-        const VENDOR_EDIT_LINK = "{{route('vendor.form', ['id' => '::ID::'])}}";
-        const VENDOR_DELETE_LINK = "{{route('vendor.delete', ['id' => '::ID::'])}}";
-        const CSRF = "{{csrf_token()}}";
+        const VENDORS_API_LINK = "{{ route('vendor.api') }}";
+        const VENDORS_LEDGER_LINK = "{{ route('purchase.index', ['id' => '::ID::']) }}";
+        const VENDOR_EDIT_LINK = "{{ route('vendor.form', ['id' => '::ID::']) }}";
+        const VENDOR_DELETE_LINK = "{{ route('vendor.delete', ['id' => '::ID::']) }}";
+        const CSRF = "{{ csrf_token() }}";
     </script>
     @vite(['resources/js/pages/admin/vendors.js'])
 @endsection
@@ -21,7 +21,8 @@
     <x-cards.card>
         <div class="flex items-center px-6 py-3 border-b">
             <h3 class="flex-grow text-lg text-gray-600 font-semibold">Vendors</h3>
-            <a class="inline-flex items-center px-3 py-1.5 bg-blue-500 focus:ring ring-blue-600 hover:bg-blue-600 text-white uppercase font-semibold text-xs rounded" href="{{ route('vendor.form', ['id' => 'create']) }}">
+            <a class="inline-flex items-center px-3 py-1.5 bg-blue-500 focus:ring ring-blue-600 hover:bg-blue-600 text-white uppercase font-semibold text-xs rounded"
+                href="{{ route('vendor.form', ['id' => 'create']) }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 12 12">
                     <path fill="currentColor"
                         d="M6.5 1.75a.75.75 0 0 0-1.5 0V5H1.75a.75.75 0 0 0 0 1.5H5v3.25a.75.75 0 0 0 1.5 0V6.5h3.25a.75.75 0 0 0 0-1.5H6.5V1.75Z" />
