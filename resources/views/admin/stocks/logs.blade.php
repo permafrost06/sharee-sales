@@ -1,196 +1,37 @@
-@extends('admin.layouts.layout')
-@section('content')
-<section class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Stock Logs</h3>
-                    <div class="pull-right box-tools">
-                        <a href="{{ route('stocks.status') }}" class="btn btn-success btn-flat btn-sm" style="margin-right: 6px">
-                            <i class="fa fa-mail-reply"></i> Back
-                        </a>
-                        <a href="{{ route('stocks.form', ['stock' => 'add']) }}" class="btn btn-primary btn-flat pull-right btn-sm">
-                            <i class="fa fa-plus"></i> Add Stock Entry
-                        </a>
-                    </div>
-                </div>
-                <!-- /.box-header -->
-                @if (Session::has('message'))
-                <div class="col-md-6 col-md-offset-2 text-success" id="successMessage">
-                    <span> {{ Session::get('message') }}</span>
-                </div>
-                @endif
-                <!-- /.box-body -->
-                <div class="box-body">
-                    <table id="logs-tbl" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Sln</th>
-                                <th>Item Code</th>
-                                <th>Brand</th>
-                                <th>Quantity</th>
-                                <th>Unit Cost</th>
-                                <th>Adjustment</th>
-                                <th>Total Cost</th>
-                                <th class="text-center">Type</th>
-                                <th>Merchant Name</th>
-                                <th>Merchant Contact</th>
-                                <th>Carrier Name</th>
-                                <th>Carrier Contact</th>
-                                <th>Border</th>
-                                <th>Remarks</th>
-                                <th>Attachment</th>
-                                <th>Date & Time</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="17">
-                                    <div class="text-center p-10">Loading...</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.row -->
-</section>
-<div class="modal fade" id="modal-attachment">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">New Purchase</h4>
-            </div>
-            <div class="modal-body">
-                <div class="box-body" id="att-preview"></div>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+@extends('layouts.admin')
+
+@section('head')
+    <script>
+        const LOGS_API_LINK = "{{route('stocks.logs_api')}}";
+        const LOG_EDIT_LINK = "{{route('stocks.form', ['stock' => '::ID::'])}}";
+        const LOG_DELETE_LINK = "{{route('stocks.delete', ['stock' => '::ID::'])}}";
+        const CSRF = "{{csrf_token()}}";
+    </script>
+    @vite(['resources/js/pages/admin/stock_logs.js'])
 @endsection
-@section('extra-script')
-<script>
-    function viewAttachment(){
-        $('#modal-attachment h4').html('Attachment of <b><i>' + $(this).data('title') + '</i></b>');
-        const src = $(this).data('src');
-        if (src && src.endsWith('.pdf')) {
-            $('#modal-attachment #att-preview').html(`<iframe src="${src}"></iframe>`);
-        } else {
-            $('#modal-attachment #att-preview').html(`<img src="${src}" alt=""/>`);
-        }
-    }
-    const columns = [
-        {name: 'id'},
-        {name: 'item_code'},
-        {name: 'brand'},
-        {name: 'quantity'},
-        {name: 'unit_cost'},
-        {name: 'adjustment'},
-        {name: 'total_cost'},
-        {name: 'type'},
-        {name: 'merchant_name'},
-        {name: 'merchant_contact'},
-        {name: 'carrier_name'},
-        {name: 'carrier_contact'},
-        {name: 'border'},
-        {name: 'remarks', sortable: false, searchable: false},
-        {name: 'attachment', sortable: false, searchable: false},
-        {name: 'date_time'},
-        {name: 'action', sortable: false, searchable: false},
-    ];
-    $('#logs-tbl').DataTable({
-        serverSide: true,
-        processing: true,
-        language: {
-            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
-        },
-        ajax: {
-            url: "{{route('stocks.logs_api', ['item' => $item])}}",
-            dataSrc: data => {
 
-                $('#logs-tbl').removeAttr('style').parent().css({'overflow-x': 'auto'});
-                const formatDate = getDateFormater();
-                if(data.data){
-                    const items = [];
-                    data.data.forEach((row, idx) => {
-                        const item = [];
-                        columns.forEach(c=>{
-                            let val = row[c.name];
-                            switch(c.name){
-                                case 'id':
-                                    val = data.start + idx + 1;
-                                    break;
-                                case 'type':
-                                    val = `<div class="text-center"><p class="btn btn-xs btn-warning text-uppercase">${val}</p></div>`;
-                                    break;
-                                case 'attachment':
-                                    if(val){
-                                        val = `<a href="#modal-attachment" onclick="viewAttachment.call(this)" data-toggle="modal" data-target="#modal-attachment" data-title="${row.item_code}" data-src="{{asset('')}}/${val}">View</a>`;
-                                    }
-                                    break;
-                                case 'date_time':
-                                    val = formatDate(val);
-                                    break;
-                            }
-                            item.push(val || 'N/A')
-                        });
-                        item[item.length - 1] = getAction(row);
-                        items.push(item);
-                    });
-                    data.data = items;
-                    return items;
-                }
-                return [];
-            }
-        },
-        columns,
-        order: [[0, 'desc']]
-    });
-
-    function getAction(stock){
-        const action = '{{ route("stocks.form", ["stock" => ":id"]) }}'.replace(':id', stock.id);
-        return `
-        <a href="${action}" class="btn btn-xs btn-primary">
-            <i class="fa fa-edit"></i> Edit
-        </a>
-        <form style="display: inline-block" action="${action}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-xs btn-danger">
-                <i class="fa fa-trash"></i> Delete
-            </button>
-        </form>
-        `;
-    }
-
-    function getDateFormater(){
-        
-        const options = { 
-            hour: 'numeric', 
-            minute: 'numeric', 
-            hour12: true, 
-            day: 'numeric', 
-            month: 'short', 
-            year: 'numeric' 
-        };
-        const formater = Intl.DateTimeFormat('en-US', options);
-        return dateTime => {
-            const date = new Date(dateTime);
-            const ftt = formater.format(date).split(', ');
-            let res = `${ftt[2]} | ${ftt[0]}, ${ftt[1]}`;
-            if(res.indexOf(':') == 1){
-                res = '0'+res;
-            }
-            return res;
-        }
-    }
-</script>
+@section('page')
+    <div class="mb-6 text-gray-600">
+        <x-breadcrumb :home="[
+            'route' => 'admin.index',
+            'label' => 'Home',
+        ]" :items="[
+            [
+                'link' => route('stocks.status'),
+                'label' => 'Stock'
+            ]
+        ]" active="Logs" />
+    </div>
+    <x-cards.card>
+        <div class="flex items-center px-6 py-3 border-b">
+            <h3 class="flex-grow text-lg text-gray-600 font-semibold">Stock Logs</h3>
+            <a class="inline-flex items-center px-3 py-1.5 bg-blue-500 focus:ring ring-blue-600 hover:bg-blue-600 text-white uppercase font-semibold text-xs rounded" href="{{ route('stocks.form', ['stock' => 'create']) }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 12 12">
+                    <path fill="currentColor"
+                        d="M6.5 1.75a.75.75 0 0 0-1.5 0V5H1.75a.75.75 0 0 0 0 1.5H5v3.25a.75.75 0 0 0 1.5 0V6.5h3.25a.75.75 0 0 0 0-1.5H6.5V1.75Z" />
+                </svg> Add
+            </a>
+        </div>
+        <div class="px-6 py-3" id="vue-app"></div>
+    </x-cards.card>
 @endsection
