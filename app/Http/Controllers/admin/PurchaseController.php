@@ -19,7 +19,9 @@ class PurchaseController extends Controller
             $purchase = Purchase::findOrFail($id);
         }
 
-        return view('admin.purchase.form', compact('purchase'));
+        $vendors = Vendor::all();
+
+        return view('admin.purchase.form', compact('purchase', 'vendors'));
     }
     public function index(Request $request, int $id = 0)
     {

@@ -125,7 +125,8 @@ class SalesController extends Controller
         if (is_numeric($id)) {
             $sale = Sales::findOrFail($id);
         }
-        return view('admin.sales.form', compact('sale'));
+        $customers = Customer::all();
+        return view('admin.sales.form', compact('sale', 'customers'));
     }
 
 
