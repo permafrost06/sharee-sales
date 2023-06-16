@@ -17,6 +17,8 @@ const props = defineProps({
     url: String | Function,
 });
 
+const axiosCancelSignal = new AbortController();
+
 defineExpose({
     reload: loadData
 });
@@ -76,7 +78,7 @@ function hidePopOver() {
 
 function loadData() {
     if (loading.value) {
-        return;
+        axiosCancelSignal.abort();
     }
     loading.value = true;
     let url = props.url;
@@ -92,6 +94,7 @@ function loadData() {
     axios
         .get(url, {
             withCredentials: true,
+            signal: axiosCancelSignal.signal
         })
         .then((res) => {
             loading.value = false;
@@ -147,6 +150,19 @@ const setPage = (newPage) => {
     loadData();
 };
 
+let debounced = null;
+const keyStroke = (evt) => {
+    if ([16, 17, 18, 20].indexOf(evt.keyCode) > -1) {
+        return;
+    }
+    if (debounced) {
+        clearTimeout(debounced);
+    }
+    debounced = setTimeout(() => {
+        loadData();
+        debounced = null;
+    }, 100);
+}
 </script>
 
 <template>
@@ -227,7 +243,7 @@ const setPage = (newPage) => {
                     class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Search anything..."
                     v-model="search"
-                    @keyup="loadData"
+                    @keyup="keyStroke"
                 />
             </div>
         </div>
