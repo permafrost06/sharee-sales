@@ -3,7 +3,7 @@
     <div class="mb-6 text-gray-600">
         <x-breadcrumb :home="[
             'route' => 'admin.index',
-            'label' => 'Home',
+            'label' => 'Admin',
         ]" :items="[
             [
                 'link' => route('customers.index'),
@@ -13,8 +13,8 @@
     </div>
     <x-cards.card class="max-w-4xl">
         <div class="flex items-center py-2 border-b px-6">
-            <h3 class="flex-grow text-dark">{{ $customer ? 'Update' : 'Add New' }} Customer</h3>
-            <a href="{{ route('customers.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+            <h3 class="flex-grow text-dark font-semibold">{{ $customer ? 'Update' : 'Add New' }} Customer</h3>
+            <a href="{{ route('customers.index') }}" class="inline-flex items-center px-3 py-1.5 bg-blue-500 focus:ring ring-blue-600 hover:bg-blue-600 text-white uppercase font-semibold text-xs rounded">
                 View All
             </a>
         </div>
@@ -22,11 +22,11 @@
             @csrf
             <div class="space-y-4">
                 <x-form.alert />
-                <x-form.input label="ID" name="customers_id" :value="old('customers_id', $customer?->customers_id)" />
+                <x-form.input label="ID" name="customers_id" :value="old('customers_id', $customer?->customers_id)" placeholder="Enter customers id" />
 
-                <x-form.input label="Name" name="name" :value="old('name', $customer?->name)" />
+                <x-form.input label="Name" name="name" :value="old('name', $customer?->name)" placeholder="Customer name"/>
 
-                <x-form.input label="Address" name="address" :value="old('address', $customer?->address)" />
+                <x-form.input label="Address" name="address" :value="old('address', $customer?->address)" placeholder="Address"/>
 
                 <x-form.input label="Limit" type="number" min="0" name="limit" :value="old('limit', $customer?->limit)" />
 

@@ -3,10 +3,10 @@
     <div class="mb-6 text-gray-600">
         <x-breadcrumb :home="[
             'route' => 'admin.index',
-            'label' => 'Home',
+            'label' => 'Admin',
         ]" :items="[
             [
-                'link' => '#',
+                'link' => route('purchase.index'),
                 'label' => 'Purchase',
             ],
         ]" :active="$purchase ? 'Update' : 'Create'" />
@@ -40,15 +40,15 @@
 
                 <x-form.input label="Ball" name="ball" :value="old('ball', $purchase?->ball)" />
 
-                <x-form.input type="number" label="G O Issues" name="goods_of_issues" :value="old('goods_of_issues', $purchase?->goods_of_issues)" />
+                <x-form.input type="number" label="G O Issues" name="goods_of_issues" :value="old('goods_of_issues', $purchase?->goods_of_issues)" placeholder=" "/>
 
                 <x-form.input type="number" min="0" step="0.01" label="Paid Money" name="paid_money"
-                    :value="old('paid_money', $purchase?->paid_money)" />
+                    :value="old('paid_money', $purchase?->paid_money)"  placeholder=" "/>
 
                 <x-form.input type="number" min="0" step="0.01" label="Balance (DUE)" name="balance_due"
-                    :value="old('balance_due', $purchase?->balance_due)" />
+                    :value="old('balance_due', $purchase?->balance_due)"  placeholder=" "/>
 
-                <x-form.textarea label="Comment" name="comment">{{old('comment', $purchase?->comment)}}</x-form.textarea>
+                <x-form.textarea label="Comment" name="comment" placeholder=" ">{{old('comment', $purchase?->comment)}}</x-form.textarea>
 
             </div>
             <x-button type="submit" class="my-4">

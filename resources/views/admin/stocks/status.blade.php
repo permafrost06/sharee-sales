@@ -13,7 +13,7 @@
     <div class="mb-6 text-gray-600">
         <x-breadcrumb :home="[
             'route' => 'admin.index',
-            'label' => 'Home',
+            'label' => 'Admin',
         ]" :items="[
             [
                 'link' => route('stocks.status'),

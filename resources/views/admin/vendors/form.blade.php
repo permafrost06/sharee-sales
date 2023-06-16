@@ -3,7 +3,7 @@
     <div class="mb-6 text-gray-600">
         <x-breadcrumb :home="[
             'route' => 'admin.index',
-            'label' => 'Home',
+            'label' => 'Admin',
         ]" :items="[
             [
                 'link' => route('vendor.index'),
@@ -14,7 +14,8 @@
     <x-cards.card class="max-w-4xl">
         <div class="flex items-center py-2 border-b px-6">
             <h3 class="flex-grow text-dark font-medium">{{ $vendor ? 'Update Vendor' : 'Insert Vendor' }}</h3>
-            <a href="{{ route('vendor.index') }}" class="inline-flex items-center px-3 py-1.5 bg-blue-500 focus:ring ring-blue-600 hover:bg-blue-600 text-white uppercase font-semibold text-xs rounded">
+            <a href="{{ route('vendor.index') }}"
+                class="inline-flex items-center px-3 py-1.5 bg-blue-500 focus:ring ring-blue-600 hover:bg-blue-600 text-white uppercase font-semibold text-xs rounded">
                 View All
             </a>
         </div>
@@ -28,8 +29,8 @@
                 <x-form.input type="text" label="Name" name="name" value="{{ old('name', $vendor?->name) }}"
                     placeholder="Vendor name" />
 
-                <x-form.input type="text" label="Address" name="address" value="{{ old('address', $vendor?->address) }}"
-                    placeholder="Vendor address" />
+                <x-form.textarea label="Address" name="address" placeholder="Vendor address">
+                    {{ old('address', $vendor?->address) }}</x-form.textarea>
 
                 <x-form.input type="number" min="0" label="Limit" name="limit"
                     value="{{ old('limit', $vendor?->limit) }}" />

@@ -3,7 +3,7 @@
     <div class="mb-6 text-gray-600">
         <x-breadcrumb :home="[
             'route' => 'admin.index',
-            'label' => 'Home',
+            'label' => 'Admin',
         ]" :items="[
             [
                 'link' => route('sales.index'),
@@ -34,7 +34,7 @@
 
                     <x-form.input type="date" label="Date" name="date" :value="old('date', $sale?->date)" />
                     <x-form.input label="Memo Number" name="memo_number" :value="old('memo_number', $sale?->memo_number)" />
-                    <x-form.input type="number" label="G O Issues" name="goods_of_issues" :value="old('goods_of_issues', $sale?->goods_of_issues)" />
+                    <x-form.input type="number" label="G O Issues" name="goods_of_issues" :value="old('goods_of_issues', $sale?->goods_of_issues)"  placeholder=" "/>
                     <x-form.input label="LV" type="number" step="0.01" name="lv" :value="old('lv', $sale?->lv)" />
 
                     <x-form.input type="number" min="0" step="0.01" label="Received Money" name="received_money"
