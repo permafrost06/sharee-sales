@@ -1,9 +1,8 @@
 <aside id="sidebar-main"
     class="hidden fixed h-full md:h-[100vh] z-10 md:sticky top-0 md:flex max-w-sm w-72 bg-admin-nav flex-col px-3 border-r">
     <div class="h-admin-nav py-3 flex items-center collapsed:md:justify-center">
-        <div class="border rounded-lg h-12 w-12 collapsed:md:hidden"></div>
         <div class="flex-grow mx-2 collapsed:md:hidden whitespace-nowrap overflow-hidden">
-            <h3 class="text-lg font-medium text-dark">Sharee Sales</h3>
+            <h3 class="text-lg font-medium text-dark">{{config('app.name')}}</h3>
         </div>
         <button type="button" id="sidenav-resize"
             class="hidden md:block hover:text-active transition-all duration-100 rounded focus:ring-2 focus:ring-blue-300">
@@ -36,7 +35,6 @@
                 </x-slot:svg>
                 Dashboard
             </x-sidebar-item>
-            <li class="p-2 uppercase text-sm text-muted font-medium my-2 collapsed:md:hidden">ITEMS</li>
 
             <x-sidebar-item-group :routes="['customers.create', 'customers.index']">
                 <x-slot:svg viewBox="0 0 32 32">

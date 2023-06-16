@@ -4,7 +4,7 @@ const sideBar = find('#sidebar-main');
 
 find("#sidenav-resize").addEventListener('click', () => {
     if (sideBar.classList.contains('collapsed')) {
-        rmClasses(sideBar, 'collapsed md:w-[100px]');
+        rmClasses(sideBar, 'collapsed md:w-[60px]');
         gsapTL().fromTo(sideBar, {
             width: '100px'
         }, {
@@ -18,7 +18,7 @@ find("#sidenav-resize").addEventListener('click', () => {
             width: '100px',
             duration: 0.1
         }).then(() => {
-            addClasses(sideBar, 'collapsed md:w-[100px]');
+            addClasses(sideBar, 'collapsed md:w-[60px]');
             sideBar.removeAttribute('style');
         });
     }
@@ -44,30 +44,6 @@ find('#sidenav-closer').addEventListener('click', () => {
     });
 });
 
-
-const userMenu = find('#user-dropdown');
-
-find('#user-menu-button').addEventListener('click', () => {
-    if (userMenu.classList.contains('hidden')) {
-        rmClasses(userMenu, 'hidden');
-        gsapTL().fromTo(userMenu, {
-            height: 0
-        }, {
-            duration: 0.1,
-            height: 'auto'
-        }).then(()=>{
-            userMenu.removeAttribute('style');
-        });
-    } else {
-        gsapTL().to(userMenu, {
-            height: 0,
-            duration: 0.1
-        }).then(() => {
-            addClasses(userMenu, 'hidden');
-            userMenu.removeAttribute('style');
-        });
-    }
-});
 
 findAll('[data-collapse]').forEach((collapseHandle) => {
     const byWidth = collapseHandle.getAttribute('data-axis') === 'x';
