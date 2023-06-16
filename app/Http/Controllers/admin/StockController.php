@@ -46,7 +46,7 @@ class StockController extends Controller
 
         $search = $req->get('search', '');
 
-        if(strlen($search) > 1){
+        if($search){
             $search = "%$search%";
             $query->where(function($q) use ($search){
                 $q->where('item_code', 'LIKE', $search);

@@ -62,7 +62,7 @@ class SalesController extends Controller
             $q->with('customer');
         }
 
-        if (strlen($search) > 1) {
+        if ($search) {
             $search = '%' . $search . '%';
             $q->where(function ($q) use ($search, $id) {
                 $q->where('memo_number', 'LIKE', $search);

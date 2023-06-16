@@ -34,7 +34,7 @@ class VendorController extends Controller
         $q = Vendor::withSum('purchases', 'goods_of_issues')
             ->withSum('purchases', 'paid_money');
 
-        if (strlen($search) > 1) {
+        if ($search) {
             $q->where('name', 'LIKE', '%'.$search.'%');
             $q->orWhere('address', 'LIKE', '%'.$search.'%');
         }

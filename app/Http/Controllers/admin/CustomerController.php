@@ -5,7 +5,6 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
-use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -35,7 +34,7 @@ class CustomerController extends Controller
         $q = Customer::withSum('sales', 'goods_of_issues')
             ->withSum('sales', 'received_money');
 
-        if (strlen($search) > 1) {
+        if ($search) {
             $q->where('name', 'LIKE', '%'.$search.'%');
             $q->orWhere('address', 'LIKE', '%'.$search.'%');
         }
