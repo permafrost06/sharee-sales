@@ -17,7 +17,7 @@ const props = defineProps({
     url: String | Function,
 });
 
-const axiosCancelSignal = new AbortController();
+let axiosCancelSignal = new AbortController();
 
 defineExpose({
     reload: loadData
@@ -79,6 +79,7 @@ function hidePopOver() {
 function loadData() {
     if (loading.value) {
         axiosCancelSignal.abort();
+        axiosCancelSignal = new AbortController();
     }
     loading.value = true;
     let url = props.url;
