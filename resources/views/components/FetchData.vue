@@ -152,14 +152,13 @@ const setPage = (newPage) => {
 };
 
 let debounced = null;
-const keyStroke = (evt) => {
-    if ([16, 17, 18, 20].indexOf(evt.keyCode) > -1) {
-        return;
-    }
+const searchChange = () => {
+    console.log('haha');
     if (debounced) {
         clearTimeout(debounced);
     }
     debounced = setTimeout(() => {
+        page.value = 1;
         loadData();
         debounced = null;
     }, 100);
@@ -244,7 +243,7 @@ const keyStroke = (evt) => {
                     class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Search anything..."
                     v-model="search"
-                    @keyup="keyStroke"
+                    @input="searchChange"
                 />
             </div>
         </div>
