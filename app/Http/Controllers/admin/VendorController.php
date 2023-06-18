@@ -84,6 +84,6 @@ class VendorController extends Controller
         if (Vendor::destroy($id)){
             return ['message'=>'Vendor deleted successfully'];
         }
-        return ['message'=>'Unable to delete vendor!'];
+        return response(['message' => 'Unable to delete vendor!'], 422);
     }
 }

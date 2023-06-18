@@ -166,6 +166,6 @@ class PurchaseController extends Controller
         if (Purchase::destroy($id)){
             return ['message'=>'Deposit deleted successfully'];
         }
-        return ['message'=>'Unable to delete the deposit!'];
+        return response(['message' => 'Unable to delete the deposit!'], 422);
     }
 }

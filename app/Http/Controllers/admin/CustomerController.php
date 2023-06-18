@@ -87,6 +87,6 @@ class CustomerController extends Controller
         if (Customer::destroy($id)) {
             return ['message' => 'Customer deleted successfully'];
         }
-        return ['message' => 'Unable to delete customer!'];
+        return response(['message' => 'Unable to delete customer!'], 422);
     }
 }

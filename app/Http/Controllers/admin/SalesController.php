@@ -168,6 +168,6 @@ class SalesController extends Controller
         if (Sales::destroy($id)) {
             return ['message' => 'Deposit deleted successfully'];
         }
-        return ['message' => 'Unable to delete sale!'];
+        return response(['message' => 'Unable to delete sale!'], 422);
     }
 }
