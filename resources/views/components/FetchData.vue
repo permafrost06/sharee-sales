@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { gsapTL } from '@/js/utils';
 
@@ -17,10 +16,10 @@ const props = defineProps({
     url: String | Function,
 });
 
-let axiosCancelSignal = new AbortController();
+let cancelSignal = new AbortController();
 
 defineExpose({
-    reload: loadData
+    reload: loadData,
 });
 
 const reset = () => {
@@ -78,8 +77,8 @@ function hidePopOver() {
 
 function loadData() {
     if (loading.value) {
-        axiosCancelSignal.abort();
-        axiosCancelSignal = new AbortController();
+        cancelSignal.abort();
+        cancelSignal = new AbortController();
     }
     loading.value = true;
     let url = props.url;
@@ -88,25 +87,25 @@ function loadData() {
         url = url({
             page: page.value,
             perPage: perPage.value,
-            search: search.value
+            search: search.value,
         });
     }
 
-    axios
-        .get(url, {
-            withCredentials: true,
-            signal: axiosCancelSignal.signal
-        })
-        .then((res) => {
+    fetch(url, {
+        withCredentials: true,
+        signal: cancelSignal.signal,
+    })
+        .then(async (res) => {
+            const body  = await res.json();
             loading.value = false;
-            data.value = res.data.data;
-            itemCount.value = res.data.count;
+            data.value = body.data;
+            itemCount.value = body.count;
         })
         .catch((e) => {
+            console.error(e);
             loading.value = false;
         });
 }
-
 
 const maxPage = computed(() => {
     return Math.ceil(itemCount.value / perPage.value);
@@ -153,7 +152,6 @@ const setPage = (newPage) => {
 
 let debounced = null;
 const searchChange = () => {
-    console.log('haha');
     if (debounced) {
         clearTimeout(debounced);
     }
@@ -162,7 +160,7 @@ const searchChange = () => {
         loadData();
         debounced = null;
     }, 100);
-}
+};
 </script>
 
 <template>

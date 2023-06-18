@@ -1,11 +1,10 @@
 <script setup>
-import axios from 'axios';
 import { ref } from 'vue';
 
 const props = defineProps({
     url: String | Function,
     onCompleted: Function,
-    onCancel: Function
+    onCancel: Function,
 });
 
 const loading = ref(false);
@@ -22,26 +21,27 @@ const sendRequest = (evt) => {
         url = url();
     }
 
-    axios
-        .post(url, new FormData(evt.target), {
-            withCredentials: true,
-        })
-        .then((res) => {
+    fetch(url, {
+        method: 'POST',
+        withCredentials: true,
+        body: new FormData(evt.target),
+    })
+        .then(async (res) => {
+            const body = await res.json();
             loading.value = false;
-            props.onCompleted(true, res.data);
+            props.onCompleted(res.status === 200, body);
         })
         .catch((e) => {
             loading.value = false;
-            props.onCompleted(false, e);
+            props.onCompleted(false, e.message || 'Something went wrong!');
         });
-}
+};
 
 const hideModal = () => {
     if (!loading.value) {
         props.onCancel();
     }
-}
-
+};
 </script>
 
 <template>
@@ -70,8 +70,12 @@ const hideModal = () => {
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
-                <form method="POST" class="p-6 text-center" @submit="sendRequest">
-                    <input type="hidden" name="_method" value="DELETE"/>
+                <form
+                    method="POST"
+                    class="p-6 text-center"
+                    @submit="sendRequest"
+                >
+                    <input type="hidden" name="_method" value="DELETE" />
                     <svg
                         aria-hidden="true"
                         class="mx-auto mb-4 text-gray-400 w-14 h-14"
@@ -97,7 +101,8 @@ const hideModal = () => {
                             type="submit"
                             class="text-white bg-red-600 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                             :class="{
-                                'hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300': !loading
+                                'hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300':
+                                    !loading,
                             }"
                         >
                             <div v-if="loading" role="status">
