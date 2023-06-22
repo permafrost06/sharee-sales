@@ -1,11 +1,11 @@
 <aside id="sidebar-main"
-    class="hidden fixed h-full md:h-[100vh] z-10 md:sticky top-0 md:flex max-w-sm w-72 bg-admin-nav flex-col px-3 border-r">
+    class="hidden fixed h-full md:h-[100vh] z-10 md:sticky top-0 md:flex max-w-sm w-72 bg-foreground flex-col px-3 border-r">
     <div class="h-admin-nav py-3 flex items-center collapsed:md:justify-center">
         <div class="flex-grow mx-2 collapsed:md:hidden whitespace-nowrap overflow-hidden">
             <h3 class="text-lg font-medium text-dark">{{config('app.name')}}</h3>
         </div>
         <button type="button" id="sidenav-resize"
-            class="hidden md:block hover:text-active transition-all duration-100 rounded focus:ring-2 focus:ring-blue-300">
+            class="hidden md:block hover:text-active transition-all duration-100 rounded focus:ring-2">
             <div class="sr-only">Expand & Collapse Sidenav</div>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
                 class="collapsed:hidden">

@@ -1,8 +1,8 @@
 <li class="my-2">
     <div 
         @class([
-            'flex items-center p-2 collapsed:md:max-w-min collapsed:md:hidden hover:bg-blue-50 rounded-md cursor-pointer',
-            'text-active' => $isActive,
+            'flex items-center p-2 collapsed:md:max-w-min collapsed:md:hidden hover:bg-accent hover:bg-opacity-20 rounded-md cursor-pointer',
+            'text-accent' => $isActive,
         ])
         data-collapse="#{{$g_id}}"
         data-expand="#{{$g_id}}"

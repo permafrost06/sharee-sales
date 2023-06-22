@@ -1,16 +1,16 @@
 <button type="{{ $type }}" {{ $attributes }} @class([
     'focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5',
-    'text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 focus:outline-none' =>
+    'text-white bg-accent hover:bg-accentDark focus:ring-accent focus:outline-none' =>
         $variant === 'primary',
-    'text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-gray-300' =>
+    'text-white bg-textPrimary bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-textPrimary' =>
         $variant === 'dark',
-    'text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-gray-200' =>
+    'text-primary bg-foreground border border-textSecondary focus:outline-none hover:bg-textSecondary hover:bg-opacity-10 focus:ring-textPrimary' =>
         $variant === 'light',
-    'focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-green-300' =>
+    'focus:outline-none text-white bg-success bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-textPrimary' =>
         $variant === 'success',
-    'focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-red-300' =>
+    'focus:outline-none text-white bg-danger bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-textPrimary' =>
         $variant === 'danger',
-    'focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-yellow-300' =>
+    'focus:outline-none text-white bg-warning bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-textPrimary' =>
         $variant === 'warning',
     ...$class
 ])>

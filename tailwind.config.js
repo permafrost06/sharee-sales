@@ -14,19 +14,17 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundColor: ({ colors }) => ({
-        body: colors.blue[50],
-        "admin-nav": colors.white,
-        "admin-nav-active": colors.blue[200],
-      }),
-      textColor: ({ colors }) => ({
-        dark: colors.gray[600],
-        main: "rgb(134 135 139)",
-        active: colors.blue[500],
-        muted: colors.gray[400],
-      }),
-      borderColor: ({ colors }) => ({
-        DEFAULT: colors.stone[200],
+      colors: ({colors}) => ({
+        background: colors.blue[50],
+        foreground: colors.white,
+        accent: colors.blue[500],
+        accentDark: colors.blue[600],
+        textPrimary: colors.gray[600],
+        textSecondary: colors.gray[400],
+
+        danger: colors.red[600],
+        warning: colors.yellow[600],
+        success: colors.emerald[600],
       }),
       height: {
         "admin-nav": "70px",
@@ -58,6 +56,9 @@ module.exports = {
         roboto: ["Roboto", "sans-serif"],
         main: ["Roboto", "sans-serif"],
       },
+      boxShadow: {
+        input: "0 0 3px rgb(0 0 0 / 0.05)",
+      }
     },
 
     /**
