@@ -3,7 +3,7 @@
 @section('page')
 <main class="h-[100vh] w-[100vw] flex justify-center md:items-center bg-gradient-to-r from-slate-100 to-slate-400 md:p-10">
     <div class="w-full max-w-xl md:rounded-2xl shadow-lg overflow-hidden">
-        <div class="p-10 bg-white">
+        <div class="p-10 bg-skin-foreground">
             <h1 class="text-3xl font-medium mb-5">{{ config('app.name') }}</h1>
             <h2 class="border-b pb-5">Login</h2>
             <form class="py-2 space-y-4" action="{{ route('login') }}" method="POST">
@@ -22,7 +22,7 @@
                 </x-form.ic-input>
 
                 <div class="flex items-center py-2">
-                    <input id="remember" type="checkbox" name="remember" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                    <input id="remember" type="checkbox" name="remember" class="w-4 h-4 text-skin-accent bg-skin-neutral bg-opacity-5 border-skin-neutral border-opacity-10 rounded focus:ring-skin-accent focus:ring-2">
                     <label for="remember" class="ml-2 text-sm font-medium">Remember Me</label>
                 </div>
 

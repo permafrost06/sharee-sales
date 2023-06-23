@@ -83,8 +83,8 @@ const dateFormat = (() => {
 
 <template>
     <FetchData ref="dataViz" :url="getUrl" v-slot="{ data, loading, search }">
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <table class="w-full text-sm text-left">
+            <thead class="text-xs uppercase bg-skin-neutral bg-opacity-5">
                 <tr class="whitespace-nowrap">
                     <th
                         scope="col"
@@ -226,14 +226,14 @@ const dateFormat = (() => {
             <tbody v-else-if="data.length > 0" class="divide-y">
                 <tr
                     v-for="(item, idx) in data"
-                    class="bg-white hover:bg-gray-50"
+                    class="hover:bg-skin-neutral hover:bg-opacity-5"
                 >
                     <td class="px-6 py-4 font-medium whitespace-nowrap">
                         {{ idx + 1 }}
                     </td>
                     <th
                         scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        class="px-6 py-4 font-medium whitespace-nowrap"
                         v-html="highlightText(item.item_code, search)"
                     ></th>
                     <td
@@ -246,9 +246,9 @@ const dateFormat = (() => {
                     <td class="px-6 py-4">{{ item.total_cost }}</td>
                     <td class="px-6 py-4">
                         <p
-                            class="text-xs font-medium uppercase px-2 py-0.5 rounded-sm text-white"
+                            class="text-xs font-medium uppercase px-2 py-0.5 rounded-sm text-skin-inverted"
                             :class="{
-                                'bg-green-500': item.type === 'in',
+                                'bg-skin-success': item.type === 'in',
                                 'bg-yellow-500': item.type !== 'in',
                             }"
                         >
@@ -289,7 +289,7 @@ const dateFormat = (() => {
                         <button
                             v-if="item.attachment"
                             type="button"
-                            class="text-white rounded-sm px-2 py-1 bg-yellow-500 text-xs hover:bg-yellow-600"
+                            class="text-skin-inverted rounded-sm px-2 py-1 bg-yellow-500 text-xs hover:bg-yellow-600"
                             @click="attachment = item.attachment"
                         >
                             View
@@ -304,13 +304,13 @@ const dateFormat = (() => {
                     <td class="px-6 py-4">
                         <a
                             :href="editLink(item)"
-                            class="font-medium text-blue-600 hover:underline"
+                            class="font-medium text-skin-accent hover:underline"
                             >Edit</a
                         >
                         |
                         <button
                             type="button"
-                            class="font-medium text-red-600 hover:underline"
+                            class="font-medium text-skin-danger hover:underline"
                             @click="() => showDelete(item)"
                         >
                             Delete
@@ -351,24 +351,24 @@ const dateFormat = (() => {
         "
     >
         Could not delete the log!
-        <p class="text-sm text-red-500">{{ deleteError }}</p>
+        <p class="text-sm text-skin-danger">{{ deleteError }}</p>
     </AlertModal>
     <div
         v-if="attachment"
         class="fixed z-50 flex w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full bg-black bg-opacity-30 justify-center items-center"
     >
         <div class="relative w-full max-w-2xl max-h-full">
-            <div class="relative bg-white rounded-lg shadow">
+            <div class="relative bg-skin-foreground rounded-lg shadow">
                 <div
                     class="flex items-start justify-between p-4 border-b rounded-t"
                 >
-                    <h3 class="text-xl font-semibold text-gray-900">
+                    <h3 class="text-xl font-semibold">
                         Stock Attachment
                     </h3>
                     <button
                         type="button"
                         @click="attachment = null"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                        class="text-skin-secondary bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                     >
                         <svg
                             class="w-5 h-5"

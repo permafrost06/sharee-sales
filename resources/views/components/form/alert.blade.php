@@ -12,10 +12,10 @@ if ($type === 'none' && !$message) {
 @if ($message)
     <div @class([
         'text-sm px-5 py-2.5 rounded shadow-sm border',
-        'text-success bg-success bg-opacity-10 border-success' => $type == 'success',
-        'text-warning bg-warning bg-opacity-10 border-warning' => $type == 'warning',
-        'text-danger bg-danger bg-opacity-10 border-danger' => $type == 'error',
-        'text-textPrimary bg-textPrimary bg-opacity-10 border-textPrimary' => $type == 'none',
+        'text-skin-success bg-skin-success bg-opacity-10 border-skin-success' => $type == 'success',
+        'text-skin-warning bg-skin-warning bg-opacity-10 border-skin-warning' => $type == 'warning',
+        'text-skin-danger bg-skin-danger bg-opacity-10 border-skin-danger' => $type == 'error',
+        'text-skin-neutral bg-skin-neutral bg-opacity-10 border-skin-neutral' => $type == 'none',
         ...$class,
     ])>
         {!! $message !!}

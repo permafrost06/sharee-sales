@@ -1,18 +1,14 @@
 <button type="{{ $type }}" {{ $attributes }} @class([
-    'focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5',
-    'text-white bg-accent hover:bg-accentDark focus:ring-accent focus:outline-none' =>
+    'focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none',
+    'text-skin-inverted bg-skin-accent hover:bg-skin-accent-hover focus:ring-skin-accent' =>
         $variant === 'primary',
-    'text-white bg-textPrimary bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-textPrimary' =>
-        $variant === 'dark',
-    'text-primary bg-foreground border border-textSecondary focus:outline-none hover:bg-textSecondary hover:bg-opacity-10 focus:ring-textPrimary' =>
-        $variant === 'light',
-    'focus:outline-none text-white bg-success bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-textPrimary' =>
+    'text-skin-inverted bg-skin-success bg-opacity-90 hover:bg-opacity-100 focus:ring-skin-success' =>
         $variant === 'success',
-    'focus:outline-none text-white bg-danger bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-textPrimary' =>
+    'text-skin-inverted bg-skin-danger bg-opacity-90 hover:bg-opacity-100 focus:ring-skin-danger' =>
         $variant === 'danger',
-    'focus:outline-none text-white bg-warning bg-opacity-90 hover:bg-opacity-100 focus:outline-none focus:ring-textPrimary' =>
+    'text-skin-inverted bg-skin-warning bg-opacity-90 hover:bg-opacity-100 focus:ring-skin-warning' =>
         $variant === 'warning',
-    ...$class
+    ...$class,
 ])>
     {{ $slot }}
 </button>

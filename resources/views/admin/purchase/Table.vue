@@ -68,8 +68,8 @@ const onCompleted = (success, res) => {
 
 <template>
     <FetchData ref="dataViz" :url="getUrl" v-slot="{data, loading, search}">
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <table class="w-full text-sm text-left">
+            <thead class="text-xs uppercase bg-skin-neutral bg-opacity-5">
                 <tr>
                     <th
                         scope="col"
@@ -173,7 +173,7 @@ const onCompleted = (success, res) => {
             <tbody v-else-if="data.length > 0" class="divide-y">
                 <tr
                     v-for="(item, idx) in data"
-                    class="bg-white hover:bg-gray-50"
+                    class="hover:bg-skin-neutral hover:bg-opacity-5"
                 >
                     <td class="px-6 py-4 font-medium whitespace-nowrap">
                         {{ idx + 1 }}
@@ -181,11 +181,11 @@ const onCompleted = (success, res) => {
                     <th
                         v-if="isGlobal"
                         scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        class="px-6 py-4 font-medium whitespace-nowrap"
                         v-html="highlightText(item.vendor?.name || 'N/A', search)"
                     >
                     </th>
-                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    <td class="px-6 py-4 font-medium whitespace-nowrap">
                         {{ item.date }}
                     </td>
                     <td class="px-6 py-4" v-html="highlightText(item.memo_number, search)"></td>
@@ -197,13 +197,13 @@ const onCompleted = (success, res) => {
                     <td class="px-6 py-4">
                         <a
                             :href="editLink(item)"
-                            class="font-medium text-blue-600 hover:underline"
+                            class="font-medium text-skin-accent hover:underline"
                             >Edit</a
                         >
                         |
                         <button
                             type="button"
-                            class="font-medium text-red-600 hover:underline"
+                            class="font-medium text-skin-danger hover:underline"
                             @click="() => showDelete(item)"
                             >Delete</button
                         >
@@ -230,6 +230,6 @@ const onCompleted = (success, res) => {
     </DeleteModal>
     <AlertModal v-else-if="deleteError" :onCancel="() => {toDelete = null; deleteError = ''}">
         Could not delete the purchase!
-        <p class="text-sm text-red-500">{{ deleteError }}</p>
+        <p class="text-sm text-skin-danger">{{ deleteError }}</p>
     </AlertModal>
 </template>

@@ -70,8 +70,8 @@ const previewFile = (evt) => {
 
 <template>
     <FetchData ref="dataViz" :url="getUrl" v-slot="{ data, loading, search }">
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <table class="w-full text-sm text-left">
+            <thead class="text-xs uppercase bg-skin-neutral bg-opacity-5">
                 <tr class="whitespace-nowrap">
                     <th
                         scope="col"
@@ -150,7 +150,7 @@ const previewFile = (evt) => {
             <tbody v-else-if="data.length > 0" class="divide-y">
                 <tr
                     v-for="(item, idx) in data"
-                    class="bg-white hover:bg-gray-50"
+                    class="hover:bg-skin-neutral hover:bg-opacity-5"
                 >
                     <td class="px-6 py-4 font-medium whitespace-nowrap">
                         {{ idx + 1 }}
@@ -168,7 +168,7 @@ const previewFile = (evt) => {
                         <button
                             v-if="item.item?.attachment"
                             type="button"
-                            class="text-blue-500 hover:underline"
+                            class="text-skin-accent hover:underline"
                             @click="attachment = item.item.attachment"
                         >
                             View
@@ -176,7 +176,7 @@ const previewFile = (evt) => {
                         <span v-if="item.item?.attachment" class="mx-1">|</span>
                         <button
                             type="button"
-                            class="text-blue-500 hover:underline"
+                            class="text-skin-accent hover:underline"
                             @click="
                                 () => {
                                     editAttachment = true;
@@ -191,7 +191,7 @@ const previewFile = (evt) => {
                         <p v-html="highlightText(item.item?.remarks, search)"></p>
                         <button
                             type="button"
-                            class="text-blue-500 hover:underline"
+                            class="text-skin-accent hover:underline"
                             @click="
                                 () => {
                                     editRemarks = true;
@@ -218,7 +218,7 @@ const previewFile = (evt) => {
         class="fixed z-50 flex w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full bg-black bg-opacity-30 justify-center items-center"
     >
         <div class="relative w-full max-w-2xl max-h-full">
-            <div class="relative bg-white rounded-lg shadow">
+            <div class="relative bg-skin-foreground rounded-lg shadow">
                 <div
                     class="flex items-start justify-between p-4 border-b rounded-t"
                 >
@@ -228,7 +228,7 @@ const previewFile = (evt) => {
                     <button
                         type="button"
                         @click="attachment = null"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                        class="text-skin-secondary bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                     >
                         <svg
                             class="w-5 h-5"
@@ -270,13 +270,13 @@ const previewFile = (evt) => {
                 <div
                     class="flex items-start justify-between p-4 border-b rounded-t"
                 >
-                    <h3 class="text-xl font-semibold text-gray-900">
+                    <h3 class="text-xl font-semibold">
                         Edit Attachment
                     </h3>
                     <button
                         type="button"
                         @click="editAttachment = false"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                        class="text-skin-secondary bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                     >
                         <svg
                             class="w-5 h-5"
@@ -318,7 +318,7 @@ const previewFile = (evt) => {
                     >
                     <button
                         type="submit"
-                        class="rounded bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 py-2 shadow-sm"
+                        class="rounded bg-skin-accent hover:bg-skin-accent-hover text-skin-inverted font-medium px-4 py-2 shadow-sm"
                     >
                         Save
                     </button>
@@ -332,17 +332,17 @@ const previewFile = (evt) => {
         class="fixed z-50 flex w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full bg-black bg-opacity-30 justify-center items-center"
     >
         <div class="relative w-full max-w-2xl max-h-full">
-            <div class="relative bg-white rounded-lg shadow">
+            <div class="relative bg-skin-foreground rounded-lg shadow">
                 <div
                     class="flex items-start justify-between p-4 border-b rounded-t"
                 >
-                    <h3 class="text-xl font-semibold text-gray-900">
+                    <h3 class="text-xl font-semibold">
                         Edit Remarks
                     </h3>
                     <button
                         type="button"
                         @click="editRemarks = false"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                        class="text-skin-secondary bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                     >
                         <svg
                             class="w-5 h-5"
@@ -371,16 +371,16 @@ const previewFile = (evt) => {
                         :value="toEdit.item_code"
                     />
                     <div
-                        class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50"
+                        class="w-full mb-4 border rounded-lg bg-skin-neutral bg-opacity-5"
                     >
                         <div
-                            class="px-4 py-2 bg-white rounded-t-lg"
+                            class="px-4 py-2 bg-skin-foreground rounded-t-lg"
                         >
                             <label for="comment" class="sr-only">Remarks</label>
                             <textarea
                                 id="comment"
                                 rows="4"
-                                class="w-full px-0 text-sm text-gray-900 bg-white border-0 focus:ring-0"
+                                class="w-full px-0 text-sm bg-skin-foreground border-0 focus:ring-0"
                                 placeholder="Write a comment..."
                                 name="remarks"
                                 required
@@ -389,12 +389,12 @@ const previewFile = (evt) => {
                         <div
                             class="flex items-center justify-between px-3 py-2 border-t"
                         >
-                            <button
+                            <x-button
                                 type="submit"
-                                class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800"
+                                class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-skin-inverted bg-skin-accent rounded-lg focus:ring-4 focus:ring-skin-accent hover:bg-skin-accent-hover"
                             >
                                 Update Remarks
-                            </button>
+                            </x-button>
                         </div>
                     </div>
                 </form>

@@ -65,8 +65,8 @@ const onCompleted = (success, res) => {
 
 <template>
     <FetchData ref="dataViz" :url="getUrl" v-slot="{data, loading, search}">
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <table class="w-full text-sm text-left">
+            <thead class="text-xs uppercase bg-skin-neutral bg-opacity-5">
                 <tr>
                     <th
                         scope="col"
@@ -114,14 +114,14 @@ const onCompleted = (success, res) => {
             <tbody v-else-if="data.length > 0" class="divide-y">
                 <tr
                     v-for="(item, idx) in data"
-                    class="bg-white hover:bg-gray-50"
+                    class="hover:bg-opacity-5 hover:bg-skin-neutral"
                 >
                     <td class="px-6 py-4 font-medium whitespace-nowrap">
                         {{ idx + 1 }}
                     </td>
                     <th
                         scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        class="px-6 py-4 font-medium whitespace-nowrap"
                         v-html="highlightText(item.name, search)"
                     >
                     </th>
@@ -145,12 +145,12 @@ const onCompleted = (success, res) => {
                         <div
                             class="h-4 w-8 rounded-md"
                             :class="{
-                                'bg-red-600':
+                                'bg-skin-danger':
                                     parseInt(
                                         item.sales_sum_goods_of_issues -
                                             item.sales_sum_received_money
                                     ) > item.limit,
-                                'bg-green-600':
+                                'bg-skin-success':
                                     parseInt(
                                         item.sales_sum_goods_of_issues -
                                             item.sales_sum_received_money
@@ -161,13 +161,13 @@ const onCompleted = (success, res) => {
                     <td class="px-6 py-4">
                         <a
                             :href="editLink(item)"
-                            class="font-medium text-blue-600 hover:underline"
+                            class="font-medium text-skin-accent hover:underline"
                             >Edit</a
                         >
                         |
                         <button
                             type="button"
-                            class="font-medium text-red-600 hover:underline"
+                            class="font-medium text-skin-danger hover:underline"
                             @click="() => showDelete(item)"
                             >Delete</button
                         >
@@ -194,6 +194,6 @@ const onCompleted = (success, res) => {
     </DeleteModal>
     <AlertModal v-else-if="deleteError" :onCancel="() => {toDelete = null; deleteError = ''}">
         Could not delete the customer <b>{{ toDelete.name }}</b>!
-        <p class="text-sm text-red-500">{{ deleteError }}</p>
+        <p class="text-sm text-skin-danger">{{ deleteError }}</p>
     </AlertModal>
 </template>

@@ -168,7 +168,7 @@ const searchChange = () => {
         <div class="flex flex-wrap gap-2 items-center justify-between pb-4">
             <div class="relative">
                 <button
-                    class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5"
+                    class="inline-flex items-center text-skin-secondary border focus:outline-none hover:bg-skin-neutral hover:bg-opacity-10 focus:ring-4 focus:ring-skin-accent font-medium rounded-lg text-sm px-3 py-1.5"
                     type="button"
                     @click.stop="showPopOver"
                 >
@@ -192,23 +192,23 @@ const searchChange = () => {
                 <!-- Dropdown menu -->
                 <div
                     ref="popover"
-                    class="hidden overflow-hidden absolute left-0 top-full mt-2 z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-full shadow"
+                    class="hidden overflow-hidden absolute left-0 top-full mt-2 z-10 w-48 bg-skin-foreground divide-y rounded-lg shadow-full shadow"
                 >
-                    <ul class="p-3 space-y-1 text-sm text-gray-700">
+                    <ul class="p-3 space-y-1 text-sm">
                         <li
                             v-for="entry in perPageEntris"
                             @click="() => onPerPageChange(entry)"
                         >
                             <div
-                                class="flex items-center p-2 rounded hover:bg-gray-100"
+                                class="flex items-center p-2 rounded hover:bg-skin-neutral hover:bg-opacity-5"
                             >
                                 <input
                                     type="radio"
                                     :checked="perPage === entry"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                    class="w-4 h-4 text-skin-accent bg-skin-neutral bg-opacity-5 focus:ring-skin-accent focus:ring-2"
                                 />
                                 <label
-                                    class="w-full ml-2 text-sm font-medium text-gray-900 rounded"
+                                    class="w-full ml-2 text-sm font-medium rounded"
                                     >{{ entry }}</label
                                 >
                             </div>
@@ -222,7 +222,7 @@ const searchChange = () => {
                     class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
                 >
                     <svg
-                        class="w-5 h-5 text-gray-500"
+                        class="w-5 h-5 text-skin-secondary"
                         aria-hidden="true"
                         fill="currentColor"
                         viewBox="0 0 20 20"
@@ -238,7 +238,7 @@ const searchChange = () => {
                 <input
                     type="text"
                     id="table-search"
-                    class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                    class="block p-2 pl-10 text-sm border rounded-lg w-80 bg-skin-neutral bg-opacity-5 focus:ring-skin-accent focus:border-skin-accent"
                     placeholder="Search anything..."
                     v-model="search"
                     @input="searchChange"
@@ -259,9 +259,9 @@ const searchChange = () => {
                 <ul class="inline-flex items-center -space-x-px">
                     <li
                         key="prev"
-                        class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg"
+                        class="block px-3 py-2 ml-0 leading-tight text-skin-secondary border rounded-l-lg"
                         :class="{
-                            'cursor-pointer hover:bg-gray-100 hover:text-gray-700':
+                            'cursor-pointer hover:bg-skin-neutral hover:bg-opacity-5':
                                 page > 1,
                         }"
                         @click="() => setPage(page - 1)"
@@ -284,11 +284,11 @@ const searchChange = () => {
                     <li
                         v-for="(pageI, idx) in pages"
                         :key="'page-' + idx"
-                        class="px-3 py-2 leading-tight bg-white border"
+                        class="px-3 py-2 leading-tight border"
                         :class="{
-                            'z-10 text-blue-600 border-blue-300 bg-blue-50':
+                            'z-10 text-skin-accent border-skin-accent':
                                 pageI == page,
-                            'text-gray-500 border-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer':
+                            'text-skin-secondary hover:bg-skin-neutral hover:bg-opacity-5 cursor-pointer':
                                 pageI != page,
                         }"
                         @click="() => setPage(pageI)"
@@ -298,9 +298,9 @@ const searchChange = () => {
 
                     <li
                         key="next"
-                        class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg"
+                        class="block px-3 py-2 leading-tight text-skin-secondary border rounded-r-lg"
                         :class="{
-                            'cursor-pointer hover:bg-gray-100 hover:text-gray-700':
+                            'cursor-pointer hover:bg-skin-neutral hover:bg-opacity-5':
                                 page < maxPage,
                         }"
                         @click="() => setPage(page + 1)"

@@ -6,13 +6,13 @@ const props = defineProps({
 
 <template>
     <div
-        class="fixed top-0 left-0 right-0 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full flex justify-center items-center bg-gray-500 bg-opacity-60"
+        class="fixed top-0 left-0 right-0 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full flex justify-center items-center bg-black bg-opacity-5"
     >
         <div class="relative w-full max-w-md max-h-full">
-            <div class="relative bg-white rounded-lg shadow">
+            <div class="relative bg-skin-foreground rounded-lg shadow">
                 <button
                     type="button"
-                    class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                    class="absolute top-3 right-2.5 text-skin-secondary bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                     @click="onCancel"
                 >
                     <svg
@@ -33,7 +33,7 @@ const props = defineProps({
                 <div class="p-6 text-center">
                     <svg
                         aria-hidden="true"
-                        class="mx-auto mb-4 text-gray-400 w-14 h-14"
+                        class="mx-auto mb-4 text-skin-secondary w-14 h-14"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -46,14 +46,14 @@ const props = defineProps({
                             d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
                     </svg>
-                    <p class="mb-5 text-lg font-normal text-gray-500">
+                    <p class="mb-5 text-lg font-normal text-skin-secondary">
                         <slot></slot>
                     </p>
                     <div class="flex items-center justify-center">
                         <button
                             data-modal-hide="popup-modal"
                             type="button"
-                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
+                            class="text-skin-secondary bg-skin-foreground hover:bg-skin-neutral hover:bg-opacity-10 rounded-lg border text-sm font-medium px-5 py-2.5 focus:z-10"
                             @click="onCancel"
                         >
                             Okay

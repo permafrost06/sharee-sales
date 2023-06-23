@@ -15,17 +15,42 @@ module.exports = {
   theme: {
     extend: {
       colors: ({colors}) => ({
-        background: colors.blue[50],
-        foreground: colors.white,
-        accent: colors.blue[500],
-        accentDark: colors.blue[600],
-        textPrimary: colors.gray[600],
-        textSecondary: colors.gray[400],
-
-        danger: colors.red[600],
-        warning: colors.yellow[600],
-        success: colors.emerald[600],
+        skin: {
+          danger: colors.red[600],
+          warning: colors.yellow[600],
+          success: colors.emerald[600],
+          neutral: colors.gray[600],
+          accent: colors.blue[500],
+          'accent-hover': colors.blue[600]
+        }
       }),
+
+
+      backgroundColor: ({colors}) => ({
+        skin: {
+          background: colors.blue[50],
+          foreground: colors.white,
+        }
+      }),
+
+      textColor: ({colors}) => ({
+        skin: {
+          primary: colors.gray[600],
+          secondary: colors.gray[400],
+          inverted: colors.white
+        }
+      }),
+
+      boxShadowColor: ({colors}) => ({
+        skin: {
+          primary: colors.gray[600],
+          secondary: colors.gray[400],
+          inverted: colors.white
+        }
+      }),
+
+
+
       height: {
         "admin-nav": "70px",
       },

@@ -6,7 +6,7 @@
         </svg>
     </div>
     <div class="flex-grow ml-4">
-        <h4 class="text-textPrimary font-bold text-xl">{{ $value }}</h4>
-        <p class="text-textSecondary text-sm">{{ $slot }}</p>
+        <h4 class="text-skin-primary font-bold text-xl">{{ $value }}</h4>
+        <p class="text-skin-secondary text-sm">{{ $slot }}</p>
     </div>
 </x-cards.card>

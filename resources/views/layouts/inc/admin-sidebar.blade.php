@@ -1,5 +1,5 @@
 <aside id="sidebar-main"
-    class="hidden fixed h-full md:h-[100vh] z-10 md:sticky top-0 md:flex max-w-sm w-72 bg-foreground flex-col px-3 border-r">
+    class="hidden fixed h-full md:h-[100vh] z-10 md:sticky top-0 md:flex max-w-sm w-72 bg-skin-foreground flex-col px-3 border-r">
     <div class="h-admin-nav py-3 flex items-center collapsed:md:justify-center">
         <div class="flex-grow mx-2 collapsed:md:hidden whitespace-nowrap overflow-hidden">
             <h3 class="text-lg font-medium text-dark">{{config('app.name')}}</h3>

@@ -11,7 +11,7 @@
 @endsection
 
 @section('page')
-    <div class="mb-6 text-gray-600">
+    <div class="mb-6">
         <x-breadcrumb :home="[
             'route' => 'admin.index',
             'label' => 'Admin',
@@ -20,13 +20,13 @@
     <x-cards.card>
         <div class="flex items-center px-6 py-3 border-b">
             <h3 class="flex-grow text-lg text-gray-600 font-semibold">Purchase Ledger</h3>
-            <a class="inline-flex items-center px-3 py-1.5 bg-green-500 focus:ring ring-green-600 hover:bg-green-600 text-white uppercase font-semibold text-xs rounded mr-2"
+            <a class="inline-flex items-center px-3 py-1.5 bg-skin-success bg-opacity-90 focus:ring ring-skin-success hover:bg-opacity-100 text-skin-inverted uppercase font-semibold text-xs rounded mr-2"
                 href="{{ route('purchase.generatePDF', ['id' => $vendor?->id]) }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="12" height="12" viewBox="0 0 20 20">
                     <path fill="currentColor" d="M13 8V2H7v6H2l8 8l8-8h-5zM0 18h20v2H0v-2z" />
                 </svg> PDF
             </a>
-            <a class="inline-flex items-center px-3 py-1.5 bg-blue-500 focus:ring ring-blue-600 hover:bg-blue-600 text-white uppercase font-semibold text-xs rounded"
+            <a class="inline-flex items-center px-3 py-1.5 bg-skin-accent focus:ring ring-skin-accent hover:bg-skin-accent-hover text-skin-inverted uppercase font-semibold text-xs rounded"
                 href="{{ route('purchase.create') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 12 12">
                     <path fill="currentColor"
@@ -35,7 +35,7 @@
             </a>
         </div>
         @if ($details)
-            <div class="w-full mx-auto m-5 max-w-sm lg:max-w-max bg-white border border-gray-200 rounded-lg">
+            <div class="w-full mx-auto m-5 max-w-sm lg:max-w-max bg-skin-foreground border rounded-lg">
                 <div class="flex flex-col lg:flex-row items-center justify-center">
                     <div class="px-10 min-w-max text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 rounded-full shadow-sm mx-auto"
@@ -48,10 +48,10 @@
                             </g>
                         </svg>
                         <h5 class="mb-1 text-xl font-medium text-gray-900">{{ $vendor->name }}</h5>
-                        <span class="text-sm text-gray-500">Address: {{ $vendor->address }}</span>
+                        <span class="text-sm">Address: {{ $vendor->address }}</span>
                     </div>
                     <ul
-                        class="w-full divide-y divide-gray-300 text-gray-600 text-sm border-t mt-4 lg:border-t-0 lg:border-l lg:mt-0 lg:min-w-xs">
+                        class="w-full divide-y text-sm border-t mt-4 lg:border-t-0 lg:border-l lg:mt-0 lg:min-w-xs">
                         <li class="px-6 py-2.5 flex justify-between items-center">
                             <h6 class="font-medium mr-4">Limit:</h6>
                             <p class="text-lg font-bold">{{ $vendor->limit }}</p>

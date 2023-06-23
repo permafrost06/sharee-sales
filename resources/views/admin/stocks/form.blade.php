@@ -3,7 +3,7 @@
     @vite('resources/js/pages/admin/stock_form.js')
 @endsection
 @section('page')
-    <div class="mb-6 text-gray-600">
+    <div class="mb-6">
         <x-breadcrumb :home="[
             'route' => 'admin.index',
             'label' => 'Admin',
@@ -18,7 +18,7 @@
         <div class="flex items-center py-3 border-b px-6">
             <h3 class="flex-grow text-dark font-semibold">{{ $stock ? 'Update Stock' : 'Insert Stock' }}</h3>
             <a href="{{ route('stocks.status') }}"
-                class="bg-blue-500 hover:bg-blue-600 font-medium text-white text-xs px-2 py-1.5 rounded-md">
+                class="bg-skin-accent focus:ring ring-skin-accent hover:bg-skin-accent-hover text-skin-inverted text-xs px-2 py-1.5 rounded-md">
                 View All
             </a>
         </div>
@@ -32,20 +32,20 @@
                 <div>
                     <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Stock Type</label>
                     <div
-                        class="text-sm flex w-full rounded-lg border border-solid border-gray-300 bg-white px-3 py-2 text-gray-700">
+                        class="text-sm flex w-full rounded-lg border border-solid px-3 py-2">
                         <div class="flex items-center mr-4">
                             <input id="type-in" type="radio" value="in" name="type" @checked(old('type', $stock?->type === 'in'))
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                class="w-4 h-4 text-skin-accent bg-skin-neutral bg-opacity-5 focus:ring-skin-accent focus:ring-2">
                             <label for="type-in" class="ml-2 font-medium text-gray-900">In</label>
                         </div>
                         <div class="flex items-center mr-4">
                             <input id="type-out" type="radio" value="out" name="type" @checked(old('type', $stock?->type === 'out'))
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                class="w-4 h-4 text-skin-accent bg-skin-neutral bg-opacity-5 focus:ring-skin-accent focus:ring-2">
                             <label for="type-out" class="ml-2 font-medium text-gray-900">Out</label>
                         </div>
                     </div>
                     @if ($errors->has('type'))
-                        <label class="text-xs leading-normal mt-0 text-red-500">
+                        <label class="text-xs leading-normal mt-0 text-skin-danger">
                             {{ $errors->first('type') }}
                         </label>
                     @endif
@@ -142,22 +142,22 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Attachment</label>
-                    <div class="text-sm rounded-lg border border-solid border-gray-300 bg-white px-3 py-5 text-gray-700">
+                    <label class="block mb-2 text-sm font-medium" for="file_input">Attachment</label>
+                    <div class="text-sm rounded-lg border border-solid px-3 py-5 text-gray-700">
                         <input type="file" name="attachment" id="file_input" class="hidden" />
-                        <svg class="text-blue-500 w-24 mb-4 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        <svg class="text-skin-accent w-24 mb-4 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                         </svg>
                         <div class="flex justify-center gap-10">
                             <label for="file_input"
-                                class="rounded-md shadow bg-blue-600 hover:bg-blue-700 text-white uppercase font-medium px-4 py-2.5 cursor-pointer">Select</label>
+                                class="rounded-md shadow bg-skin-accent hover:bg-skin-accent-hover text-skin-inverted uppercase font-medium px-4 py-2.5 cursor-pointer">Select</label>
                             <button type="button" id="preview-attachment" data-old="{{$stock?->attachment}}"
-                                @class(["rounded-md shadow bg-white hover:bg-gray-50 uppercase font-medium px-4 py-2.5 cursor-pointer", "hidden" => !$stock?->attachment])>Preview</button>
+                                @class(["rounded-md shadow bg-skin-foreground hover:bg-skin-neutral hover:bg-opacity-10 uppercase font-medium px-4 py-2.5 cursor-pointer", "hidden" => !$stock?->attachment])>Preview</button>
                         </div>
                     </div>
-                    <p class="mt-1 text-xs text-gray-500" id="file_input_help">PNG, JPG or PDF</p>
+                    <p class="mt-1 text-xs text-skin-secondary" id="file_input_help">PNG, JPG or PDF</p>
 
                 </div>
                 <x-form.textarea label="Remarks" name="remarks">{{ old('remarks', $stock?->remarks) }}</x-form.textarea>
@@ -170,14 +170,14 @@
     <div id="attachment-modal" class="fixed z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full bg-black bg-opacity-30 justify-center items-center">
         <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow">
+            <div class="relative bg-skin-foreground rounded-lg shadow">
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-4 border-b rounded-t">
                     <h3 class="text-xl font-semibold text-gray-900">
                         Stock Attachment
                     </h3>
                     <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                        class="text-skin-secondary bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -186,8 +186,8 @@
                     </button>
                 </div>
                 <div class="flex gap-2 border-b text-sm">
-                    <button class="py-3 px-6 border-b-2 border-blue-600" id="old-att-btn" type="button">Old</button>
-                    <button class="py-3 px-6 border-blue-600" type="button" id="new-att-btn">New</button>
+                    <button class="py-3 px-6 border-b-2 border-skin-accent" id="old-att-btn" type="button">Old</button>
+                    <button class="py-3 px-6 border-skin-accent" type="button" id="new-att-btn">New</button>
                 </div>
                 <div class="h-[60vh]">
                     @if($stock?->attachment)

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page')
-    <div class="mb-6 text-gray-600">
+    <div class="mb-6">
         <x-breadcrumb :home="[
             'route' => 'admin.index',
             'label' => 'Admin',
@@ -15,7 +15,7 @@
         <div class="flex items-center py-2 border-b px-6">
             <h3 class="flex-grow text-dark font-medium">{{ $vendor ? 'Update Vendor' : 'Insert Vendor' }}</h3>
             <a href="{{ route('vendor.index') }}"
-                class="inline-flex items-center px-3 py-1.5 bg-blue-500 focus:ring ring-blue-600 hover:bg-blue-600 text-white uppercase font-semibold text-xs rounded">
+                class="inline-flex items-center px-3 py-1.5 bg-skin-accent focus:ring ring-skin-accent hover:bg-skin-accent-hover text-skin-inverted uppercase font-semibold text-xs rounded">
                 View All
             </a>
         </div>

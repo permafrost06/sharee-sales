@@ -15,10 +15,10 @@
     @yield('head')
 </head>
 
-<body class="flex bg-background text-textPrimary font-main">
+<body class="flex bg-skin-background text-skin-primary font-main">
     @include('layouts.inc.admin-sidebar')
     <main class="flex-grow max-w-full overflow-x-hidden">
-        <nav class="flex h-admin-nav bg-foreground border-b px-10 items-center relative">
+        <nav class="flex h-admin-nav bg-skin-foreground border-b px-10 items-center relative">
             <button type="button" id="sidenav-opener" class="md:hidden mr-4 p-1 border rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512">
                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
@@ -37,7 +37,7 @@
                 <li>
                     <form action="{{ route('logout') }}" method="POST" class="block">
                         @csrf
-                        <button class="flex gap-2 items-center px-4 py-2 rounded text-sm font-bold uppercase text-foreground bg-accent hover:bg-accentDark w-full text-left"
+                        <button class="flex gap-2 items-center px-4 py-2 rounded text-sm font-bold uppercase text-skin-inverted bg-skin-accent hover:bg-skin-accent-hover w-full text-left"
                             type="submit">
                             <span class="mt-1">Sign Out</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2v-2"/><path d="M9 12h12l-3-3m0 6l3-3"/></g></svg>

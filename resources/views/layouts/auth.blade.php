@@ -15,7 +15,7 @@
     @yield('head')
 </head>
 
-<body class="flex bg-body text-main font-main">
+<body class="flex bg-skin-background text-skin-primary font-main">
     @yield('page')
 </body>
 
