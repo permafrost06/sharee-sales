@@ -16,7 +16,7 @@
     </div>
     <x-cards.card class="max-w-4xl">
         <div class="flex items-center py-3 border-b px-6">
-            <h3 class="flex-grow text-dark font-semibold">{{ $stock ? 'Update Stock' : 'Insert Stock' }}</h3>
+            <h3 class="flex-grow font-semibold">{{ $stock ? 'Update Stock' : 'Insert Stock' }}</h3>
             <a href="{{ route('stocks.status') }}"
                 class="bg-skin-accent focus:ring ring-skin-accent hover:bg-skin-accent-hover text-skin-inverted text-xs px-2 py-1.5 rounded-md">
                 View All

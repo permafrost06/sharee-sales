@@ -7,7 +7,7 @@
         ]" :items="[]" active="" />
     </div>
 
-    <h3 class="text-lg font-semibold text-dark mb-4">Dashboard</h3>
+    <h3 class="text-lg font-semibold mb-4">Dashboard</h3>
 
     <div class="sm:grid gap-4 grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         <x-cards.stat class="mt-4" :value="$totalCustomers">
