@@ -1,5 +1,7 @@
 import { find, gsapTL, addClasses, rmClasses, findAll } from "../../utils";
 
+const THEME = 'skin-blue';
+
 const sideBar = find('#sidebar-main');
 
 find("#sidenav-resize").addEventListener('click', () => {
@@ -86,4 +88,26 @@ findAll('[data-expand]').forEach((expandHandle) => {
         });
     });
     
+});
+
+const SKIN = localStorage.getItem('skin-name');
+if (SKIN) {
+    document.body.classList.add(SKIN);
+    if(SKIN.match('dark')) {
+        find('#theme-toggle-switch').checked = true;
+    }
+}
+
+find('#theme-toggle-switch').addEventListener('click', function(){
+    const light = THEME+'-light';
+    const dark = THEME+'-dark';
+    if (this.checked) {
+        document.body.classList.add(dark);
+        document.body.classList.remove(light);
+        localStorage.setItem('skin-name', dark);
+    } else {
+        document.body.classList.remove(dark);
+        document.body.classList.add(light);
+        localStorage.setItem('skin-name', light);
+    }
 });

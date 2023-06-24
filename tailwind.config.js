@@ -2,6 +2,11 @@
 
 const plugin = require("tailwindcss/plugin");
 
+
+const colorVar = (cssVar) => {
+  return ({opacityValue}) => `rgba(var(${cssVar}), ${opacityValue || 1})`;
+}
+
 module.exports = {
   content: ["resources/**/*.{js,blade.php,vue}"],
   presets: [],
@@ -14,40 +19,48 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: ({colors}) => ({
+      colors: {
         skin: {
-          danger: colors.red[600],
-          warning: colors.yellow[600],
-          success: colors.emerald[600],
-          neutral: colors.gray[600],
-          accent: colors.blue[500],
-          'accent-hover': colors.blue[600]
+          danger: colorVar('--clr-skin-danger'),
+          warning: colorVar('--clr-skin-warning'),
+          success: colorVar('--clr-skin-success'),
+          neutral: colorVar('--clr-skin-neutral'),
+          accent: colorVar('--clr-skin-accent'),
+          'accent-hover': colorVar('--clr-skin-accent-hover'),
         }
-      }),
+      },
 
 
-      backgroundColor: ({colors}) => ({
+      backgroundColor: {
         skin: {
-          background: colors.blue[50],
-          foreground: colors.white,
+          background: colorVar('--clr-skin-background'),
+          foreground: colorVar('--clr-skin-foreground'),
         }
-      }),
+      },
 
-      textColor: ({colors}) => ({
+      textColor: {
         skin: {
-          primary: colors.gray[600],
-          secondary: colors.gray[400],
-          inverted: colors.white
+          primary: colorVar('--clr-skin-primary'),
+          secondary: colorVar('--clr-skin-secondary'),
+          inverted: colorVar('--clr-skin-inverted'),
         }
-      }),
+      },
 
-      boxShadowColor: ({colors}) => ({
+      boxShadowColor: {
         skin: {
-          primary: colors.gray[600],
-          secondary: colors.gray[400],
-          inverted: colors.white
+          primary: colorVar('--clr-skin-primary'),
+          secondary: colorVar('--clr-skin-secondary'),
+          inverted: colorVar('--clr-skin-inverted'),
         }
-      }),
+      },
+
+      borderColor: {
+        DEFAULT: colorVar('--clr-skin-border')
+      },
+
+      boxShadowColor: {
+        DEFAULT: colorVar('--clr-skin-shadow')
+      },
 
 
 

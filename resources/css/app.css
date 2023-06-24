@@ -2,10 +2,55 @@ html, body {
     min-height: 100%;
     min-width: 100%;
 }
+:root {
+    --clr-skin-background: 239, 245, 250;
+    --clr-skin-foreground: 255, 255, 255;
+
+
+    --clr-skin-neutral: 75, 85, 99;
+    --clr-skin-accent: 59, 130, 246;
+    --clr-skin-accent-hover: 37, 99, 235;
+
+    --clr-skin-primary: 75, 85, 99;
+    --clr-skin-secondary: 156, 163, 175;
+    --clr-skin-secondary: 156, 163, 175;
+    --clr-skin-inverted: 255, 255, 255;
+
+    --clr-skin-border: 235, 235, 235;
+    --clr-skin-shadow: 235, 235, 235;
+
+
+    --clr-skin-danger: 220, 38, 38;
+    --clr-skin-warning: 240, 180, 10;
+    --clr-skin-success: 5, 150, 105;
+}
+
+.skin-blue-dark {
+    --clr-skin-background: 22, 27, 51;
+    --clr-skin-foreground: 13, 12, 29;
+
+
+    --clr-skin-neutral: 87, 91, 129;
+    --clr-skin-accent: 147, 210, 244;
+    --clr-skin-accent-hover: 123, 182, 214;
+
+    --clr-skin-primary: 200, 200, 200;
+    --clr-skin-secondary: 166, 156, 172;
+    --clr-skin-inverted: 13, 12, 29;
+
+    --clr-skin-border: 40, 40, 40;
+    --clr-skin-shadow: 37, 44, 101;
+
+
+    --clr-skin-danger: 220, 38, 38;
+    --clr-skin-warning: 240, 180, 10;
+    --clr-skin-success: 5, 150, 105;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 @layer components {
     .sortable{
