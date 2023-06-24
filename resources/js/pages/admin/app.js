@@ -1,6 +1,10 @@
 import { find, gsapTL, addClasses, rmClasses, findAll } from "../../utils";
 
-const THEME = 'skin-blue';
+/**
+ * skin-blue
+ * skin-purple
+ */
+const THEME = 'skin-purple';
 
 const sideBar = find('#sidebar-main');
 
@@ -96,6 +100,8 @@ if (SKIN) {
     if(SKIN.match('dark')) {
         find('#theme-toggle-switch').checked = true;
     }
+} else {
+    document.body.classList.add(THEME+'-light');
 }
 
 find('#theme-toggle-switch').addEventListener('click', function(){
