@@ -157,7 +157,7 @@ const previewFile = (evt) => {
                     </td>
                     <th
                         scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        class="px-6 py-4 font-medium whitespace-nowrap"
                         v-html="highlightText(item.item_code, search)"
                     ></th>
                     <td class="px-6 py-4">{{ item.total_in }}</td>
@@ -222,7 +222,7 @@ const previewFile = (evt) => {
                 <div
                     class="flex items-start justify-between p-4 border-b rounded-t"
                 >
-                    <h3 class="text-xl font-semibold text-gray-900">
+                    <h3 class="text-xl font-semibold">
                         View Attachment
                     </h3>
                     <button
@@ -266,7 +266,7 @@ const previewFile = (evt) => {
         class="fixed z-50 flex w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full bg-black bg-opacity-30 justify-center items-center"
     >
         <div class="relative w-full max-w-2xl max-h-full">
-            <div class="relative bg-white rounded-lg shadow">
+            <div class="relative bg-skin-foreground rounded-lg shadow">
                 <div
                     class="flex items-start justify-between p-4 border-b rounded-t"
                 >
@@ -313,7 +313,7 @@ const previewFile = (evt) => {
                     />
                     <label
                         for="file_input"
-                        class="rounded border hover:bg-gray-100 font-medium px-4 py-2 cursor-pointer"
+                        class="rounded border hover:bg-skin-neutral hover:bg-opacity-5 font-medium px-4 py-2 cursor-pointer"
                         >Choose File</label
                     >
                     <button
@@ -389,12 +389,12 @@ const previewFile = (evt) => {
                         <div
                             class="flex items-center justify-between px-3 py-2 border-t"
                         >
-                            <x-button
+                            <button
                                 type="submit"
                                 class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-skin-inverted bg-skin-accent rounded-lg focus:ring-4 focus:ring-skin-accent hover:bg-skin-accent-hover"
                             >
                                 Update Remarks
-                            </x-button>
+                            </button>
                         </div>
                     </div>
                 </form>

@@ -30,18 +30,18 @@
                 <x-form.alert />
 
                 <div>
-                    <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Stock Type</label>
+                    <label class="mb-2 ml-1 font-bold text-xs">Stock Type</label>
                     <div
                         class="text-sm flex w-full rounded-lg border border-solid px-3 py-2">
                         <div class="flex items-center mr-4">
                             <input id="type-in" type="radio" value="in" name="type" @checked(old('type', $stock?->type === 'in'))
                                 class="w-4 h-4 text-skin-accent bg-skin-neutral bg-opacity-5 focus:ring-skin-accent focus:ring-2">
-                            <label for="type-in" class="ml-2 font-medium text-gray-900">In</label>
+                            <label for="type-in" class="ml-2 font-medium">In</label>
                         </div>
                         <div class="flex items-center mr-4">
                             <input id="type-out" type="radio" value="out" name="type" @checked(old('type', $stock?->type === 'out'))
                                 class="w-4 h-4 text-skin-accent bg-skin-neutral bg-opacity-5 focus:ring-skin-accent focus:ring-2">
-                            <label for="type-out" class="ml-2 font-medium text-gray-900">Out</label>
+                            <label for="type-out" class="ml-2 font-medium">Out</label>
                         </div>
                     </div>
                     @if ($errors->has('type'))
@@ -154,7 +154,7 @@
                             <label for="file_input"
                                 class="rounded-md shadow bg-skin-accent hover:bg-skin-accent-hover text-skin-inverted uppercase font-medium px-4 py-2.5 cursor-pointer">Select</label>
                             <button type="button" id="preview-attachment" data-old="{{$stock?->attachment}}"
-                                @class(["rounded-md shadow bg-skin-foreground hover:bg-skin-neutral hover:bg-opacity-10 uppercase font-medium px-4 py-2.5 cursor-pointer", "hidden" => !$stock?->attachment])>Preview</button>
+                                @class(["rounded-md shadow bg-skin-foreground hover:bg-skin-neutral hover:bg-opacity-10 text-skin-secondary uppercase font-medium px-4 py-2.5 cursor-pointer", "hidden" => !$stock?->attachment])>Preview</button>
                         </div>
                     </div>
                     <p class="mt-1 text-xs text-skin-secondary" id="file_input_help">PNG, JPG or PDF</p>
@@ -173,7 +173,7 @@
             <div class="relative bg-skin-foreground rounded-lg shadow">
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-4 border-b rounded-t">
-                    <h3 class="text-xl font-semibold text-gray-900">
+                    <h3 class="text-xl font-semibold">
                         Stock Attachment
                     </h3>
                     <button type="button"
