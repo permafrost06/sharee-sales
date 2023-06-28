@@ -1,11 +1,5 @@
 import { find, gsapTL, addClasses, rmClasses, findAll } from "../../utils";
 
-/**
- * skin-blue
- * skin-purple
- */
-const THEME = 'skin-purple';
-
 const sideBar = find('#sidebar-main');
 
 find("#sidenav-resize").addEventListener('click', () => {
@@ -100,20 +94,14 @@ if (SKIN) {
     if(SKIN.match('dark')) {
         find('#theme-toggle-switch').checked = true;
     }
-} else {
-    document.body.classList.add(THEME+'-light');
 }
 
 find('#theme-toggle-switch').addEventListener('click', function(){
-    const light = THEME+'-light';
-    const dark = THEME+'-dark';
     if (this.checked) {
-        document.body.classList.add(dark);
-        document.body.classList.remove(light);
-        localStorage.setItem('skin-name', dark);
+        document.body.classList.add('skin-dark');
+        localStorage.setItem('skin-name', 'skin-dark');
     } else {
-        document.body.classList.remove(dark);
-        document.body.classList.add(light);
-        localStorage.setItem('skin-name', light);
+        document.body.classList.remove('skin-dark');
+        localStorage.removeItem('skin-name');
     }
 });
