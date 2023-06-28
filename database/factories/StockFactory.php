@@ -24,10 +24,10 @@ class StockFactory extends Factory
             'unit_cost' => fn() => [500, 700, 900][rand(0, 2)],
             'adjustment' => fake()->numberBetween(-3000, -5000),
             'merchant_name' => fake()->name(),
-            'merchant_contact' => '',
-            'carrier_name' => fake()->name(),
-            'carrier_contact' => '',
-            'border' => '',//fn($attrs) => isset($attrs['type']) && $attrs['type'] == 'in'?fake()->words(3, true):null,
+            'merchant_contact' => fake()->phoneNumber(),
+            'carrier_name' => fn($attrs) => isset($attrs['type']) && $attrs['type'] == 'in'?fake()->name():null,
+            'carrier_contact' => fn($attrs) => isset($attrs['type']) && $attrs['type'] == 'in'?fake()->phoneNumber():null,
+            'border' => fn($attrs) => isset($attrs['type']) && $attrs['type'] == 'in'?fake()->words(3, true):null,
             'remarks' => null,
         ];
     }

@@ -19,6 +19,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Page title common section
+    |--------------------------------------------------------------------------
+    |
+    | This value is the page title of your application. This value is used
+    | in every pages title
+    |
+    */
+
+    'page_title' => env('PAGE_TITLE', 'Sharee Sales'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |

@@ -5,56 +5,88 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
-use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-       $customers = DB::table('customers')
-            ->get();
-        foreach($customers as $k=>$customer){
+        return view('admin.customers.index');
+    }
 
-            $due =  DB::select("select (sum(goods_of_issues)-sum(received_money)) as due from sales where customer_id=$customer->id");
-            $customers[$k]->due=$due[0]->due;
+    public function api(Request $req)
+    {
+        $start = (int) $req->get('start', 0);
+        $limit = (int) $req->get('limit', 10);
+        $order_by = match($req->get('order_by')){
+            'name' => 'name',
+            'address' => 'address',
+            // 'balance' => 'balance_due',
+            default => 'id'
+        };
+
+        $order = 'DESC';
+        if ($req->get('order') === 'asc') {
+            $order = 'asc';
         }
 
-        return view('admin.customers.index',['customers'=>$customers]);
-    }
-    public function create()
-    {
-        return view('admin.customers.create');
-    }
-    public function edit(Request $request)
-    {
-        $customer = Customer::find($request->id);
-        return view('admin.customers.edit',['customer'=>$customer]);
-    }
-    public function store(Request $request)
-    {
-        $customer = $request->except('_token');
-        if (Customer::create($customer)){
-            return redirect()->back()->with(['message'=>'Customer created successfully']);
-        }
-        return redirect()->back()->with(['message'=>'Unable to create ']);
+        $search = $req->get('search', '');
 
+        $q = Customer::withSum('sales', 'goods_of_issues')
+            ->withSum('sales', 'received_money');
+
+        if ($search) {
+            $q->where('name', 'LIKE', '%'.$search.'%');
+            $q->orWhere('address', 'LIKE', '%'.$search.'%');
+        }
+
+        return [
+            'count' => $q->count(),
+            'data' => $q->orderBy($order_by, $order)->offset($start)->limit($limit)->get()
+        ];
     }
 
-    public function update(Request $request)
+    public function form(string|int $id = '')
     {
-        $customer = Customer::find($request->id);
-        $data = $request->except('_token');
-        if ($customer->update($data)){
-            return redirect()->back()->with(['message'=>'Customer updated successfully']);
-        }
-        return redirect()->back()->with(['message'=>'Unable to update ']);
+        $customer = null;
 
-    }
-    public function delete(Request $request)
-    {
-        if (Customer::destroy($request->id)){
-            return redirect()->back()->with(['message'=>'Customer deleted successfully']);
+        if (is_numeric($id)) {
+            $customer = Customer::findOrFail($id);
         }
-        return redirect()->back()->with(['message'=>'Unable to delete ']);
+
+        return view('admin.customers.form', compact('customer'));
+    }
+
+    public function store(Request $request, int $id = 0)
+    {
+
+        $customer = null;
+
+        if ($id) {
+            $customer = Customer::findOrFail($id);
+        }
+
+        $data = $request->validate([
+            'customers_id' => 'required|string',
+            'name' => 'required|string|min:3',
+            'address' => 'required|string|min:3',
+            'limit' => 'required|numeric|min:0',
+            'type' => 'required|string'
+        ]);
+
+        if ($customer) {
+            $customer->update($data);
+            return $this->backToForm('Customer updated successfully!');
+        } else {
+            Customer::create($data);
+            return $this->backToForm('Customer added successfully!');
+        }
+    }
+
+    public function delete(Request $request, int $id)
+    {
+        if (Customer::destroy($id)) {
+            return ['message' => 'Customer deleted successfully'];
+        }
+        return response(['message' => 'Unable to delete customer!'], 422);
     }
 }

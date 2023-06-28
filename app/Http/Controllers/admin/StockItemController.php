@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Stock;
 use App\Models\StockItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class StockItemController extends Controller
@@ -15,7 +14,7 @@ class StockItemController extends Controller
     {
         $query = Stock::with('item')->selectRaw("
             item_code,
-            SUM(IF(type='in', quantity, -quantity)) AS total_quantity,
+            SUM(IF(type='in', quantity, -quantity)) AS in_stock,
             SUM(IF(type='in', quantity, 0)) AS total_in,
             SUM(IF(type='out', quantity, 0)) AS total_out,
             (
@@ -26,32 +25,29 @@ class StockItemController extends Controller
         ")->groupBy('item_code');
         
 
-        $draw = (int)$req->query('draw', 1);
-        $length = (int)$req->query('length', 10);
+        $limit = (int)$req->query('limit', 10);
         $start = (int)$req->query('start', 0);
-
-        if($key = $req->query('search')['value']){
+        $key = $req->query('search', '');
+        if(strlen($key) > 1){
             $query->where('item_code', 'LIKE', "%$key%");
-            $filtered = DB::selectOne('SELECT COUNT(*) AS res FROM (
-                SELECT item_code FROM `stocks` WHERE item_code LIKE ? GROUP BY item_code
-            ) AS tbl', ["%$key%"])?->res;
-        }else{
-            $filtered = $query->count();
+            $query->orWhereHas('item', fn($q)=>$q->where('remarks', 'LIKE', "%$key%"));
         }
 
-        $cols = $req->query('columns');
+        $order_by = match ($req->get('order_by')) {
+            'total_in' => 'total_in',
+            'total_out' => 'total_out',
+            'in_stock' => 'in_stock',
+            'profit' => 'profit',
+            default => 'item_code'
+        };
 
-        foreach($req->query('order') as $sort){
-            $query->orderBy($cols[$sort['column']]['name'], $sort['dir']);
+        $order = 'DESC';
+        if ($req->get('order') === 'asc') {
+            $order = 'asc';
         }
-        $data = $query->limit($length)->offset($start)->get();
-
         return [
-            'draw' => $draw,
-            'data' => $data,
-            'start' => $start,
-            'recordsTotal' => Stock::groupBy('item_code')->count(),
-            'recordsFiltered' => $filtered
+            'count' => $query->count(),
+            'data' => $query->orderBy($order_by, $order)->limit($limit)->offset($start)->get()
         ];
     }
 
@@ -90,10 +86,10 @@ class StockItemController extends Controller
                 Storage::delete(substr($item->attachment, 9));
             }
             $item->update($data);
-            return redirect()->back()->with('message', 'Info updated successfully!');
+            return $this->backToForm('Info updated successfully!');
         }else{
             StockItem::create($data);
-            return redirect()->back()->with('message', 'Info added successfully!');
+            return $this->backToForm('Info added successfully!');
         }
     }
 

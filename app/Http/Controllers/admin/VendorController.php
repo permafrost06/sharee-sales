@@ -5,59 +5,85 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Vendor;
-use Illuminate\Support\Facades\DB;
 
 class VendorController extends Controller
 {
     public function index()
     {
-        $goi=$rm=0;
-        $vendors = DB::table('vendors')
-            ->get();
-        foreach($vendors as $k=>$vendor){
+        return view('admin.vendors.index');
+    }
 
-            $due =  DB::select("select (sum(goods_of_issues)-sum(paid_money)) as due from purchases where vendor_id=$vendor->id");
-            $vendors[$k]->due=$due[0]->due;
+    public function api(Request $req)
+    {
+        $start = (int) $req->get('start', 0);
+        $limit = (int) $req->get('limit', 10);
+        $order_by = match($req->get('order_by')){
+            'name' => 'name',
+            'address' => 'address',
+            // 'balance' => 'balance_due',
+            default => 'id'
+        };
+
+        $order = 'DESC';
+        if ($req->get('order') === 'asc') {
+            $order = 'asc';
         }
-        //dd($vendors);
 
+        $search = $req->get('search', '');
 
-        return view('admin.vendors.index',['vendors'=>$vendors]);
-    }
-    public function create()
-    {
-        return view('admin.vendors.create');
-    }
-    public function edit(Request $request)
-    {
-        $vendor = Vendor::find($request->id);
-        return view('admin.vendors.edit',['vendor'=>$vendor]);
-    }
-    public function store(Request $request)
-    {
-        $customer = $request->except('_token');
-        if (Vendor::create($customer)){
-            return redirect()->back()->with(['message'=>'Vendor created successfully']);
+        $q = Vendor::withSum('purchases', 'goods_of_issues')
+            ->withSum('purchases', 'paid_money');
+
+        if ($search) {
+            $q->where('name', 'LIKE', '%'.$search.'%');
+            $q->orWhere('address', 'LIKE', '%'.$search.'%');
         }
-        return redirect()->back()->with(['message'=>'Unable to create ']);
 
+        return [
+            'count' => $q->count(),
+            'data' => $q->orderBy($order_by, $order)->offset($start)->limit($limit)->get()
+        ];
     }
 
-    public function update(Request $request)
+    public function form(string | int $id)
     {
-        $customer = Vendor::find($request->id);
-        $data = $request->except('_token');
-        if ($customer->update($data)){
-            return redirect()->back()->with(['message'=>'Vendor updated successfully']);
+        $vendor  = null;
+        if (is_numeric($id)) {
+            $vendor = Vendor::findOrfail($id);
         }
-        return redirect()->back()->with(['message'=>'Unable to update ']);
 
+        return view('admin.vendors.form', compact('vendor'));
     }
-    public function delete(Request $request)
+   
+    public function store(Request $request, int $id = 0)
     {
-        if (Vendor::destroy($request->id)){
-            return redirect()->back()->with(['message'=>'Vendor deleted successfully']);
+        $vendor = null;
+
+        if ($id) {
+            $vendor = Vendor::findOrFail($id);
         }
-        return redirect()->back()->with(['message'=>'Unable to delete ']);
+
+        $data = $request->validate([
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'limit' => 'required|string',
+            'type' => 'nullable|string'
+        ]);
+
+        if ($vendor) {
+            $vendor->update($data);
+            return $this->backToForm('Vendor updated successfully!');
+        } else {
+            Vendor::create($data);
+            return $this->backToForm('Vendor added successfully!');
+        }
+    }
+
+    public function delete(Request $request, int $id)
+    {
+        if (Vendor::destroy($id)){
+            return ['message'=>'Vendor deleted successfully'];
+        }
+        return response(['message' => 'Unable to delete vendor!'], 422);
     }
 }

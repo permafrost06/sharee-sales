@@ -22,29 +22,45 @@ class StockController extends Controller
         if(!is_null($item)){
             $query->where('item_code', $item);
         }
-        $draw = (int)$req->query('draw', 1);
-        $length = (int)$req->query('length', 10);
+
+        $limit = (int)$req->query('limit', 10);
         $start = (int)$req->query('start', 0);
+        $order_by = match ($req->get('order_by')) {
+            'item_code' => 'item_code',
+            'brand' => 'brand',
+            'quantity' => 'quantity',
+            'unit_cost' => 'unit_cost',
+            'adjustment' => 'adjustment',
+            'merchant_name' => 'merchant_name',
+            'carrier_name' => 'carrier_name',
+            'date_time' => 'date_time',
+            'border' => 'border',
+            'total_cost' => DB::raw('unit_cost * quantity + adjustment'),
+            default => 'id'
+        };
 
-        if($key = $req->query('search')['value']){
-            $query->where('item_code', 'LIKE', "%$key%");
+        $order = 'DESC';
+        if ($req->get('order') === 'asc') {
+            $order = 'asc';
         }
 
-        $filtered = $query->count();
+        $search = $req->get('search', '');
 
-        $cols = $req->query('columns');
-
-        foreach($req->query('order') as $sort){
-            $query->orderBy($cols[$sort['column']]['name'], $sort['dir']);
+        if($search){
+            $search = "%$search%";
+            $query->where(function($q) use ($search){
+                $q->where('item_code', 'LIKE', $search);
+                $q->orWhere('brand', 'LIKE', $search);
+                $q->orWhere('merchant_name', 'LIKE', $search);
+                $q->orWhere('carrier_name', 'LIKE', $search);
+                $q->orWhere('border', 'LIKE', $search);
+                $q->orWhere('remarks', 'LIKE', $search);
+            });
         }
-        $data = $query->limit($length)->offset($start)->get();
 
         return [
-            'draw' => $draw,
-            'data' => $data,
-            'start' => $start,
-            'recordsTotal' => Stock::count(),
-            'recordsFiltered' => $filtered
+            'count' => $query->count(),
+            'data' => $query->orderBy($order_by, $order)->offset($start)->limit($limit)->get()
         ];
     }
 
@@ -141,10 +157,10 @@ class StockController extends Controller
                 Storage::delete(substr($stock->attachment, 9));
             }
             $stock->update($data);
-            return redirect()->back()->with('message', 'Stock updated successfully!');
+            return $this->backToForm('Stock updated successfully!');
         }else{
             Stock::create($data);
-            return redirect()->back()->with('message', 'Stock added successfully!');
+            return $this->backToForm('Stock added successfully!');
         }
     }
 
@@ -154,6 +170,6 @@ class StockController extends Controller
             Storage::delete(substr($stock->attachment, 9));
         }
         $stock->delete();
-        return redirect()->route('stocks.status')->with('message', 'Stock deleted successfully!');
+        return ['message' => 'Stock deleted successfully!'];
     }
 }
